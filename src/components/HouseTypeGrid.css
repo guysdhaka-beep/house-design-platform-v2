@@ -1,0 +1,35 @@
+.house-btn {
+  width: 100%;
+  padding: 14px 20px;
+  border-radius: 12px;
+  border: 1px solid #3b82f6;
+  background: linear-gradient(180deg, #2b3348, #1f2937);
+  color: #fff;
+  font-size: 18px;
+  font-weight: 700;
+  cursor: pointer;
+  transition: all 0.25s ease;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.25);
+}
+
+.house-btn:hover {
+  background: linear-gradient(180deg, #3b82f6, #2563eb);
+  transform: translateY(-2px);
+}
+
+.house-btn:active {
+  transform: translateY(0);
+}
+.house-btn:hover {
+  background: linear-gradient(135deg, #2563eb, #1d4ed8);
+  transform: translateY(-3px);
+  box-shadow: 0 8px 20px rgba(37, 99, 235, 0.35);
+}
+
+.house-btn:active {
+  transform: scale(0.98);
+}
+
+.house-btn {
+  transition: all 0.25s ease;
+}
