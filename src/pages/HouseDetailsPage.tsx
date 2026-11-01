@@ -1,4 +1,3 @@
-
 import { useEffect, useState } from "react";
 import { useNavigate, useParams } from "react-router-dom";
 
@@ -16,29 +15,45 @@ function HouseDetailsPage() {
     (localStorage.getItem("language") as keyof typeof translations) || "bn";
 
   const [house, setHouse] = useState<any>(null);
+  const [loading, setLoading] = useState(true);
 
-  // House API
   useEffect(() => {
-    fetch(`https://house-design-platform-server.vercel.app/api/houses/${id}`)
+    fetch(
+      `https://house-design-platform-server.vercel.app/api/houses/${id}`,
+      {
+        cache: "force-cache",
+      }
+    )
       .then((res) => res.json())
       .then((data) => {
         setHouse(data.house);
       })
-      .catch((err) => console.error(err));
+      .catch(console.error)
+      .finally(() => setLoading(false));
   }, [id]);
 
-  // View Count
   useEffect(() => {
     if (house) {
       incrementView(house.id);
     }
   }, [house]);
 
-  if (!house) {
-    return <h2>Loading...</h2>;
+  if (loading) {
+    return (
+      <h2 style={{ textAlign: "center", marginTop: "60px" }}>
+        Loading...
+      </h2>
+    );
   }
 
-  // 3D Image
+  if (!house) {
+    return (
+      <h2 style={{ textAlign: "center", marginTop: "60px" }}>
+        House not found
+      </h2>
+    );
+  }
+
   const image3d =
     house.images?.find((img: any) => img.type === "3d")?.image || "";
 
@@ -57,7 +72,6 @@ function HouseDetailsPage() {
         <HomeButton />
       </div>
 
-      {/* House Title */}
       <h2
         style={{
           fontSize: "26px",
@@ -71,6 +85,9 @@ function HouseDetailsPage() {
       <img
         src={`https://house-design-platform-server.vercel.app/uploads/3d/${image3d}`}
         alt={house.title || "3D House"}
+        loading="eager"
+        decoding="async"
+        draggable={false}
         style={{
           width: "100%",
           maxWidth: "700px",
@@ -83,7 +100,11 @@ function HouseDetailsPage() {
 
       <div className="button-group">
         <button
-          onClick={() => navigate(`/floorplan/${house.id}`)}
+          onClick={() =>
+            navigate(
+              `/floorplan/${house.folder}/${house.complete}/${house.id}`
+            )
+          }
           style={{
             padding: "12px 25px",
             fontSize: "18px",
@@ -94,7 +115,11 @@ function HouseDetailsPage() {
         </button>
 
         <button
-          onClick={() => navigate(`/estimate/${house.id}`)}
+          onClick={() =>
+            navigate(
+              `/estimate/${house.folder}/${house.complete}/${house.id}`
+            )
+          }
           style={{
             padding: "12px 25px",
             fontSize: "18px",
