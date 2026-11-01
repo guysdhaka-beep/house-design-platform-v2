@@ -74,7 +74,11 @@ function FloorPlanPage() {
           🏠 {translations[language].view3d}
         </button>
 
-        <button onClick={() => navigate(`/estimate/${house.id}`)}>
+        <button
+  onClick={() =>
+    navigate(`/estimate/${house.folder}/${house.complete}/${house.id}`)
+  }
+>
           💰 {translations[language].estimate}
         </button>
       </div>

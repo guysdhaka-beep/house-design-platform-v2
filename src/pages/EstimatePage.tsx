@@ -632,9 +632,7 @@ function EstimatePage({ language }: EstimatePageProps) {
 
         <button
           onClick={() =>
-            navigate(
-              `/floorplan/${house.folder}/${house.id}`
-            )
+            navigate(`/floorplan/${house.folder}/${house.complete}/${house.id}`)
           }
           onMouseEnter={(e) => {
             e.currentTarget.style.background = "#1d4ed8";

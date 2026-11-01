@@ -4,7 +4,6 @@ import Home from "../pages/Home";
 import FoundationPage from "../pages/FoundationPage";
 import AreaPage from "../pages/AreaPage";
 import EstimatePage from "../pages/EstimatePage";
-import translations from "../data/translations";
 import HouseListPage from "../pages/HouseListPage";
 import HouseDetailsPage from "../pages/HouseDetailsPage";
 import FloorPlanPage from "../pages/FloorPlanPage";
@@ -18,6 +17,7 @@ import AddHouse from "../pages/AddHouse";
 import AdminHouseList from "../pages/AdminHouseList";
 import EditHouse from "../pages/EditHouse";
 
+import translations from "../data/translations";
 
 type AppRoutesProps = {
   language: keyof typeof translations;
@@ -49,13 +49,13 @@ function AppRoutes({
         element={<HouseListPage language={language} />}
       />
 
-      {/* House Details */}
+      {/* 3D House */}
       <Route
         path="/house/:id"
         element={<HouseDetailsPage />}
       />
 
-            {/* Floor Plan */}
+      {/* 2D Floor Plan */}
       <Route
         path="/floorplan/:folder/:complete/:id"
         element={<FloorPlanPage />}
@@ -104,17 +104,15 @@ function AppRoutes({
         element={<AddHouse />}
       />
 
-      {/* Admin House Management */}
-<Route
-  path="/admin/houses"
-  element={<AdminHouseList />}
-/>
+      <Route
+        path="/admin/houses"
+        element={<AdminHouseList />}
+      />
 
-<Route
-  path="/admin/edit-house/:id"
-  element={<EditHouse />}
-/>
-
+      <Route
+        path="/admin/edit-house/:id"
+        element={<EditHouse />}
+      />
 
       <Route
         path="/admin/dashboard"
