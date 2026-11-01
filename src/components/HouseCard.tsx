@@ -157,9 +157,17 @@ function HouseCard({
 
         <button
           onClick={(e) => {
-            e.stopPropagation();
-            navigate(`/estimate/${house.folder}/${house.complete}/${house.id}`);
-          }}
+  e.stopPropagation();
+
+  console.log("Folder =", house.folder);
+  console.log(
+    `/floorplan/${house.folder}/${house.complete}/${house.id}`
+  );
+
+  navigate(
+    `/floorplan/${house.folder}/${house.complete}/${house.id}`
+  );
+}}
           style={{
             width: "100%",
             padding: "15px",
