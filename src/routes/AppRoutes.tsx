@@ -55,15 +55,15 @@ function AppRoutes({
         element={<HouseDetailsPage />}
       />
 
-      {/* Floor Plan */}
+            {/* Floor Plan */}
       <Route
-        path="/floorplan/:id"
+        path="/floorplan/:folder/:complete/:id"
         element={<FloorPlanPage />}
       />
 
       {/* Estimate */}
       <Route
-        path="/estimate/:id"
+        path="/estimate/:folder/:complete/:id"
         element={<EstimatePage language={language} />}
       />
 

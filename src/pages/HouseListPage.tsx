@@ -9,46 +9,60 @@ type HouseListPageProps = {
   language: keyof typeof translations;
 };
 
-function HouseListPage({
-  language,
-}: HouseListPageProps) {
+function HouseListPage({ language }: HouseListPageProps) {
   const { type } = useParams();
 
   const t = translations[language];
 
- const [houses, setHouses] = useState<House[]>([]);
+  const [houses, setHouses] = useState<House[]>([]);
+  const [loading, setLoading] = useState(true);
 
-useEffect(() => {
-  fetch("https://house-design-platform-server.vercel.app/api/houses")
-    .then((res) => res.json())
-    .then((data) => {
-      console.log("API DATA =", data.houses);
-      setHouses(data.houses || []);
+  useEffect(() => {
+    fetch("https://house-design-platform-server.vercel.app/api/houses", {
+      cache: "force-cache",
     })
-    .catch(console.error);
-}, []);
+      .then((res) => res.json())
+      .then((data) => {
+        setHouses(data.houses || []);
+      })
+      .catch(console.error)
+      .finally(() => setLoading(false));
+  }, []);
 
-console.log("TYPE =", type);
-console.log("HOUSES =", houses);
+  const filtered = houses.filter(
+    (house) => house.houseType === type
+  );
 
- const filtered = houses.filter((house) => {
-  console.log("houseType =", house.houseType);
-  console.log("type =", type);
-
-  return house.houseType === type;
-});
+  if (loading) {
+    return (
+      <div
+        style={{
+          textAlign: "center",
+          color: "#fff",
+          marginTop: "60px",
+          fontSize: "22px",
+        }}
+      >
+        Loading...
+      </div>
+    );
+  }
 
   return (
-   <div
-  style={{
-    width: "100%",
-    maxWidth: "1400px",
-    margin: "0 auto",
-    padding: "40px 20px",
-    textAlign: "center",
-    boxSizing: "border-box",
-  }}
->
+    <div
+      style={{
+        width: "100%",
+        maxWidth: "1400px",
+        margin: "0 auto",
+        padding: "40px 20px",
+        textAlign: "center",
+        boxSizing: "border-box",
+      }}
+    >
+      <div style={{ textAlign: "left", marginBottom: "20px" }}>
+        <HomeButton />
+      </div>
+
       <h1
         style={{
           color: "#fff",
@@ -56,11 +70,6 @@ console.log("HOUSES =", houses);
         }}
       >
         {t.houseList}
-
-      <div style={{ textAlign: "left", marginBottom: "20px" }}>
-  <HomeButton />
-</div>
-        
       </h1>
 
       <p
@@ -91,11 +100,7 @@ console.log("HOUSES =", houses);
             />
           ))
         ) : (
-          <h2
-            style={{
-              color: "#fff",
-            }}
-          >
+          <h2 style={{ color: "#fff" }}>
             {t.noHouse}
           </h2>
         )}

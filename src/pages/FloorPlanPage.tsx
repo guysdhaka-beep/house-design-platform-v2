@@ -11,18 +11,25 @@ function FloorPlanPage() {
     (localStorage.getItem("language") as keyof typeof translations) || "bn";
 
   const [house, setHouse] = useState<any>(null);
+  const [loading, setLoading] = useState(true);
 
   useEffect(() => {
     fetch(`https://house-design-platform-server.vercel.app/api/houses/${id}`)
       .then((res) => res.json())
       .then((data) => {
+        console.log("API DATA:", data);
         setHouse(data.house);
       })
-      .catch((err) => console.error(err));
+      .catch((err) => console.error(err))
+      .finally(() => setLoading(false));
   }, [id]);
 
+  if (loading) {
+    return <h2 style={{ textAlign: "center" }}>Loading...</h2>;
+  }
+
   if (!house) {
-    return <h2>Loading...</h2>;
+    return <h2 style={{ textAlign: "center" }}>House not found</h2>;
   }
 
   const image2d =
@@ -45,18 +52,22 @@ function FloorPlanPage() {
 
       <h1>📐 2D Floor Plan</h1>
 
-      <img
-        src={`https://house-design-platform-server.vercel.app/uploads/2d/${image2d}`}
-        alt="2D Floor Plan"
-        style={{
-          width: "100%",
-          maxWidth: "700px",
-          borderRadius: "12px",
-          display: "block",
-          margin: "30px auto",
-          boxShadow: "0 8px 25px rgba(0,0,0,.25)",
-        }}
-      />
+      {image2d ? (
+        <img
+          src={`https://house-design-platform-server.vercel.app/uploads/2d/${image2d}`}
+          alt="2D Floor Plan"
+          style={{
+            width: "100%",
+            maxWidth: "700px",
+            borderRadius: "12px",
+            display: "block",
+            margin: "30px auto",
+            boxShadow: "0 8px 25px rgba(0,0,0,.25)",
+          }}
+        />
+      ) : (
+        <h3>No 2D image found.</h3>
+      )}
 
       <div className="button-group">
         <button onClick={() => navigate(`/house/${house.id}`)}>
