@@ -1,0 +1,460 @@
+
+/* =====================================
+   ADD HOUSE PAGE
+===================================== */
+
+.add-house-page {
+  min-height: 100vh;
+  display: flex;
+  background: #0d0d0f;
+  color: #ffffff;
+}
+
+.add-house-main {
+  flex: 1;
+  min-width: 0;
+  min-height: 100vh;
+  background: radial-gradient(
+    circle at 85% 10%,
+    rgba(91, 45, 145, 0.1),
+    transparent 30%
+  ), #0d0d0f;
+}
+
+/* =====================================
+   MAIN CONTENT
+===================================== */
+
+.add-house-content {
+  width: 100%;
+  max-width: 850px;
+  margin: 0 auto;
+  padding: 24px 28px 40px;
+  box-sizing: border-box;
+}
+
+/* =====================================
+   MAIN CARD
+===================================== */
+
+.add-house-card {
+  background: #151518;
+  border: 1px solid rgba(185, 151, 69, 0.55);
+  border-radius: 12px;
+  overflow: hidden;
+  box-shadow:
+    0 15px 40px rgba(0, 0, 0, 0.35),
+    0 0 25px rgba(185, 151, 69, 0.07);
+}
+
+/* =====================================
+   HEADING
+===================================== */
+
+.add-house-heading {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 20px 24px;
+  border-bottom: 1px solid #29262f;
+}
+
+.add-house-heading > div:first-child {
+  min-width: 0;
+}
+
+.add-house-heading span {
+  display: block;
+  margin-bottom: 4px;
+  color: #b99745;
+  font-size: 9px;
+  font-weight: 800;
+  letter-spacing: 1.8px;
+}
+
+.add-house-heading h1 {
+  margin: 0;
+  color: #f5f3f8;
+  font-size: 21px;
+  font-weight: 700;
+  line-height: 1.2;
+}
+
+.add-house-heading-line {
+  width: 45px;
+  height: 3px;
+  border-radius: 5px;
+  background: linear-gradient(90deg, #b99745, #7650a5);
+}
+
+/* =====================================
+   FORM
+===================================== */
+
+.add-house-form {
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+  padding: 22px 24px 24px;
+}
+
+/* =====================================
+   GRID
+===================================== */
+
+.add-house-grid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 14px;
+}
+
+/* =====================================
+   INPUT FIELDS
+===================================== */
+
+.add-house-field {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  min-width: 0;
+}
+
+.add-house-field label {
+  color: #d6d2dc;
+  font-size: 13px;
+  font-weight: 600;
+}
+
+.add-house-field input,
+.add-house-field select {
+  width: 100%;
+  height: 42px;
+  padding: 0 11px;
+  box-sizing: border-box;
+
+  border: 1px solid rgba(185, 151, 69, 0.5);
+  border-radius: 7px;
+
+  background: #202025;
+  color: #f5f3f8;
+
+  outline: none;
+  font-family: inherit;
+  font-size: 14px;
+
+  transition:
+    border-color 0.25s ease,
+    background 0.25s ease,
+    box-shadow 0.25s ease;
+}
+
+.add-house-field input::placeholder {
+  color: #6f6b76;
+}
+
+.add-house-field input:hover,
+.add-house-field select:hover {
+  border-color: #b99745;
+  box-shadow: 0 0 8px rgba(185, 151, 69, 0.12);
+}
+
+.add-house-field input:focus,
+.add-house-field select:focus {
+  border-color: #d4af37;
+  background: #24232a;
+  box-shadow: 0 0 10px rgba(212, 175, 55, 0.22);
+}
+
+.add-house-field select {
+  cursor: pointer;
+}
+
+/* =====================================
+   LENGTH & WIDTH BOXES
+===================================== */
+
+.add-house-size {
+  display: grid;
+  grid-template-columns: 135px 1fr;
+  align-items: end;
+  gap: 16px;
+
+  padding: 13px 15px;
+
+  background: #111114;
+  border: 1px solid rgba(185, 151, 69, 0.65);
+  border-radius: 9px;
+
+  box-shadow: 0 0 10px rgba(185, 151, 69, 0.06);
+
+  transition:
+    border-color 0.25s ease,
+    box-shadow 0.25s ease;
+}
+
+.add-house-size:hover {
+  border-color: #d4af37;
+  box-shadow: 0 0 12px rgba(185, 151, 69, 0.16);
+}
+
+.add-house-size-title {
+  display: flex;
+  align-items: center;
+  gap: 9px;
+  height: 42px;
+}
+
+.add-house-size-title span {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  width: 25px;
+  height: 25px;
+
+  border-radius: 6px;
+  background: rgba(185, 151, 69, 0.15);
+  color: #d4af37;
+
+  font-size: 10px;
+  font-weight: 800;
+}
+
+.add-house-size-title strong {
+  color: #eeeaf2;
+  font-size: 14px;
+  font-weight: 700;
+}
+
+.add-house-size-fields {
+  display: grid;
+  grid-template-columns: 2fr 1fr;
+  gap: 12px;
+}
+
+/* =====================================
+   FEATURED HOUSE
+===================================== */
+
+.add-house-bottom {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 15px;
+
+  margin-top: 3px;
+  padding-top: 16px;
+
+  border-top: 1px solid #29262f;
+}
+
+.add-house-featured {
+  display: flex;
+  align-items: center;
+  gap: 9px;
+
+  color: #d9d5df;
+  font-size: 13px;
+  font-weight: 600;
+
+  cursor: pointer;
+  user-select: none;
+}
+
+.add-house-featured input {
+  position: absolute;
+  opacity: 0;
+  pointer-events: none;
+}
+
+.add-house-checkbox {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  width: 19px;
+  height: 19px;
+
+  border: 1px solid #b99745;
+  border-radius: 5px;
+
+  background: #202025;
+  color: transparent;
+
+  font-size: 11px;
+  font-weight: 900;
+
+  transition:
+    background 0.2s ease,
+    border-color 0.2s ease,
+    color 0.2s ease;
+}
+
+.add-house-featured input:checked + .add-house-checkbox {
+  background: #b99745;
+  border-color: #d4af37;
+  color: #ffffff;
+}
+
+.add-house-featured:hover .add-house-checkbox {
+  border-color: #d4af37;
+}
+
+/* =====================================
+   SAVE BUTTON
+===================================== */
+
+
+.add-house-save-button {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 15px;
+  width: 175px;
+  height: 42px;
+
+  border: 1px solid #ffe58a;
+  border-radius: 7px;
+
+  background: linear-gradient(
+    135deg,
+    #fff2a8 0%,
+    #ffd700 25%,
+    #e5a900 55%,
+    #ffdf55 80%,
+    #fff1a3 100%
+  );
+
+  color: #302000;
+  font-family: inherit;
+  font-size: 13px;
+  font-weight: 900;
+  cursor: pointer;
+
+  box-shadow:
+    0 0 8px rgba(255, 215, 0, 0.35),
+    0 4px 15px rgba(255, 193, 7, 0.25),
+    inset 0 1px 2px rgba(255, 255, 255, 0.65);
+
+  transition: all 0.25s ease;
+}
+
+.add-house-save-button b {
+  font-size: 17px;
+  font-weight: 900;
+}
+
+.add-house-save-button:hover:not(:disabled) {
+  transform: translateY(-2px);
+  filter: brightness(1.12);
+  box-shadow:
+    0 0 15px rgba(255, 215, 0, 0.65),
+    0 6px 20px rgba(255, 193, 7, 0.35);
+}
+
+
+/* =====================================
+   RESPONSIVE DESIGN
+===================================== */
+
+@media (max-width: 700px) {
+  .add-house-content {
+    padding: 18px 15px 30px;
+  }
+
+  .add-house-heading {
+    padding: 18px 19px;
+  }
+
+  .add-house-form {
+    padding: 19px;
+  }
+
+  .add-house-size {
+    grid-template-columns: 1fr;
+    gap: 10px;
+  }
+
+  .add-house-size-title {
+    height: auto;
+  }
+}
+
+@media (max-width: 560px) {
+  .add-house-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .add-house-size-fields {
+    grid-template-columns: 1fr 1fr;
+  }
+
+  .add-house-bottom {
+    align-items: stretch;
+    flex-direction: column;
+  }
+
+  .add-house-save-button {
+    width: 100%;
+  }
+}
+
+@media (max-width: 400px) {
+  .add-house-form {
+    padding: 16px;
+  }
+
+  .add-house-heading {
+    padding: 17px;
+  }
+
+  .add-house-heading h1 {
+    font-size: 19px;
+  }
+
+  .add-house-size-fields {
+    grid-template-columns: 1fr;
+  }
+}
+
+
+/* Edit House Current Images */
+
+.edit-house-current-image {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  margin: 5px 0 10px;
+  padding: 9px;
+  border: 1px solid rgba(185, 151, 69, 0.5);
+  border-radius: 8px;
+  background: #111114;
+  color: #d4af37;
+  font-size: 12px;
+}
+
+.edit-house-current-image img {
+  width: 75px;
+  height: 75px;
+  object-fit: cover;
+  border-radius: 6px;
+}
+
+.add-house-form small {
+  color: #72d69a;
+  font-size: 11px;
+}
+
+.edit-house-back-button {
+  padding: 10px;
+  border: 1px solid #7650a5;
+  border-radius: 7px;
+  background: #202025;
+  color: #c7a8ed;
+  cursor: pointer;
+}
+
+.edit-house-back-button:hover {
+  background: #7650a5;
+  color: #fff;
+}

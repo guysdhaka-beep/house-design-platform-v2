@@ -1,9 +1,11 @@
+import { useEffect, useState } from "react";
 import { useNavigate, useParams } from "react-router-dom";
+
 import translations from "../data/translations";
-import { houses } from "../data/houses";
 import { calculateEstimate } from "../data/calculateEstimate";
 import { currency } from "../data/currency";
 import HomeButton from "../components/HomeButton";
+
 import "../styles/house-details.css";
 
 type Language = keyof typeof translations;
@@ -138,7 +140,7 @@ const estimateTranslations: Record<
     cost: "लागत",
     ton: "टन",
     kg: "किग्रा",
-    pieces: "पीस",
+    pieces: "पीস",
     bags: "बैग",
     cft: "CFT",
     houseNotFound: "घर नहीं मिला",
@@ -221,25 +223,59 @@ const localeByLanguage: Record<Language, string> = {
   es: "es-ES",
 };
 
-type EstimatePageProps = {
-  language: keyof typeof translations;
+type House = {
+  id: number;
+  title: string;
+  houseType: string;
+  folder: string;
+  length: number;
+  width: number;
+  foundation: number;
+  complete: number;
+  isFeatured: boolean;
+  images: {
+    id: number;
+    type: string;
+    image: string;
+  }[];
 };
 
-function EstimatePage({
-  language,
-}: EstimatePageProps) {
-
+type EstimatePageProps = {
+  language: Language;
+};
+function EstimatePage({ language }: EstimatePageProps) {
   const navigate = useNavigate();
-  const { folder, id } = useParams();
+  const { id } = useParams();
 
- console.log("Language =", language);
+  const [house, setHouse] = useState<House | null>(null);
+  const [loading, setLoading] = useState(true);
+
+  useEffect(() => {
+    async function loadHouse() {
+      try {
+        const res = await fetch(
+          `http://localhost:5000/api/houses/${id}`
+        );
+
+        const data = await res.json();
+
+        setHouse(data.house);
+      } catch (err) {
+        console.error(err);
+      } finally {
+        setLoading(false);
+      }
+    }
+
+    loadHouse();
+  }, [id]);
+
+  if (loading) {
+    return <h2>Loading...</h2>;
+  }
 
   const t = estimateTranslations[language];
   const currentCurrency = currency[language];
-
-  const house = houses.find(
-    (h) => h.id === Number(id) && h.folder === folder
-  );
 
   if (!house) {
     return <h2>{t.houseNotFound}</h2>;
@@ -249,12 +285,12 @@ function EstimatePage({
     house.length,
     house.width,
     house.foundation,
-    house.floor,
-    house.type
+    house.complete,
+    house.houseType
   );
 
   const area = estimate.area;
-  const totalArea = area * house.floor;
+  const totalArea = area * house.complete;
 
   const formatNumber = (
     value: number,
@@ -264,15 +300,19 @@ function EstimatePage({
       maximumFractionDigits,
     }).format(value);
 
-  const formatCurrency = (bdtAmount: number): string => {
-    const convertedAmount = bdtAmount / currentCurrency.rate;
+  const formatCurrency = (
+    bdtAmount: number
+  ): string => {
+    const convertedAmount =
+      bdtAmount / currentCurrency.rate;
 
-    const formattedAmount = new Intl.NumberFormat(
-      localeByLanguage[language],
-      {
-        maximumFractionDigits: 0,
-      }
-    ).format(convertedAmount);
+    const formattedAmount =
+      new Intl.NumberFormat(
+        localeByLanguage[language],
+        {
+          maximumFractionDigits: 0,
+        }
+      ).format(convertedAmount);
 
     if (language === "bn") {
       return `${formattedAmount} ${currentCurrency.name}`;
@@ -282,11 +322,11 @@ function EstimatePage({
   };
 
   const getHouseCostText = (): string => {
-    if (house.type === "luxury") {
+    if (house.houseType === "luxury") {
       return t.luxuryHouseCost;
     }
 
-    if (house.type === "tinshade") {
+    if (house.houseType === "tinshade") {
       return t.tinshadeHouseCost;
     }
 
@@ -311,108 +351,130 @@ function EstimatePage({
         maxWidth: "900px",
         margin: "0 auto",
       }}
-      dir={language === "ar" ? "rtl" : "ltr"}
+      dir={
+        language === "ar"
+          ? "rtl"
+          : "ltr"
+      }
     >
-<div style={{ textAlign: "left", marginBottom: "20px" }}>
-  <HomeButton />
-</div>
+      <div
+        style={{
+          textAlign: "left",
+          marginBottom: "20px",
+        }}
+      >
+        <HomeButton />
+      </div>
 
-      <h1 style={{ textAlign: "center" }}>
+      <h1
+        style={{
+          textAlign: "center",
+        }}
+      >
         💰 {translations[language].estimate}
       </h1>
 
       <div
-  style={{
-  marginTop: "35px",
-  background: "linear-gradient(180deg,#263244,#1f2937)",
-  border: "2px solid #d4af37",
-  borderRadius: "18px",
-  padding: "30px",
-
-  boxShadow:
-    "0 18px 45px rgba(0,0,0,.60), 0 0 12px rgba(212,175,55,.35)",
-
-  transform: "perspective(1200px) rotateX(2deg)",
-
-  transition: "all .35s ease",
-
-  fontSize: "20px",
-  lineHeight: "2",
-  color: "#e5e7eb",
-}}
->
+        style={{
+          marginTop: "35px",
+          background:
+            "linear-gradient(180deg,#263244,#1f2937)",
+          border: "2px solid #d4af37",
+          borderRadius: "18px",
+          padding: "30px",
+          boxShadow:
+            "0 18px 45px rgba(0,0,0,.60), 0 0 12px rgba(212,175,55,.35)",
+          transform:
+            "perspective(1200px) rotateX(2deg)",
+          transition: "all .35s ease",
+          fontSize: "20px",
+          lineHeight: "2",
+          color: "#e5e7eb",
+        }}
+      >
         <p>🏠 {getHouseCostText()}</p>
 
         <p>
           <b>
-            {house.length} × {house.width} {t.feet} = {formatNumber(area)} SFT
+            {house.length} × {house.width}{" "}
+            {t.feet} = {formatNumber(area)} SFT
           </b>
         </p>
 
         <p>
           <b>
-            {house.floor} {floorLabel} = {formatNumber(totalArea)} SFT{" "}
+            {house.complete} {floorLabel} ={" "}
+            {formatNumber(totalArea)} SFT{" "}
             {t.totalFloorArea}
           </b>
         </p>
 
-        {house.type !== "tinshade" && (
+        {house.houseType !==
+          "tinshade" && (
           <p>
-            <b>{t.foundationInfo(house.foundation, house.floor)}</b>
+            <b>
+              {t.foundationInfo(
+                house.foundation,
+                house.complete
+              )}
+            </b>
           </p>
         )}
 
         <h2
-  style={{
-    display: "inline-block",
-    background: "#2563eb",
-    color: "#fff",
-    padding: "10px 24px",
-    borderRadius: "30px",
-    margin: "20px 0",
-    fontSize: "26px",
-    fontWeight: "700",
-  }}
->
-  🧱 {t.materials}
-</h2>
-
-        <p>
+          style={{
+            display: "inline-block",
+            background: "#2563eb",
+            color: "#fff",
+            padding: "10px 24px",
+            borderRadius: "30px",
+            margin: "20px 0",
+            fontSize: "26px",
+            fontWeight: "700",
+          }}
+        >
+          🧱 {t.materials}
+        </h2>
+                <p>
           <b>
             {t.rodNeeded} = {estimate.rod.toFixed(2)} {t.ton} (
-            {formatNumber(Math.round(estimate.rod * 1000))} {t.kg}), {t.cost} ={" "}
-            {formatCurrency(estimate.rodCost)}
+            {formatNumber(Math.round(estimate.rod * 1000))} {t.kg}
+            ), {t.cost} = {formatCurrency(estimate.rodCost)}
           </b>
         </p>
 
         <p>
           <b>
-            {t.brickNeeded} = {formatNumber(Math.round(estimate.brick))}{" "}
-            {t.pieces}, {t.cost} = {formatCurrency(estimate.brickCost)}
+            {t.brickNeeded} ={" "}
+            {formatNumber(Math.round(estimate.brick))} {t.pieces},
+            {t.cost} = {formatCurrency(estimate.brickCost)}
           </b>
         </p>
 
         <p>
           <b>
-            {t.cementNeeded} = {estimate.cement.toFixed(2)} {t.bags},{" "}
+            {t.cementNeeded} = {estimate.cement.toFixed(2)} {t.bags},
             {t.cost} = {formatCurrency(estimate.cementCost)}
           </b>
         </p>
 
         <p>
           <b>
-            {t.sandNeeded} = {formatNumber(Math.round(estimate.sand))} {t.cft},{" "}
+            {t.sandNeeded} ={" "}
+            {formatNumber(Math.round(estimate.sand))} {t.cft},
             {t.cost} = {formatCurrency(estimate.sandCost)}
           </b>
         </p>
 
-        {house.type === "tinshade" && estimate.woodTin !== undefined && (
-          <p>
-            <b>
-              {t.woodTin} = {formatCurrency(estimate.woodTin)}
-            </b>
-          </p>
-        )}
+        {house.houseType === "tinshade" &&
+          estimate.woodTin !== undefined && (
+            <p>
+              <b>
+                {t.woodTin} ={" "}
+                {formatCurrency(estimate.woodTin)}
+              </b>
+            </p>
+          )}
 
         <p>
           <b>
@@ -421,25 +483,26 @@ function EstimatePage({
         </p>
 
         <h3>
-          {t.materialTotal} = {formatCurrency(estimate.materialTotal)}
+          {t.materialTotal} ={" "}
+          {formatCurrency(estimate.materialTotal)}
         </h3>
 
         <hr />
 
         <h2
-  style={{
-    display: "inline-block",
-    background: "#16a34a",
-    color: "#fff",
-    padding: "10px 24px",
-    borderRadius: "30px",
-    margin: "20px 0",
-    fontSize: "26px",
-    fontWeight: "700",
-  }}
->
-  💼 {t.otherCost}
-</h2>
+          style={{
+            display: "inline-block",
+            background: "#16a34a",
+            color: "#fff",
+            padding: "10px 24px",
+            borderRadius: "30px",
+            margin: "20px 0",
+            fontSize: "26px",
+            fontWeight: "700",
+          }}
+        >
+          💼 {t.otherCost}
+        </h2>
 
         <p>
           <b>
@@ -449,7 +512,8 @@ function EstimatePage({
 
         <p>
           <b>
-            {t.electrical} = {formatCurrency(estimate.electrical)}
+            {t.electrical} ={" "}
+            {formatCurrency(estimate.electrical)}
           </b>
         </p>
 
@@ -466,66 +530,67 @@ function EstimatePage({
         </p>
 
         <h3>
-          {t.otherTotal} = {formatCurrency(estimate.otherTotal)}
+          {t.otherTotal} ={" "}
+          {formatCurrency(estimate.otherTotal)}
         </h3>
 
         <hr />
 
-<div
-  style={{
-    marginTop: "25px",
-    padding: "24px",
-    borderRadius: "18px",
-    background: "linear-gradient(135deg,#16a34a,#22c55e)",
-    color: "#fff",
-    border: "2px solid rgba(255,255,255,.18)",
-    boxShadow:
-      "0 18px 45px rgba(0,0,0,.45), inset 0 2px 2px rgba(255,255,255,.18)",
-    overflow: "hidden",
-    position: "relative",
-  }}
->
+        <div
+          style={{
+            marginTop: "25px",
+            padding: "24px",
+            borderRadius: "18px",
+            background:
+              "linear-gradient(135deg,#16a34a,#22c55e)",
+            color: "#fff",
+            border: "2px solid rgba(255,255,255,.18)",
+            boxShadow:
+              "0 18px 45px rgba(0,0,0,.45), inset 0 2px 2px rgba(255,255,255,.18)",
+            overflow: "hidden",
+            position: "relative",
+          }}
+        >
+          <div className="shine-effect" />
 
-  {/* Animated Shine */}
-  <div className="shine-effect" />
+          <div
+            style={{
+              position: "relative",
+              zIndex: 2,
+              fontSize: "22px",
+              fontWeight: "700",
+              marginBottom: "12px",
+              textShadow:
+                "0 2px 8px rgba(0,0,0,.35)",
+            }}
+          >
+            💰 {t.grandTotal}
+          </div>
 
-  <div
-    style={{
-      position: "relative",
-      zIndex: 2,
-      fontSize: "22px",
-      fontWeight: "700",
-      marginBottom: "12px",
-      textShadow: "0 2px 8px rgba(0,0,0,.35)",
-    }}
-  >
-    💰 {t.grandTotal}
-  </div>
+          <div
+            style={{
+              position: "relative",
+              zIndex: 2,
+              fontSize: "42px",
+              fontWeight: "900",
+              lineHeight: "1.2",
+              textShadow:
+                "0 3px 10px rgba(0,0,0,.45)",
+            }}
+          >
+            {formatCurrency(estimate.grandTotal)}
+          </div>
+        </div>
 
-  <div
-    style={{
-      position: "relative",
-      zIndex: 2,
-      fontSize: "42px",
-      fontWeight: "900",
-      lineHeight: "1.2",
-      textShadow: "0 3px 10px rgba(0,0,0,.45)",
-    }}
-  >
-    {formatCurrency(estimate.grandTotal)}
-  </div>
-
-</div>
-
-<p
-  style={{
-    marginTop: "25px",
-    fontSize: "18px",
-    color: "#d1d5db",
-  }}
->
-  📌 {t.comment}
-</p>
+        <p
+          style={{
+            marginTop: "25px",
+            fontSize: "18px",
+            color: "#d1d5db",
+          }}
+        >
+          📌 {t.comment}
+        </p>
       </div>
 
       <div
@@ -536,58 +601,68 @@ function EstimatePage({
         }}
       >
         <button
-  onClick={() => navigate(`/house/${id}`)}
-  onMouseEnter={(e) => {
-    e.currentTarget.style.background = "#1d4ed8";
-    e.currentTarget.style.transform = "translateY(-3px) scale(1.05)";
-    e.currentTarget.style.boxShadow = "0 10px 25px rgba(37,99,235,.45)";
-  }}
-  onMouseLeave={(e) => {
-    e.currentTarget.style.background = "#2563eb";
-    e.currentTarget.style.transform = "translateY(0) scale(1)";
-    e.currentTarget.style.boxShadow = "none";
-  }}
-  style={{
-    padding: "14px 30px",
-    borderRadius: "12px",
-    border: "1px solid #3b82f6",
-    background: "#2563eb",
-    color: "#fff",
-    fontSize: "17px",
-    fontWeight: "600",
-    cursor: "pointer",
-    transition: "all .25s ease",
-  }}
->
-  🏠 {translations[language].view3d}
-</button>
+          onClick={() => navigate(`/house/${house.id}`)}
+          onMouseEnter={(e) => {
+            e.currentTarget.style.background = "#1d4ed8";
+            e.currentTarget.style.transform =
+              "translateY(-3px) scale(1.05)";
+            e.currentTarget.style.boxShadow =
+              "0 10px 25px rgba(37,99,235,.45)";
+          }}
+          onMouseLeave={(e) => {
+            e.currentTarget.style.background = "#2563eb";
+            e.currentTarget.style.transform =
+              "translateY(0) scale(1)";
+            e.currentTarget.style.boxShadow = "none";
+          }}
+          style={{
+            padding: "14px 30px",
+            borderRadius: "12px",
+            border: "1px solid #3b82f6",
+            background: "#2563eb",
+            color: "#fff",
+            fontSize: "17px",
+            fontWeight: "600",
+            cursor: "pointer",
+            transition: "all .25s ease",
+          }}
+        >
+          🏠 {translations[language].view3d}
+        </button>
 
         <button
-  onClick={() => navigate(`/floorplan/${folder}/${id}`)}
-  onMouseEnter={(e) => {
-    e.currentTarget.style.background = "#1d4ed8";
-    e.currentTarget.style.transform = "translateY(-3px) scale(1.05)";
-    e.currentTarget.style.boxShadow = "0 10px 25px rgba(37,99,235,.45)";
-  }}
-  onMouseLeave={(e) => {
-    e.currentTarget.style.background = "#2563eb";
-    e.currentTarget.style.transform = "translateY(0) scale(1)";
-    e.currentTarget.style.boxShadow = "none";
-  }}
-  style={{
-    padding: "14px 30px",
-    borderRadius: "12px",
-    border: "1px solid #3b82f6",
-    background: "#2563eb",
-    color: "#fff",
-    fontSize: "17px",
-    fontWeight: "600",
-    cursor: "pointer",
-    transition: "all .25s ease",
-  }}
->
-  📐 {translations[language].view2d}
-</button>
+          onClick={() =>
+            navigate(
+              `/floorplan/${house.folder}/${house.id}`
+            )
+          }
+          onMouseEnter={(e) => {
+            e.currentTarget.style.background = "#1d4ed8";
+            e.currentTarget.style.transform =
+              "translateY(-3px) scale(1.05)";
+            e.currentTarget.style.boxShadow =
+              "0 10px 25px rgba(37,99,235,.45)";
+          }}
+          onMouseLeave={(e) => {
+            e.currentTarget.style.background = "#2563eb";
+            e.currentTarget.style.transform =
+              "translateY(0) scale(1)";
+            e.currentTarget.style.boxShadow = "none";
+          }}
+          style={{
+            padding: "14px 30px",
+            borderRadius: "12px",
+            border: "1px solid #3b82f6",
+            background: "#2563eb",
+            color: "#fff",
+            fontSize: "17px",
+            fontWeight: "600",
+            cursor: "pointer",
+            transition: "all .25s ease",
+          }}
+        >
+          📐 {translations[language].view2d}
+        </button>
       </div>
     </div>
   );

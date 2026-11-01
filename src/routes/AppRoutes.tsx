@@ -12,12 +12,18 @@ import PrivacyPolicyPage from "../pages/PrivacyPolicyPage";
 import TermsPage from "../pages/TermsPage";
 import ContactPage from "../pages/ContactPage";
 
+import AdminLogin from "../pages/AdminLogin";
+import AdminDashboard from "../pages/AdminDashboard";
+import AddHouse from "../pages/AddHouse";
+import AdminHouseList from "../pages/AdminHouseList";
+import EditHouse from "../pages/EditHouse";
+
 
 type AppRoutesProps = {
   language: keyof typeof translations;
- setLanguage: React.Dispatch<
-  React.SetStateAction<"bn" | "en" | "hi" | "ar" | "es">
->;
+  setLanguage: React.Dispatch<
+    React.SetStateAction<"bn" | "en" | "hi" | "ar" | "es">
+  >;
 };
 
 function AppRoutes({
@@ -26,6 +32,7 @@ function AppRoutes({
 }: AppRoutesProps) {
   return (
     <Routes>
+      {/* Home */}
       <Route
         path="/"
         element={
@@ -36,52 +43,83 @@ function AppRoutes({
         }
       />
 
+      {/* House List */}
       <Route
-  path="/houses/:type"
-  element={
-    <HouseListPage
-      language={language}
-    />
-  }
-/>
+        path="/houses/:type"
+        element={<HouseListPage language={language} />}
+      />
 
-<Route
-  path="/house/:id"
-  element={<HouseDetailsPage />}
-/>
+      {/* House Details */}
+      <Route
+        path="/house/:id"
+        element={<HouseDetailsPage />}
+      />
 
-<Route path="/terms" element={<TermsPage />} />
+      {/* Floor Plan */}
+      <Route
+        path="/floorplan/:id"
+        element={<FloorPlanPage />}
+      />
 
-<Route
-    path="/privacy-policy"
-    element={<PrivacyPolicyPage />}
-/>
+      {/* Estimate */}
+      <Route
+        path="/estimate/:id"
+        element={<EstimatePage language={language} />}
+      />
 
-<Route path="/contact" element={<ContactPage />} />
-
-<Route
-  path="/floorplan/:folder/:id"
-  element={<FloorPlanPage />}
-/>
-<Route
-  path="/estimate/:folder/:id"
-  element={
-    <EstimatePage
-      language={language}
-    />
-  }
-/>
-      <Route path="/foundation" element={<FoundationPage />} />
-      <Route path="/area" element={<AreaPage />} />
+      {/* Other Pages */}
+      <Route
+        path="/foundation"
+        element={<FoundationPage />}
+      />
 
       <Route
-  path="/estimate"
-  element={
-    <EstimatePage
-      language={language}
-    />
-  }
+        path="/area"
+        element={<AreaPage />}
+      />
+
+      <Route
+        path="/privacy-policy"
+        element={<PrivacyPolicyPage />}
+      />
+
+      <Route
+        path="/terms"
+        element={<TermsPage />}
+      />
+
+      <Route
+        path="/contact"
+        element={<ContactPage />}
+      />
+
+      {/* Admin */}
+      <Route
+        path="/admin/login"
+        element={<AdminLogin />}
+      />
+
+      <Route
+        path="/admin/add-house"
+        element={<AddHouse />}
+      />
+
+      {/* Admin House Management */}
+<Route
+  path="/admin/houses"
+  element={<AdminHouseList />}
 />
+
+<Route
+  path="/admin/edit-house/:id"
+  element={<EditHouse />}
+/>
+
+
+      <Route
+        path="/admin/dashboard"
+        element={<AdminDashboard />}
+      />
     </Routes>
   );
 }

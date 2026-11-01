@@ -1,0 +1,316 @@
+
+.admin-house-list-page {
+  min-height: 100vh;
+  display: flex;
+  background: #0d0d0f;
+  color: #fff;
+}
+
+.admin-house-list-main {
+  flex: 1;
+  min-width: 0;
+  min-height: 100vh;
+  background: radial-gradient(circle at 85% 10%, rgba(91,45,145,.1), transparent 30%), #0d0d0f;
+}
+
+.admin-house-list-content {
+  width: 100%;
+  max-width: 1450px;
+  margin: auto;
+  padding: 24px;
+  box-sizing: border-box;
+}
+
+/* Heading */
+
+.admin-house-list-heading {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 15px;
+  margin-bottom: 22px;
+}
+
+.admin-house-list-heading span {
+  color: #d4af37;
+  font-size: 10px;
+  font-weight: 800;
+  letter-spacing: 2px;
+}
+
+.admin-house-list-heading h2 {
+  margin: 6px 0;
+  font-size: 23px;
+}
+
+.admin-house-list-heading p {
+  margin: 0;
+  color: #99939f;
+  font-size: 13px;
+}
+
+.admin-house-add-btn {
+  padding: 10px 17px;
+  border: 1px solid #ffe58a;
+  border-radius: 7px;
+  background: linear-gradient(135deg,#fff2a8,#ffd700,#e5a900);
+  color: #302000;
+  font-weight: 800;
+  cursor: pointer;
+}
+
+/* Six House Type Tabs */
+
+.admin-house-type-tabs {
+  display: grid;
+  grid-template-columns: repeat(6, minmax(0, 1fr));
+  gap: 9px;
+  margin-bottom: 22px;
+}
+
+.admin-house-type-tab {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  min-height: 43px;
+  padding: 8px;
+  border: 1px solid #51432b;
+  border-radius: 7px;
+  background: #171619;
+  color: #d5c9ac;
+  font-size: 12px;
+  font-weight: 700;
+  cursor: pointer;
+  transition: .2s ease;
+}
+
+.admin-house-type-tab span {
+  color: #ffd700;
+  font-size: 11px;
+}
+
+.admin-house-type-tab:hover,
+.admin-house-type-tab.active {
+  border-color: #d4af37;
+  background: linear-gradient(135deg,#3a2e16,#201b12);
+  color: #ffe58a;
+  box-shadow: 0 0 10px rgba(212,175,55,.12);
+}
+
+/* Gallery Heading */
+
+.admin-house-gallery-heading {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 15px;
+  padding-bottom: 10px;
+  border-bottom: 1px solid #38302a;
+}
+
+.admin-house-gallery-heading h3 {
+  margin: 0;
+  color: #f5d77a;
+  font-size: 16px;
+}
+
+.admin-house-gallery-heading span {
+  color: #aaa;
+  font-size: 12px;
+}
+
+/* Compact Gallery */
+
+.admin-house-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill,minmax(145px,1fr));
+  gap: 13px;
+  align-items: start;
+}
+
+.admin-house-card {
+  min-width: 0;
+  overflow: hidden;
+  background: #151518;
+  border: 1px solid #554323;
+  border-radius: 8px;
+  transition: border-color .2s, box-shadow .2s;
+}
+
+.admin-house-card.selected {
+  border-color: #ffd700;
+  box-shadow: 0 0 13px rgba(255,215,0,.2);
+}
+
+/* Image Thumbnail */
+
+.admin-house-image {
+  position: relative;
+  display: block;
+  width: 100%;
+  aspect-ratio: 1 / 1;
+  padding: 0;
+  overflow: hidden;
+  border: none;
+  background: #202025;
+  cursor: pointer;
+}
+
+.admin-house-image img {
+  display: block;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transition: transform .25s;
+}
+
+.admin-house-image:hover img {
+  transform: scale(1.06);
+}
+
+.admin-house-no-image {
+  display: flex;
+  width: 100%;
+  height: 100%;
+  align-items: center;
+  justify-content: center;
+  color: #aaa;
+  font-size: 12px;
+}
+
+.admin-house-id {
+  position: absolute;
+  top: 7px;
+  left: 7px;
+  padding: 4px 7px;
+  border-radius: 4px;
+  background: rgba(0,0,0,.8);
+  color: #ffd700;
+  font-size: 10px;
+  font-weight: 800;
+}
+
+.admin-house-featured-badge {
+  position: absolute;
+  top: 7px;
+  right: 7px;
+  color: #ffd700;
+  font-size: 17px;
+}
+
+.admin-house-click-hint {
+  position: absolute;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  padding: 6px;
+  background: rgba(0,0,0,.65);
+  color: #fff;
+  font-size: 10px;
+  text-align: center;
+}
+
+/* Action Buttons - Only After Image Click */
+
+.admin-house-actions {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 6px;
+  padding: 8px;
+  border-top: 1px solid #554323;
+}
+
+.admin-house-actions button {
+  min-height: 31px;
+  border-radius: 5px;
+  font-size: 11px;
+  font-weight: 700;
+  cursor: pointer;
+  transition: .2s;
+}
+
+.admin-house-edit-btn {
+  border: 1px solid #b99745;
+  background: rgba(185,151,69,.13);
+  color: #f5d77a;
+}
+
+.admin-house-edit-btn:hover {
+  background: #b99745;
+  color: #111;
+}
+
+.admin-house-view-btn {
+  border: 1px solid #7650a5;
+  background: rgba(118,80,165,.13);
+  color: #c7a8ed;
+}
+
+.admin-house-view-btn:hover {
+  background: #7650a5;
+  color: #fff;
+}
+
+.admin-house-delete-btn {
+  grid-column: 1 / -1;
+  border: 1px solid #a94444;
+  background: rgba(169,68,68,.1);
+  color: #ff8585;
+}
+
+.admin-house-delete-btn:hover {
+  background: #a94444;
+  color: #fff;
+}
+
+.admin-house-actions button:disabled {
+  opacity: .5;
+  cursor: not-allowed;
+}
+
+.admin-house-message {
+  padding: 50px 15px;
+  border: 1px solid #554323;
+  border-radius: 8px;
+  background: #151518;
+  color: #ccc;
+  text-align: center;
+}
+
+/* Responsive */
+
+@media (max-width: 850px) {
+  .admin-house-type-tabs {
+    grid-template-columns: repeat(3,1fr);
+  }
+
+  .admin-house-grid {
+    grid-template-columns: repeat(auto-fill,minmax(125px,1fr));
+  }
+}
+
+@media (max-width: 500px) {
+  .admin-house-list-content {
+    padding: 16px 11px;
+  }
+
+  .admin-house-list-heading {
+    align-items: stretch;
+    flex-direction: column;
+  }
+
+  .admin-house-add-btn {
+    width: 100%;
+  }
+
+  .admin-house-type-tabs {
+    grid-template-columns: repeat(2,1fr);
+    gap: 7px;
+  }
+
+  .admin-house-grid {
+    grid-template-columns: repeat(2,minmax(0,1fr));
+    gap: 9px;
+  }
+}

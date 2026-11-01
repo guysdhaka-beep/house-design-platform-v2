@@ -1,8 +1,9 @@
+import { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 import HouseCard from "../components/HouseCard";
-import { houses } from "../data/houses";
 import translations from "../data/translations";
 import HomeButton from "../components/HomeButton";
+import type { House } from "../types/house";
 
 type HouseListPageProps = {
   language: keyof typeof translations;
@@ -15,9 +16,27 @@ function HouseListPage({
 
   const t = translations[language];
 
-  const filtered = houses.filter(
-    (house) => house.type === type
-  );
+ const [houses, setHouses] = useState<House[]>([]);
+
+useEffect(() => {
+  fetch("http://localhost:5000/api/houses")
+    .then((res) => res.json())
+    .then((data) => {
+      console.log("API DATA =", data.houses);
+      setHouses(data.houses || []);
+    })
+    .catch(console.error);
+}, []);
+
+console.log("TYPE =", type);
+console.log("HOUSES =", houses);
+
+ const filtered = houses.filter((house) => {
+  console.log("houseType =", house.houseType);
+  console.log("type =", type);
+
+  return house.houseType === type;
+});
 
   return (
    <div

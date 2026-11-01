@@ -36,7 +36,7 @@ function Home({ language, setLanguage }: HomeProps) {
 
       <hr className="header-line" />
 
-      <SearchBar />
+      <SearchBar language={language} />
 
 <h2
   style={{

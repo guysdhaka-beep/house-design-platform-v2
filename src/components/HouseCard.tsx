@@ -1,21 +1,9 @@
 import { useNavigate } from "react-router-dom";
 import translations from "../data/translations";
+import type { House } from "../types/house";
 
 type HouseCardProps = {
-  house: {
-    id: number;
-    type: string;
-    folder: string;
-
-    length: number;
-    width: number;
-
-    foundation: number;
-    floor: number;
-
-    cost: string;
-  };
-
+  house: House;
   language: keyof typeof translations;
 };
 
@@ -62,7 +50,9 @@ function HouseCard({
       >
 
         <img
-  src={`/images/${house.folder}/${house.id}/3d.png`}
+  src={`http://localhost:5000/uploads/3d/${
+  house.images.find((img) => img.type === "3d")?.image
+}`}
   alt="House Design"
   style={{
     width: "100%",
@@ -102,7 +92,7 @@ function HouseCard({
             fontSize: "16px",
           }}
         >
-          {house.floor} {t.story}
+          {house.complete} {t.story}
         </div>
       </div>
 
@@ -128,7 +118,7 @@ function HouseCard({
             marginBottom: "20px",
           }}
         >
-          🏠 {house.floor} {t.story} {t.complete}
+          🏠 {house.complete} {t.story} {t.complete}
         </div>
 
         <button
