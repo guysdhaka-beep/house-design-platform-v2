@@ -1,3 +1,4 @@
+import { memo } from "react";
 import { useNavigate } from "react-router-dom";
 import translations from "../data/translations";
 import type { House } from "../types/house";
@@ -15,6 +16,8 @@ function HouseCard({
 
   const t = translations[language];
 
+  const image3d =
+    house.images.find((img) => img.type === "3d")?.image || "";
 
   return (
     <div
@@ -48,20 +51,20 @@ function HouseCard({
           overflow: "hidden",
         }}
       >
-
         <img
-  src={`https://house-design-platform-server.vercel.app/uploads/3d/${
-  house.images.find((img) => img.type === "3d")?.image
-}`}
-  alt="House Design"
-  style={{
-    width: "100%",
-    height: "auto",
-    objectFit: "contain",
-    display: "block",
-    transition: ".35s",
-  }}
-/>
+          src={`https://house-design-platform-server.vercel.app/uploads/3d/${image3d}`}
+          alt="House Design"
+          loading="lazy"
+          decoding="async"
+          draggable={false}
+          style={{
+            width: "100%",
+            height: "auto",
+            objectFit: "contain",
+            display: "block",
+            transition: ".35s",
+          }}
+        />
 
         <div
           style={{
@@ -124,7 +127,7 @@ function HouseCard({
         <button
           onClick={(e) => {
             e.stopPropagation();
-            navigate(`/floorplan/${house.folder}/${house.id}`);
+            navigate(`/floorplan/${house.folder}/${house.complete}/${house.id}`);
           }}
           style={{
             width: "100%",
@@ -143,20 +146,19 @@ function HouseCard({
               "0 8px 18px rgba(33,150,243,.35)",
           }}
           onMouseEnter={(e) => {
-            e.currentTarget.style.transform =
-              "translateY(-3px)";
+            e.currentTarget.style.transform = "translateY(-3px)";
           }}
           onMouseLeave={(e) => {
-            e.currentTarget.style.transform =
-              "translateY(0)";
+            e.currentTarget.style.transform = "translateY(0)";
           }}
         >
           📐 {t.view2d}
         </button>
-                <button
+
+        <button
           onClick={(e) => {
             e.stopPropagation();
-            navigate(`/estimate/${house.folder}/${house.id}`);
+            navigate(`/estimate/${house.folder}/${house.complete}/${house.id}`);
           }}
           style={{
             width: "100%",
@@ -174,12 +176,10 @@ function HouseCard({
               "0 8px 18px rgba(34,197,94,.35)",
           }}
           onMouseEnter={(e) => {
-            e.currentTarget.style.transform =
-              "translateY(-3px)";
+            e.currentTarget.style.transform = "translateY(-3px)";
           }}
           onMouseLeave={(e) => {
-            e.currentTarget.style.transform =
-              "translateY(0)";
+            e.currentTarget.style.transform = "translateY(0)";
           }}
         >
           💰 {t.estimate}
@@ -189,4 +189,4 @@ function HouseCard({
   );
 }
 
-export default HouseCard;
+export default memo(HouseCard);
