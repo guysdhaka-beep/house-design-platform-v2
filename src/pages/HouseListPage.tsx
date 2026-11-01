@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useEffect, useMemo, useState } from "react";
 import { useParams } from "react-router-dom";
 import HouseCard from "../components/HouseCard";
 import translations from "../data/translations";
@@ -9,6 +9,8 @@ type HouseListPageProps = {
   language: keyof typeof translations;
 };
 
+const ITEMS_PER_PAGE = 15;
+
 function HouseListPage({ language }: HouseListPageProps) {
   const { type } = useParams();
 
@@ -16,6 +18,7 @@ function HouseListPage({ language }: HouseListPageProps) {
 
   const [houses, setHouses] = useState<House[]>([]);
   const [loading, setLoading] = useState(true);
+  const [page, setPage] = useState(1);
 
   useEffect(() => {
     fetch("https://house-design-platform-server.vercel.app/api/houses", {
@@ -29,9 +32,20 @@ function HouseListPage({ language }: HouseListPageProps) {
       .finally(() => setLoading(false));
   }, []);
 
-  const filtered = houses.filter(
-    (house) => house.houseType === type
-  );
+  const filtered = useMemo(() => {
+    return houses.filter((house) => house.houseType === type);
+  }, [houses, type]);
+
+  const totalPages = Math.ceil(filtered.length / ITEMS_PER_PAGE);
+
+  const currentHouses = useMemo(() => {
+    const start = (page - 1) * ITEMS_PER_PAGE;
+    return filtered.slice(start, start + ITEMS_PER_PAGE);
+  }, [filtered, page]);
+
+  useEffect(() => {
+    setPage(1);
+  }, [type]);
 
   if (loading) {
     return (
@@ -85,14 +99,13 @@ function HouseListPage({ language }: HouseListPageProps) {
       <div
         style={{
           display: "grid",
-          gridTemplateColumns:
-            "repeat(auto-fit, minmax(390px, 1fr))",
+          gridTemplateColumns: "repeat(auto-fit, minmax(390px, 1fr))",
           gap: "25px",
           justifyItems: "center",
         }}
       >
-        {filtered.length > 0 ? (
-          filtered.map((house) => (
+        {currentHouses.length > 0 ? (
+          currentHouses.map((house) => (
             <HouseCard
               key={house.id}
               house={house}
@@ -100,11 +113,52 @@ function HouseListPage({ language }: HouseListPageProps) {
             />
           ))
         ) : (
-          <h2 style={{ color: "#fff" }}>
-            {t.noHouse}
-          </h2>
+          <h2 style={{ color: "#fff" }}>{t.noHouse}</h2>
         )}
       </div>
+
+      {totalPages > 1 && (
+        <div
+          style={{
+            marginTop: "40px",
+            display: "flex",
+            justifyContent: "center",
+            gap: "10px",
+            flexWrap: "wrap",
+          }}
+        >
+          <button
+            disabled={page === 1}
+            onClick={() => setPage(page - 1)}
+          >
+            ◀ Prev
+          </button>
+
+          {Array.from({ length: totalPages }, (_, i) => (
+            <button
+              key={i}
+              onClick={() => setPage(i + 1)}
+              style={{
+                background: page === i + 1 ? "#2563eb" : "#333",
+                color: "#fff",
+                border: "none",
+                padding: "8px 14px",
+                borderRadius: "6px",
+                cursor: "pointer",
+              }}
+            >
+              {i + 1}
+            </button>
+          ))}
+
+          <button
+            disabled={page === totalPages}
+            onClick={() => setPage(page + 1)}
+          >
+            Next ▶
+          </button>
+        </div>
+      )}
     </div>
   );
 }
