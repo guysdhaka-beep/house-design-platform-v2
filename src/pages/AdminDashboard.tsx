@@ -11,7 +11,7 @@ type House = {
   isFeatured: boolean;
 };
 
-const API = "http://localhost:5000/api/houses";
+const API = "https://house-design-platform-server.vercel.app/api/houses";
 
 export default function AdminDashboard() {
   const [houses, setHouses] = useState<House[]>([]);

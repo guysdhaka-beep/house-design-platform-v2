@@ -8,7 +8,7 @@ export default function AdminLogin() {
     e.preventDefault();
 
     try {
-      const res = await fetch("http://localhost:5000/api/admin/login", {
+      const res = await fetch("https://house-design-platform-server.vercel.app/api/admin/login", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",

@@ -116,7 +116,7 @@ if (formData.image2d) {
 }
 
 const response = await fetch(
-  "http://localhost:5000/api/houses",
+  "https://house-design-platform-server.vercel.app/api/houses",
   {
     method: "POST",
     body,

@@ -13,7 +13,7 @@ function FloorPlanPage() {
   const [house, setHouse] = useState<any>(null);
 
   useEffect(() => {
-    fetch(`http://localhost:5000/api/houses/${id}`)
+    fetch(`https://house-design-platform-server.vercel.app/api/houses/${id}`)
       .then((res) => res.json())
       .then((data) => {
         setHouse(data.house);
@@ -46,7 +46,7 @@ function FloorPlanPage() {
       <h1>📐 2D Floor Plan</h1>
 
       <img
-        src={`http://localhost:5000/uploads/2d/${image2d}`}
+        src={`https://house-design-platform-server.vercel.app/uploads/2d/${image2d}`}
         alt="2D Floor Plan"
         style={{
           width: "100%",

@@ -28,8 +28,8 @@ type HouseImage = {
   image: string;
 };
 
-const API = "http://localhost:5000/api/houses";
-const IMAGE_URL = "http://localhost:5000/uploads";
+const API = "https://house-design-platform-server.vercel.app/api/houses";
+const IMAGE_URL = "https://house-design-platform-server.vercel.app/uploads";
 
 const initialFormData: HouseFormData = {
   title: "",

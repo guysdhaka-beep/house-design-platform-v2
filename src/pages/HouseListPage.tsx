@@ -19,7 +19,7 @@ function HouseListPage({
  const [houses, setHouses] = useState<House[]>([]);
 
 useEffect(() => {
-  fetch("http://localhost:5000/api/houses")
+  fetch("https://house-design-platform-server.vercel.app/api/houses")
     .then((res) => res.json())
     .then((data) => {
       console.log("API DATA =", data.houses);

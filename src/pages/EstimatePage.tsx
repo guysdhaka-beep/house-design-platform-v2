@@ -254,7 +254,7 @@ function EstimatePage({ language }: EstimatePageProps) {
     async function loadHouse() {
       try {
         const res = await fetch(
-          `http://localhost:5000/api/houses/${id}`
+          `https://house-design-platform-server.vercel.app/api/houses/${id}`
         );
 
         const data = await res.json();

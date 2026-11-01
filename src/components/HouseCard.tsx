@@ -50,7 +50,7 @@ function HouseCard({
       >
 
         <img
-  src={`http://localhost:5000/uploads/3d/${
+  src={`https://house-design-platform-server.vercel.app/uploads/3d/${
   house.images.find((img) => img.type === "3d")?.image
 }`}
   alt="House Design"

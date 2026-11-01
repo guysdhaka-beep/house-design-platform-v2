@@ -43,7 +43,7 @@ export default function SearchBar({ language }: Props) {
         setLoading(true);
 
         const res = await fetch(
-          `http://localhost:5000/api/houses/search?q=${encodeURIComponent(
+          `https://house-design-platform-server.vercel.app/api/houses/search?q=${encodeURIComponent(
             text
           )}`
         );
@@ -180,7 +180,7 @@ export default function SearchBar({ language }: Props) {
                   }}
                 >
                   <img
-                    src={`http://localhost:5000/uploads/3d/${image3d}`}
+                    src={`https://house-design-platform-server.vercel.app/uploads/3d/${image3d}`}
                     alt={house.title}
                     style={{
                       width: "95px",

@@ -19,7 +19,7 @@ function HouseDetailsPage() {
 
   // House API
   useEffect(() => {
-    fetch(`http://localhost:5000/api/houses/${id}`)
+    fetch(`https://house-design-platform-server.vercel.app/api/houses/${id}`)
       .then((res) => res.json())
       .then((data) => {
         setHouse(data.house);
@@ -69,7 +69,7 @@ function HouseDetailsPage() {
       </h2>
 
       <img
-        src={`http://localhost:5000/uploads/3d/${image3d}`}
+        src={`https://house-design-platform-server.vercel.app/uploads/3d/${image3d}`}
         alt={house.title || "3D House"}
         style={{
           width: "100%",
