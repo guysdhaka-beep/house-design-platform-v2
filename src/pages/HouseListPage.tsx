@@ -26,18 +26,14 @@ function HouseListPage({ language }: HouseListPageProps) {
     setLoading(true);
 
     fetch(
-      `https://house-design-platform-server.vercel.app/api/houses?page=${page}&limit=${ITEMS_PER_PAGE}`,
+      `https://house-design-platform-server.vercel.app/api/houses?type=${type}&page=${page}&limit=${ITEMS_PER_PAGE}`,
       {
         cache: "force-cache",
       }
     )
       .then((res) => res.json())
       .then((data) => {
-        const filtered = (data.houses || []).filter(
-          (house: House) => house.houseType === type
-        );
-
-        setHouses(filtered);
+        setHouses(data.houses || []);
         setTotalPages(data.totalPages || 1);
       })
       .catch(console.error)
@@ -134,6 +130,10 @@ function HouseListPage({ language }: HouseListPageProps) {
           <button
             disabled={page === 1}
             onClick={() => setPage((p) => p - 1)}
+            style={{
+              padding: "10px 18px",
+              cursor: page === 1 ? "not-allowed" : "pointer",
+            }}
           >
             ◀ Prev
           </button>
@@ -151,6 +151,10 @@ function HouseListPage({ language }: HouseListPageProps) {
           <button
             disabled={page === totalPages}
             onClick={() => setPage((p) => p + 1)}
+            style={{
+              padding: "10px 18px",
+              cursor: page === totalPages ? "not-allowed" : "pointer",
+            }}
           >
             Next ▶
           </button>
