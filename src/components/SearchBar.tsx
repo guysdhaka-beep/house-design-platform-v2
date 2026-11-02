@@ -2,6 +2,10 @@ import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import translations from "../data/translations";
 
+
+
+const API = "https://house-design-platform-server.vercel.app/api";
+
 type Props = {
   language: keyof typeof translations;
 };
@@ -43,10 +47,11 @@ export default function SearchBar({ language }: Props) {
         setLoading(true);
 
         const res = await fetch(
-          `https://house-design-platform-server.vercel.app/api/houses/search?q=${encodeURIComponent(
-            text
-          )}`
-        );
+  `${API}/houses/search?q=${encodeURIComponent(text)}`,
+  {
+    cache: "no-store",
+  }
+);
 
         const data = await res.json();
 
@@ -180,7 +185,7 @@ export default function SearchBar({ language }: Props) {
                   }}
                 >
                   <img
-                    src={`https://house-design-platform-server.vercel.app/uploads/3d/${image3d}`}
+                    src={image3d}
                     alt={house.title}
                     style={{
                       width: "95px",
