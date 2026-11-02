@@ -1,13 +1,24 @@
-import "./HouseTypeGrid.css";
+import { memo, useCallback } from "react";
 import { useNavigate } from "react-router-dom";
+
+import "./HouseTypeGrid.css";
 import houseTypes from "../data/houseTypes";
 
 type HouseTypeGridProps = {
   language: keyof typeof houseTypes;
 };
 
-function HouseTypeGrid({ language }: HouseTypeGridProps) {
+function HouseTypeGrid({
+  language,
+}: HouseTypeGridProps) {
   const navigate = useNavigate();
+
+  const handleNavigate = useCallback(
+    (path: string) => {
+      navigate(`/houses/${path}`);
+    },
+    [navigate]
+  );
 
   return (
     <div
@@ -20,9 +31,9 @@ function HouseTypeGrid({ language }: HouseTypeGridProps) {
     >
       {houseTypes[language].map((item) => (
         <button
-          className="house-btn"
           key={item.path}
-          onClick={() => navigate(`/houses/${item.path}`)}
+          className="house-btn"
+          onClick={() => handleNavigate(item.path)}
         >
           {item.label}
         </button>
@@ -31,4 +42,4 @@ function HouseTypeGrid({ language }: HouseTypeGridProps) {
   );
 }
 
-export default HouseTypeGrid;
+export default memo(HouseTypeGrid);
