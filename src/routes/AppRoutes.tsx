@@ -1,23 +1,26 @@
+import { lazy, Suspense } from "react";
 import { Routes, Route } from "react-router-dom";
 
-import Home from "../pages/Home";
-import FoundationPage from "../pages/FoundationPage";
-import AreaPage from "../pages/AreaPage";
-import EstimatePage from "../pages/EstimatePage";
-import HouseListPage from "../pages/HouseListPage";
-import HouseDetailsPage from "../pages/HouseDetailsPage";
-import FloorPlanPage from "../pages/FloorPlanPage";
-import PrivacyPolicyPage from "../pages/PrivacyPolicyPage";
-import TermsPage from "../pages/TermsPage";
-import ContactPage from "../pages/ContactPage";
-
-import AdminLogin from "../pages/AdminLogin";
-import AdminDashboard from "../pages/AdminDashboard";
-import AddHouse from "../pages/AddHouse";
-import AdminHouseList from "../pages/AdminHouseList";
-import EditHouse from "../pages/EditHouse";
-
 import translations from "../data/translations";
+
+// Lazy Pages
+const Home = lazy(() => import("../pages/Home"));
+const FoundationPage = lazy(() => import("../pages/FoundationPage"));
+const AreaPage = lazy(() => import("../pages/AreaPage"));
+const EstimatePage = lazy(() => import("../pages/EstimatePage"));
+const HouseListPage = lazy(() => import("../pages/HouseListPage"));
+const HouseDetailsPage = lazy(() => import("../pages/HouseDetailsPage"));
+const FloorPlanPage = lazy(() => import("../pages/FloorPlanPage"));
+const PrivacyPolicyPage = lazy(() => import("../pages/PrivacyPolicyPage"));
+const TermsPage = lazy(() => import("../pages/TermsPage"));
+const ContactPage = lazy(() => import("../pages/ContactPage"));
+
+// Admin
+const AdminLogin = lazy(() => import("../pages/AdminLogin"));
+const AdminDashboard = lazy(() => import("../pages/AdminDashboard"));
+const AddHouse = lazy(() => import("../pages/AddHouse"));
+const AdminHouseList = lazy(() => import("../pages/AdminHouseList"));
+const EditHouse = lazy(() => import("../pages/EditHouse"));
 
 type AppRoutesProps = {
   language: keyof typeof translations;
@@ -31,94 +34,105 @@ function AppRoutes({
   setLanguage,
 }: AppRoutesProps) {
   return (
-    <Routes>
-      {/* Home */}
-      <Route
-        path="/"
-        element={
-          <Home
-            language={language}
-            setLanguage={setLanguage}
-          />
-        }
-      />
+    <Suspense
+      fallback={
+        <div
+          style={{
+            minHeight: "100vh",
+            display: "flex",
+            justifyContent: "center",
+            alignItems: "center",
+            color: "#fff",
+            fontSize: "22px",
+            background: "#111",
+          }}
+        >
+          Loading...
+        </div>
+      }
+    >
+      <Routes>
+        <Route
+          path="/"
+          element={
+            <Home
+              language={language}
+              setLanguage={setLanguage}
+            />
+          }
+        />
 
-      {/* House List */}
-      <Route
-        path="/houses/:type"
-        element={<HouseListPage language={language} />}
-      />
+        <Route
+          path="/houses/:type"
+          element={<HouseListPage language={language} />}
+        />
 
-      {/* 3D House */}
-      <Route
-        path="/house/:id"
-        element={<HouseDetailsPage />}
-      />
+        <Route
+          path="/house/:id"
+          element={<HouseDetailsPage />}
+        />
 
-      {/* 2D Floor Plan */}
-      <Route
-        path="/floorplan/:folder/:complete/:id"
-        element={<FloorPlanPage />}
-      />
+        <Route
+          path="/floorplan/:folder/:complete/:id"
+          element={<FloorPlanPage />}
+        />
 
-      {/* Estimate */}
-      <Route
-        path="/estimate/:folder/:complete/:id"
-        element={<EstimatePage language={language} />}
-      />
+        <Route
+          path="/estimate/:folder/:complete/:id"
+          element={<EstimatePage language={language} />}
+        />
 
-      {/* Other Pages */}
-      <Route
-        path="/foundation"
-        element={<FoundationPage />}
-      />
+        <Route
+          path="/foundation"
+          element={<FoundationPage />}
+        />
 
-      <Route
-        path="/area"
-        element={<AreaPage />}
-      />
+        <Route
+          path="/area"
+          element={<AreaPage />}
+        />
 
-      <Route
-        path="/privacy-policy"
-        element={<PrivacyPolicyPage />}
-      />
+        <Route
+          path="/privacy-policy"
+          element={<PrivacyPolicyPage />}
+        />
 
-      <Route
-        path="/terms"
-        element={<TermsPage />}
-      />
+        <Route
+          path="/terms"
+          element={<TermsPage />}
+        />
 
-      <Route
-        path="/contact"
-        element={<ContactPage />}
-      />
+        <Route
+          path="/contact"
+          element={<ContactPage />}
+        />
 
-      {/* Admin */}
-      <Route
-        path="/admin/login"
-        element={<AdminLogin />}
-      />
+        <Route
+          path="/admin/login"
+          element={<AdminLogin />}
+        />
 
-      <Route
-        path="/admin/add-house"
-        element={<AddHouse />}
-      />
+        <Route
+          path="/admin/dashboard"
+          element={<AdminDashboard />}
+        />
 
-      <Route
-        path="/admin/houses"
-        element={<AdminHouseList />}
-      />
+        <Route
+          path="/admin/add-house"
+          element={<AddHouse />}
+        />
 
-      <Route
-        path="/admin/edit-house/:id"
-        element={<EditHouse />}
-      />
+        <Route
+          path="/admin/houses"
+          element={<AdminHouseList />}
+        />
 
-      <Route
-        path="/admin/dashboard"
-        element={<AdminDashboard />}
-      />
-    </Routes>
+        <Route
+          path="/admin/edit-house/:id"
+          element={<EditHouse />}
+        />
+      </Routes>
+    </Suspense>
   );
 }
 
