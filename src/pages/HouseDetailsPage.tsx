@@ -83,7 +83,7 @@ function HouseDetailsPage() {
       </h2>
 
       <img
-        src={`https://house-design-platform-server.vercel.app/uploads/3d/${image3d}`}
+        src={image3d}
         alt={house.title || "3D House"}
         loading="eager"
         decoding="async"
