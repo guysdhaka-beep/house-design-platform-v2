@@ -26,11 +26,8 @@ function HouseListPage({ language }: HouseListPageProps) {
     setLoading(true);
 
     fetch(
-      `https://house-design-platform-server.vercel.app/api/houses?type=${type}&page=${page}&limit=${ITEMS_PER_PAGE}`,
-      {
-        cache: "force-cache",
-      }
-    )
+  `https://house-design-platform-server.vercel.app/api/houses?type=${type}&page=${page}&limit=${ITEMS_PER_PAGE}`
+)
       .then((res) => res.json())
       .then((data) => {
         setHouses(data.houses || []);
