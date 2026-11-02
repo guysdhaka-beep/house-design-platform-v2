@@ -52,7 +52,7 @@ function HouseCard({
         }}
       >
         <img
-          src={`https://house-design-platform-server.vercel.app/uploads/3d/${image3d}`}
+          src={image3d}
           alt="House Design"
           loading="lazy"
           decoding="async"

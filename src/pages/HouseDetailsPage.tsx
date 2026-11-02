@@ -19,11 +19,8 @@ function HouseDetailsPage() {
 
   useEffect(() => {
     fetch(
-      `https://house-design-platform-server.vercel.app/api/houses/${id}`,
-      {
-        cache: "force-cache",
-      }
-    )
+  `https://house-design-platform-server.vercel.app/api/houses/${id}`
+)
       .then((res) => res.json())
       .then((data) => {
         setHouse(data.house);
