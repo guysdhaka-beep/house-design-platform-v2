@@ -1,4 +1,3 @@
-
 import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 
@@ -27,7 +26,6 @@ type House = {
 };
 
 const API = "https://house-design-platform-server.vercel.app/api/houses";
-const IMAGE_URL = "https://house-design-platform-server.vercel.app/uploads";
 
 const houseTypes = [
   { value: "1-story", label: "1 Tola" },
@@ -118,7 +116,6 @@ export default function AdminHouseList() {
 
         <main className="admin-house-list-content">
 
-          {/* Heading */}
           <div className="admin-house-list-heading">
             <div>
               <span>HOUSE MANAGEMENT</span>
@@ -134,7 +131,6 @@ export default function AdminHouseList() {
             </button>
           </div>
 
-          {/* House Type Tabs */}
           <div className="admin-house-type-tabs">
             {houseTypes.map((type) => {
               const count = houses.filter(
@@ -161,20 +157,18 @@ export default function AdminHouseList() {
             })}
           </div>
 
-          {/* Gallery Information */}
           <div className="admin-house-gallery-heading">
             <h3>
-              {houseTypes.find(
-                (type) => type.value === selectedType
-              )?.label}
+              {
+                houseTypes.find(
+                  (type) => type.value === selectedType
+                )?.label
+              }
             </h3>
 
-            <span>
-              {filteredHouses.length} Houses
-            </span>
+            <span>{filteredHouses.length} Houses</span>
           </div>
 
-          {/* Gallery */}
           {loading ? (
             <div className="admin-house-message">
               Loading houses...
@@ -186,20 +180,22 @@ export default function AdminHouseList() {
           ) : (
             <div className="admin-house-grid">
               {filteredHouses.map((house) => {
-                const image3d = house.images?.find(
-                  (image) => image.type === "3d"
-                )?.image;
+                const image3d =
+                  house.images?.find(
+                    (image) => image.type === "3d"
+                  )?.image || "";
 
-                const isSelected = selectedHouse === house.id;
+                const isSelected =
+                  selectedHouse === house.id;
 
                 return (
                   <article
+                    key={house.id}
                     className={
                       isSelected
                         ? "admin-house-card selected"
                         : "admin-house-card"
                     }
-                    key={house.id}
                   >
                     <button
                       type="button"
@@ -212,9 +208,11 @@ export default function AdminHouseList() {
                     >
                       {image3d ? (
                         <img
-                          src={`${IMAGE_URL}/3d/${image3d}`}
+                          src={image3d}
                           alt={house.title}
                           loading="lazy"
+                          decoding="async"
+                          draggable={false}
                         />
                       ) : (
                         <div className="admin-house-no-image">
@@ -242,7 +240,9 @@ export default function AdminHouseList() {
                         <button
                           className="admin-house-edit-btn"
                           onClick={() =>
-                            navigate(`/admin/edit-house/${house.id}`)
+                            navigate(
+                              `/admin/edit-house/${house.id}`
+                            )
                           }
                         >
                           ✏ Edit
@@ -251,7 +251,10 @@ export default function AdminHouseList() {
                         <button
                           className="admin-house-view-btn"
                           onClick={() =>
-                            window.open(`/house/${house.id}`, "_blank")
+                            window.open(
+                              `/house/${house.id}`,
+                              "_blank"
+                            )
                           }
                         >
                           👁 View
@@ -259,8 +262,12 @@ export default function AdminHouseList() {
 
                         <button
                           className="admin-house-delete-btn"
-                          disabled={deleting === house.id}
-                          onClick={() => void deleteHouse(house.id)}
+                          disabled={
+                            deleting === house.id
+                          }
+                          onClick={() =>
+                            void deleteHouse(house.id)
+                          }
                         >
                           {deleting === house.id
                             ? "Deleting..."
@@ -273,7 +280,6 @@ export default function AdminHouseList() {
               })}
             </div>
           )}
-
         </main>
       </div>
     </div>
