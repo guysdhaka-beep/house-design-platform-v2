@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useEffect, useState, useMemo } from "react";
 import { useNavigate, useParams } from "react-router-dom";
 
 import translations from "../data/translations";
@@ -7,26 +7,54 @@ import { incrementView } from "../data/views";
 import "../styles/house-details.css";
 import HomeButton from "../components/HomeButton";
 
+const API =
+  "https://house-design-platform-server.vercel.app/api/houses";
+
 function HouseDetailsPage() {
   const { id } = useParams();
   const navigate = useNavigate();
 
-  const language =
-    (localStorage.getItem("language") as keyof typeof translations) || "bn";
+  const language = useMemo(
+    () =>
+      (localStorage.getItem(
+        "language"
+      ) as keyof typeof translations) || "bn",
+    []
+  );
 
   const [house, setHouse] = useState<any>(null);
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
-    fetch(
-  `https://house-design-platform-server.vercel.app/api/houses/${id}`
-)
-      .then((res) => res.json())
-      .then((data) => {
-        setHouse(data.house);
-      })
-      .catch(console.error)
-      .finally(() => setLoading(false));
+    let ignore = false;
+
+    async function loadHouse() {
+      try {
+        setLoading(true);
+
+        const res = await fetch(`${API}/${id}`, {
+          cache: "force-cache",
+        });
+
+        const data = await res.json();
+
+        if (!ignore) {
+          setHouse(data.house);
+        }
+      } catch (err) {
+        console.error(err);
+      } finally {
+        if (!ignore) {
+          setLoading(false);
+        }
+      }
+    }
+
+    loadHouse();
+
+    return () => {
+      ignore = true;
+    };
   }, [id]);
 
   useEffect(() => {
@@ -37,7 +65,12 @@ function HouseDetailsPage() {
 
   if (loading) {
     return (
-      <h2 style={{ textAlign: "center", marginTop: "60px" }}>
+      <h2
+        style={{
+          textAlign: "center",
+          marginTop: "60px",
+        }}
+      >
         Loading...
       </h2>
     );
@@ -45,14 +78,21 @@ function HouseDetailsPage() {
 
   if (!house) {
     return (
-      <h2 style={{ textAlign: "center", marginTop: "60px" }}>
+      <h2
+        style={{
+          textAlign: "center",
+          marginTop: "60px",
+        }}
+      >
         House not found
       </h2>
     );
   }
 
   const image3d =
-    house.images?.find((img: any) => img.type === "3d")?.image || "";
+    house.images?.find(
+      (img: any) => img.type === "3d"
+    )?.image || "";
 
   return (
     <div
@@ -65,7 +105,12 @@ function HouseDetailsPage() {
         textAlign: "center",
       }}
     >
-      <div style={{ textAlign: "left", marginBottom: "20px" }}>
+      <div
+        style={{
+          textAlign: "left",
+          marginBottom: "20px",
+        }}
+      >
         <HomeButton />
       </div>
 
@@ -83,6 +128,7 @@ function HouseDetailsPage() {
         src={image3d}
         alt={house.title || "3D House"}
         loading="eager"
+        fetchPriority="high"
         decoding="async"
         draggable={false}
         style={{
@@ -91,7 +137,8 @@ function HouseDetailsPage() {
           borderRadius: "12px",
           display: "block",
           margin: "30px auto",
-          boxShadow: "0 8px 25px rgba(0,0,0,.25)",
+          boxShadow:
+            "0 8px 25px rgba(0,0,0,.25)",
         }}
       />
 
