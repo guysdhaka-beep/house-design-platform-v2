@@ -54,7 +54,7 @@ function FloorPlanPage() {
 
       {image2d ? (
         <img
-          src={`https://house-design-platform-server.vercel.app/uploads/2d/${image2d}`}
+          src={image2d}
           alt="2D Floor Plan"
           style={{
             width: "100%",
