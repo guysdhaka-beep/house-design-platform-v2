@@ -1,5 +1,6 @@
 import { memo } from "react";
 import { useNavigate } from "react-router-dom";
+
 import translations from "../data/translations";
 import type { House } from "../types/house";
 
@@ -19,20 +20,69 @@ function HouseCard({
   const image3d =
     house.images.find((img) => img.type === "3d")?.image || "";
 
+  function openHouse() {
+    fetch(
+      `https://house-design-platform-server.vercel.app/api/houses/${house.id}`,
+      {
+        cache: "force-cache",
+      }
+    ).catch(() => {});
+
+    navigate(`/house/${house.id}`);
+  }
+
+  function openFloorPlan(
+    e: React.MouseEvent<HTMLButtonElement>
+  ) {
+    e.stopPropagation();
+
+    fetch(
+      `https://house-design-platform-server.vercel.app/api/houses/${house.id}`,
+      {
+        cache: "force-cache",
+      }
+    ).catch(() => {});
+
+    navigate(
+      `/floorplan/${house.folder}/${house.complete}/${house.id}`
+    );
+  }
+
+  function openEstimate(
+    e: React.MouseEvent<HTMLButtonElement>
+  ) {
+    e.stopPropagation();
+
+    fetch(
+      `https://house-design-platform-server.vercel.app/api/houses/${house.id}`,
+      {
+        cache: "force-cache",
+      }
+    ).catch(() => {});
+
+    navigate(
+      `/estimate/${house.folder}/${house.complete}/${house.id}`
+    );
+  }
+
   return (
     <div
-      onClick={() => navigate(`/house/${house.id}`)}
+      onClick={openHouse}
       onMouseEnter={(e) => {
-        e.currentTarget.style.transform = "translateY(-8px)";
+        e.currentTarget.style.transform =
+          "translateY(-8px)";
         e.currentTarget.style.boxShadow =
           "0 18px 40px rgba(0,0,0,.45)";
-        e.currentTarget.style.borderColor = "#2563eb";
+        e.currentTarget.style.borderColor =
+          "#2563eb";
       }}
       onMouseLeave={(e) => {
-        e.currentTarget.style.transform = "translateY(0)";
+        e.currentTarget.style.transform =
+          "translateY(0)";
         e.currentTarget.style.boxShadow =
           "0 8px 20px rgba(0,0,0,.25)";
-        e.currentTarget.style.borderColor = "#2d2d2d";
+        e.currentTarget.style.borderColor =
+          "#2d2d2d";
       }}
       style={{
         width: "390px",
@@ -42,7 +92,8 @@ function HouseCard({
         border: "1px solid #2d2d2d",
         cursor: "pointer",
         transition: ".30s",
-        boxShadow: "0 8px 20px rgba(0,0,0,.25)",
+        boxShadow:
+          "0 8px 20px rgba(0,0,0,.25)",
       }}
     >
       <div
@@ -56,6 +107,7 @@ function HouseCard({
           alt="House Design"
           loading="lazy"
           decoding="async"
+          fetchPriority="high"
           draggable={false}
           style={{
             width: "100%",
@@ -104,7 +156,8 @@ function HouseCard({
           padding: "18px",
         }}
       >
-        <div
+
+             <div
           style={{
             color: "#d5d5d5",
             fontSize: "18px",
@@ -125,10 +178,7 @@ function HouseCard({
         </div>
 
         <button
-          onClick={(e) => {
-            e.stopPropagation();
-            navigate(`/floorplan/${house.folder}/${house.complete}/${house.id}`);
-          }}
+          onClick={openFloorPlan}
           style={{
             width: "100%",
             padding: "15px",
@@ -146,28 +196,19 @@ function HouseCard({
               "0 8px 18px rgba(33,150,243,.35)",
           }}
           onMouseEnter={(e) => {
-            e.currentTarget.style.transform = "translateY(-3px)";
+            e.currentTarget.style.transform =
+              "translateY(-3px)";
           }}
           onMouseLeave={(e) => {
-            e.currentTarget.style.transform = "translateY(0)";
+            e.currentTarget.style.transform =
+              "translateY(0)";
           }}
         >
           📐 {t.view2d}
         </button>
 
         <button
-          onClick={(e) => {
-  e.stopPropagation();
-
-  console.log("Folder =", house.folder);
-  console.log(
-    `/floorplan/${house.folder}/${house.complete}/${house.id}`
-  );
-
-  navigate(
-    `/floorplan/${house.folder}/${house.complete}/${house.id}`
-  );
-}}
+          onClick={openEstimate}
           style={{
             width: "100%",
             padding: "15px",
@@ -184,10 +225,12 @@ function HouseCard({
               "0 8px 18px rgba(34,197,94,.35)",
           }}
           onMouseEnter={(e) => {
-            e.currentTarget.style.transform = "translateY(-3px)";
+            e.currentTarget.style.transform =
+              "translateY(-3px)";
           }}
           onMouseLeave={(e) => {
-            e.currentTarget.style.transform = "translateY(0)";
+            e.currentTarget.style.transform =
+              "translateY(0)";
           }}
         >
           💰 {t.estimate}
