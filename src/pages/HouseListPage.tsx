@@ -1,8 +1,10 @@
 import { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
+
 import HouseCard from "../components/HouseCard";
-import translations from "../data/translations";
 import HomeButton from "../components/HomeButton";
+
+import translations from "../data/translations";
 import type { House } from "../types/house";
 
 type HouseListPageProps = {
@@ -11,7 +13,12 @@ type HouseListPageProps = {
 
 const ITEMS_PER_PAGE = 15;
 
-function HouseListPage({ language }: HouseListPageProps) {
+const API =
+  "https://house-design-platform-server.vercel.app/api/houses";
+
+function HouseListPage({
+  language,
+}: HouseListPageProps) {
   const { type } = useParams();
 
   const t = translations[language];
@@ -23,23 +30,53 @@ function HouseListPage({ language }: HouseListPageProps) {
   const [totalPages, setTotalPages] = useState(1);
 
   useEffect(() => {
-    setLoading(true);
-
-    fetch(
-  `https://house-design-platform-server.vercel.app/api/houses?type=${type}&page=${page}&limit=${ITEMS_PER_PAGE}`
-)
-      .then((res) => res.json())
-      .then((data) => {
-        setHouses(data.houses || []);
-        setTotalPages(data.totalPages || 1);
-      })
-      .catch(console.error)
-      .finally(() => setLoading(false));
-  }, [page, type]);
-
-  useEffect(() => {
     setPage(1);
   }, [type]);
+
+  useEffect(() => {
+    let ignore = false;
+
+    async function loadHouses() {
+      try {
+        setLoading(true);
+
+        const response = await fetch(
+          `${API}?type=${type}&page=${page}&limit=${ITEMS_PER_PAGE}`,
+          {
+            cache: "force-cache",
+          }
+        );
+
+        const data = await response.json();
+
+        if (ignore) return;
+
+        setHouses(data.houses || []);
+        setTotalPages(data.totalPages || 1);
+
+        // Prefetch first 3 house details
+        (data.houses || [])
+          .slice(0, 3)
+          .forEach((house: House) => {
+            fetch(`${API}/${house.id}`, {
+              cache: "force-cache",
+            }).catch(() => {});
+          });
+      } catch (err) {
+        console.error(err);
+      } finally {
+        if (!ignore) {
+          setLoading(false);
+        }
+      }
+    }
+
+    loadHouses();
+
+    return () => {
+      ignore = true;
+    };
+  }, [page, type]);
 
   if (loading) {
     return (
@@ -67,7 +104,12 @@ function HouseListPage({ language }: HouseListPageProps) {
         boxSizing: "border-box",
       }}
     >
-      <div style={{ textAlign: "left", marginBottom: "20px" }}>
+      <div
+        style={{
+          textAlign: "left",
+          marginBottom: "20px",
+        }}
+      >
         <HomeButton />
       </div>
 
@@ -93,11 +135,13 @@ function HouseListPage({ language }: HouseListPageProps) {
       <div
         style={{
           display: "grid",
-          gridTemplateColumns: "repeat(auto-fit, minmax(390px, 1fr))",
+          gridTemplateColumns:
+            "repeat(auto-fit, minmax(390px, 1fr))",
           gap: "25px",
           justifyItems: "center",
         }}
       >
+
         {houses.length > 0 ? (
           houses.map((house) => (
             <HouseCard
@@ -129,7 +173,10 @@ function HouseListPage({ language }: HouseListPageProps) {
             onClick={() => setPage((p) => p - 1)}
             style={{
               padding: "10px 18px",
-              cursor: page === 1 ? "not-allowed" : "pointer",
+              cursor:
+                page === 1
+                  ? "not-allowed"
+                  : "pointer",
             }}
           >
             ◀ Prev
@@ -150,7 +197,10 @@ function HouseListPage({ language }: HouseListPageProps) {
             onClick={() => setPage((p) => p + 1)}
             style={{
               padding: "10px 18px",
-              cursor: page === totalPages ? "not-allowed" : "pointer",
+              cursor:
+                page === totalPages
+                  ? "not-allowed"
+                  : "pointer",
             }}
           >
             Next ▶
@@ -162,3 +212,6 @@ function HouseListPage({ language }: HouseListPageProps) {
 }
 
 export default HouseListPage;
+
+
+  
