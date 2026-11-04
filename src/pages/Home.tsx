@@ -1,4 +1,7 @@
+
 import { memo } from "react";
+
+import "./Home.css";
 
 import Header from "../components/Header";
 import HouseTypeGrid from "../components/HouseTypeGrid";
@@ -14,48 +17,28 @@ type HomeProps = {
   >;
 };
 
-function Home({
-  language,
-  setLanguage,
-}: HomeProps) {
+function Home({ language, setLanguage }: HomeProps) {
   const t = translations[language];
 
   return (
-    <main
-      style={{
-        fontFamily: "Arial, sans-serif",
-        width: "100%",
-        maxWidth: "1200px",
-        margin: "0 auto",
-        padding: "40px",
-        boxSizing: "border-box",
-        textAlign: "center",
-        minHeight: "100vh",
-        display: "flex",
-        flexDirection: "column",
-      }}
-    >
+    <main className="home-container">
       <Header
-        language={language}
-        setLanguage={setLanguage}
-      />
+  language={language}
+  setLanguage={setLanguage}
+/>
 
-      <hr className="header-line" />
+<hr className="header-line-reverse" />
 
-      <SearchBar language={language} />
 
-      <h2
-        style={{
-          marginTop: "15px",
-          marginBottom: "35px",
-        }}
-      >
+<SearchBar language={language} />
+
+      <h2 className="home-question">
         {t.question}
       </h2>
 
       <HouseTypeGrid language={language} />
 
-      <footer style={{ marginTop: "60px" }}>
+      <footer className="home-footer">
         <Footer />
       </footer>
     </main>

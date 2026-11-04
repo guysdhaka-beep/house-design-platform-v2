@@ -1,24 +1,20 @@
+
 import { useNavigate } from "react-router-dom";
+
+import "../styles/home-button.css";
 
 function HomeButton() {
   const navigate = useNavigate();
 
   return (
     <button
+      type="button"
+      className="home-button"
       onClick={() => navigate("/")}
-      style={{
-        marginTop: "20px",
-        marginBottom: "20px",
-        padding: "10px 18px",
-        borderRadius: "10px",
-        border: "1px solid #3b82f6",
-        background: "#1f2937",
-        color: "#fff",
-        fontSize: "16px",
-        cursor: "pointer",
-      }}
+      aria-label="Go to Home Page"
     >
-      🏠 Home
+      <span aria-hidden="true">🏠</span>
+      <span>Home</span>
     </button>
   );
 }

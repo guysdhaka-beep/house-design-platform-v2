@@ -1,0 +1,159 @@
+
+/* =========================
+   Home Page
+========================= */
+
+.home-container {
+  width: 100%;
+  max-width: 1280px;
+  min-height: 100vh;
+  margin: 0 auto;
+  padding: 24px;
+
+  display: flex;
+  flex-direction: column;
+
+  box-sizing: border-box;
+  text-align: center;
+  font-family: Arial, Helvetica, sans-serif;
+
+  overflow-x: clip;
+}
+
+/* =========================
+   Rainbow Lines
+========================= */
+
+.home-container .header-line,
+.home-container .header-line-reverse {
+  display: block;
+  width: 420px;
+  max-width: 90%;
+  height: 3px;
+
+  margin: 18px auto;
+  padding: 0;
+
+  border: 0;
+  border-radius: 999px;
+
+  flex-shrink: 0;
+}
+
+/* First Line: Purple → Red */
+
+/* First Line: Purple → Red */
+.home-container .header-line {
+  background-image: linear-gradient(
+    90deg,
+    #8b00ff 0%,
+    #0000ff 16.66%,
+    #00ffff 33.33%,
+    #00ff00 50%,
+    #ffff00 66.66%,
+    #ff7f00 83.33%,
+    #ff0000 100%
+  ) !important;
+
+  background-color: transparent !important;
+}
+
+/* Second Line: Red → Purple */
+.home-container .header-line-reverse {
+  background-image: linear-gradient(
+    90deg,
+    #ff0000 0%,
+    #ff7f00 16.66%,
+    #ffff00 33.33%,
+    #00ff00 50%,
+    #00ffff 66.66%,
+    #0000ff 83.33%,
+    #8b00ff 100%
+  ) !important;
+
+  background-color: transparent !important;
+}
+
+/* =========================
+   Home Question
+========================= */
+
+.home-container .home-question {
+  margin: 15px 0 28px;
+  padding: 0 8px;
+
+  color: #ffffff;
+  font-size: 26px;
+  font-weight: 700;
+  line-height: 1.45;
+
+  overflow-wrap: anywhere;
+}
+
+/* =========================
+   Footer
+========================= */
+
+.home-container .home-footer {
+  width: 100%;
+  margin-top: auto;
+  padding-top: 50px;
+}
+
+/* =========================
+   Tablet
+========================= */
+
+@media (max-width: 1024px) {
+  .home-container {
+    padding: 20px;
+  }
+}
+
+/* =========================
+   Mobile
+========================= */
+
+@media (max-width: 768px) {
+  .home-container {
+    padding: 16px;
+  }
+
+  .home-container .header-line,
+  .home-container .header-line-reverse {
+    width: 90%;
+    margin-top: 14px;
+  }
+
+  .home-container .header-line-reverse {
+    margin-bottom: 22px;
+  }
+
+  .home-container .home-question {
+    font-size: 22px;
+    margin: 12px 0 24px;
+  }
+
+  .home-container .home-footer {
+    padding-top: 35px;
+  }
+}
+
+/* =========================
+   Small Mobile
+========================= */
+
+@media (max-width: 480px) {
+  .home-container {
+    padding: 12px;
+  }
+
+  .home-container .header-line,
+  .home-container .header-line-reverse {
+    width: 92%;
+  }
+
+  .home-container .home-question {
+    font-size: 20px;
+  }
+}

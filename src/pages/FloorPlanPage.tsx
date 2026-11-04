@@ -1,40 +1,51 @@
-import { useEffect, useMemo, useState } from "react";
+
+import { useEffect, useState } from "react";
 import { useNavigate, useParams } from "react-router-dom";
 
 import translations from "../data/translations";
 import HomeButton from "../components/HomeButton";
+import { getHouse, saveHouse } from "../data/houseCache";
 
-const API =
-  "https://house-design-platform-server.vercel.app/api/houses";
+import "../styles/floorplan.css";
+
+type Language = keyof typeof translations;
 
 function FloorPlanPage() {
   const navigate = useNavigate();
   const { id } = useParams();
 
-  const language =
-    (localStorage.getItem("language") as keyof typeof translations) || "bn";
-
-  const t = translations[language];
+  const language = (localStorage.getItem("language") as Language) || "bn";
+  const t = translations[language] ?? translations.bn;
 
   const [house, setHouse] = useState<any>(null);
   const [loading, setLoading] = useState(true);
+  const [loadError, setLoadError] = useState(false);
 
   useEffect(() => {
     let ignore = false;
 
     async function loadHouse() {
       try {
-        const response = await fetch(`${API}/${id}`, {
-          cache: "force-cache",
-        });
+        setLoading(true);
+        setLoadError(false);
 
-        const data = await response.json();
+        const data = await getHouse(Number(id));
 
         if (!ignore) {
-          setHouse(data.house);
+          if (data) {
+            saveHouse(data);
+            setHouse(data);
+          } else {
+            setHouse(null);
+          }
         }
-      } catch (err) {
-        console.error(err);
+      } catch (error) {
+        console.error("Failed to load house:", error);
+
+        if (!ignore) {
+          setHouse(null);
+          setLoadError(true);
+        }
       } finally {
         if (!ignore) {
           setLoading(false);
@@ -49,13 +60,8 @@ function FloorPlanPage() {
     };
   }, [id]);
 
-  const image2d = useMemo(() => {
-    return (
-      house?.images?.find(
-        (img: any) => img.type === "2d"
-      )?.image || ""
-    );
-  }, [house]);
+  const image2d =
+    house?.images?.find((img: any) => img.type === "2d")?.image || "";
 
   function open3D() {
     navigate(`/house/${house.id}`);
@@ -67,96 +73,89 @@ function FloorPlanPage() {
     );
   }
 
-  if (loading) {
-    return (
-      <div
-        style={{
-          textAlign: "center",
-          marginTop: "60px",
-          color: "#fff",
-          fontSize: "22px",
-        }}
-      >
-        Loading...
-      </div>
-    );
-  }
-
-  if (!house) {
-    return (
-      <div
-        style={{
-          textAlign: "center",
-          marginTop: "60px",
-          color: "#fff",
-          fontSize: "22px",
-        }}
-      >
-        House not found
-      </div>
-    );
-  }
-
   return (
-    <div
-      style={{
-        width: "100%",
-        maxWidth: "1200px",
-        margin: "0 auto",
-        padding: "40px",
-        boxSizing: "border-box",
-        textAlign: "center",
-      }}
-    >
-      <div
-        style={{
-          textAlign: "left",
-          marginBottom: "20px",
-        }}
-      >
-        <HomeButton />
-      </div>
+    <main className="floorplan-container">
+      <header className="floorplan-header">
+        <div className="floorplan-home">
+          <HomeButton />
+        </div>
 
-      <h1
-        style={{
-          marginBottom: "20px",
-        }}
-      >
-        📐 2D Floor Plan
-      </h1>
+        <h1 className="floorplan-title">
+          📐 {t.view2d}
+        </h1>
+      </header>
 
-      {image2d ? (
-        <img
-          src={image2d}
-          alt="2D Floor Plan"
-          loading="eager"
-          decoding="async"
-          fetchPriority="high"
-          draggable={false}
-          style={{
-            width: "100%",
-            maxWidth: "700px",
-            borderRadius: "12px",
-            display: "block",
-            margin: "30px auto",
-            boxShadow:
-              "0 8px 25px rgba(0,0,0,.25)",
-          }}
-        />
+      {loading ? (
+        <section
+          className="floorplan-status"
+          role="status"
+          aria-live="polite"
+        >
+          <span className="floorplan-loader" />
+          <p>Loading...</p>
+        </section>
+      ) : loadError ? (
+        <section className="floorplan-status" role="alert">
+          <div className="floorplan-status-icon" aria-hidden="true">
+            !
+          </div>
+          <h2>Unable to load floor plan</h2>
+          <p>Please try again later.</p>
+        </section>
+      ) : !house ? (
+        <section className="floorplan-status" role="status">
+          <div className="floorplan-status-icon" aria-hidden="true">
+            ⌂
+          </div>
+          <h2>House not found</h2>
+        </section>
       ) : (
-        <h3>No 2D image found.</h3>
+        <section className="floorplan-content">
+          <div className="floorplan-image-card">
+            {image2d ? (
+              <img
+                src={image2d}
+                alt="2D Floor Plan"
+                className="floorplan-image"
+                loading="eager"
+                fetchPriority="high"
+                decoding="async"
+                draggable={false}
+              />
+            ) : (
+              <div className="floorplan-placeholder">
+                <span aria-hidden="true">📐</span>
+                <h2>No 2D image found.</h2>
+              </div>
+            )}
+          </div>
+
+          <div className="floorplan-buttons">
+            <button
+              type="button"
+              className="floorplan-button floorplan-blue-button"
+              onClick={open3D}
+            >
+              <span className="floorplan-button-icon" aria-hidden="true">
+                🏠
+              </span>
+              <span>{t.view3d}</span>
+            </button>
+
+            <button
+              type="button"
+              className="floorplan-button floorplan-green-button"
+              onClick={openEstimate}
+            >
+              <span className="floorplan-button-icon" aria-hidden="true">
+                💰
+              </span>
+              <span>{t.estimate}</span>
+            </button>
+          </div>
+        </section>
       )}
-
-      <div className="button-group">
-        <button onClick={open3D}>
-          🏠 {t.view3d}
-        </button>
-
-        <button onClick={openEstimate}>
-          💰 {t.estimate}
-        </button>
-      </div>
-    </div>
+    </main>
   );
 }
 

@@ -6,6 +6,7 @@ import HomeButton from "../components/HomeButton";
 
 import translations from "../data/translations";
 import type { House } from "../types/house";
+import "../styles/house-listPage.css";
 
 type HouseListPageProps = {
   language: keyof typeof translations;
@@ -94,16 +95,8 @@ function HouseListPage({
   }
 
   return (
-    <div
-      style={{
-        width: "100%",
-        maxWidth: "1400px",
-        margin: "0 auto",
-        padding: "40px 20px",
-        textAlign: "center",
-        boxSizing: "border-box",
-      }}
-    >
+    <div className="house-list-container">
+
       <div
         style={{
           textAlign: "left",
@@ -132,15 +125,7 @@ function HouseListPage({
         {type}
       </p>
 
-      <div
-        style={{
-          display: "grid",
-          gridTemplateColumns:
-            "repeat(auto-fit, minmax(390px, 1fr))",
-          gap: "25px",
-          justifyItems: "center",
-        }}
-      >
+      <div className="house-list-grid">
 
         {houses.length > 0 ? (
           houses.map((house) => (

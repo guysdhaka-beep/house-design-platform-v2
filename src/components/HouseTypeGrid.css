@@ -1,35 +1,106 @@
+
+/* House Type Grid */
+
+.house-grid {
+  width: 100%;
+  max-width: 1100px;
+  margin: 0 auto;
+
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 18px;
+
+  align-items: stretch;
+}
+
+/* House Category Button */
+
 .house-btn {
   width: 100%;
-  padding: 14px 20px;
-  border-radius: 12px;
-  border: 1px solid #3b82f6;
-  background: linear-gradient(180deg, #2b3348, #1f2937);
-  color: #fff;
-  font-size: 18px;
+  min-width: 0;
+  min-height: 82px;
+  padding: 18px 14px;
+
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  border: 1px solid rgba(212, 175, 55, 0.75);
+  border-radius: 14px;
+
+  background: linear-gradient(145deg, #27272a, #111217);
+  color: #ffffff;
+
+  font-family: inherit;
+  font-size: 19px;
   font-weight: 700;
+  line-height: 1.4;
+  text-align: center;
+  overflow-wrap: anywhere;
+
   cursor: pointer;
-  transition: all 0.25s ease;
-  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.25);
+
+  box-shadow: 0 5px 14px rgba(0, 0, 0, 0.25);
+
+  transition:
+    transform 0.2s ease,
+    background 0.2s ease,
+    border-color 0.2s ease,
+    box-shadow 0.2s ease;
+
+  -webkit-tap-highlight-color: transparent;
 }
 
 .house-btn:hover {
-  background: linear-gradient(180deg, #3b82f6, #2563eb);
-  transform: translateY(-2px);
-}
-
-.house-btn:active {
-  transform: translateY(0);
-}
-.house-btn:hover {
-  background: linear-gradient(135deg, #2563eb, #1d4ed8);
   transform: translateY(-3px);
-  box-shadow: 0 8px 20px rgba(37, 99, 235, 0.35);
+  background: linear-gradient(135deg, #854d0e, #422006);
+  border-color: #facc15;
+  box-shadow: 0 8px 20px rgba(212, 175, 55, 0.2);
 }
 
 .house-btn:active {
   transform: scale(0.98);
 }
 
-.house-btn {
-  transition: all 0.25s ease;
+.house-btn:focus-visible {
+  outline: 2px solid #facc15;
+  outline-offset: 4px;
+}
+
+/* Tablet */
+
+@media (max-width: 768px) {
+  .house-grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 14px;
+  }
+
+  .house-btn {
+    min-height: 72px;
+    padding: 15px 10px;
+    font-size: 17px;
+  }
+}
+
+/* Mobile */
+
+@media (max-width: 480px) {
+  .house-grid {
+    gap: 12px;
+  }
+
+  .house-btn {
+    min-height: 66px;
+    padding: 13px 8px;
+    font-size: 16px;
+    border-radius: 11px;
+  }
+}
+
+/* Reduced Motion */
+
+@media (prefers-reduced-motion: reduce) {
+  .house-btn {
+    transition: none;
+  }
 }

@@ -54,3 +54,243 @@
   animation: shine 5s ease-in-out infinite;
 opacity: .75;
 }
+
+.house-details-header {
+  position: relative;
+  width: 100%;
+  min-height: 60px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-bottom: 24px;
+}
+
+.house-details-home {
+  position: absolute;
+  top: 0;
+  left: 0;
+  display: flex;
+  justify-content: flex-start;
+  align-items: center;
+  z-index: 2;
+}
+
+.house-title {
+  width: 100%;
+  margin: 0;
+  padding: 0 150px;
+  text-align: center;
+}
+
+
+/* =====================================
+   HOUSE DETAILS - LAYOUT FIX
+===================================== */
+
+/* Root width fix */
+#root {
+  width: 100%;
+  max-width: 1440px;
+  margin-inline: auto;
+}
+
+/* Main page */
+.house-details-container {
+  width: 100%;
+  max-width: 1200px;
+  min-height: 100vh;
+  margin: 0 auto;
+  padding: 24px clamp(14px, 3vw, 36px) 40px;
+  box-sizing: border-box;
+  text-align: center;
+}
+
+/* Header */
+.house-details-header {
+  position: relative;
+  width: 100%;
+  min-height: 65px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-bottom: 24px;
+}
+
+.house-details-home {
+  position: absolute;
+  top: 0;
+  left: 0;
+  z-index: 5;
+}
+
+.house-title {
+  width: 100%;
+  margin: 0;
+  padding: 0 150px;
+  text-align: center;
+}
+
+/* Image content */
+.house-details-content {
+  width: 100%;
+  max-width: 1050px;
+  margin: 0 auto;
+}
+
+.house-image-card {
+  width: 100%;
+  margin: 0 auto;
+  padding: 12px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  box-sizing: border-box;
+  background: #1b1d25;
+  border: 1px solid #d4af37;
+  border-radius: 16px;
+}
+
+.house-main-image {
+  display: block;
+  width: 100%;
+  max-width: 100%;
+  height: auto;
+  max-height: none;
+  object-fit: contain;
+  object-position: center;
+  margin: 0 auto;
+  border-radius: 9px;
+}
+
+/* Navigation buttons */
+.house-details-actions {
+  display: flex;
+  width: 100%;
+  max-width: 100%;
+  gap: 18px;
+  margin: 24px auto 0;
+  justify-content: center;
+  align-items: stretch;
+}
+
+.house-details-actions .estimate-action-button {
+  flex: 1 1 0;
+  width: 50%;
+  min-width: 0;
+  min-height: 72px;
+  padding: 16px 22px;
+
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 12px;
+
+  box-sizing: border-box;
+
+  background: linear-gradient(135deg, #27272a, #09090b);
+  color: #fff;
+  border: 1px solid #d4af37;
+  border-radius: 14px;
+
+  font-family: inherit;
+  font-size: 20px;
+  font-weight: 700;
+
+  cursor: pointer;
+
+  transition:
+    transform .25s ease,
+    background .25s ease,
+    border-color .25s ease,
+    box-shadow .25s ease;
+}
+
+.house-details-actions .estimate-action-button:hover {
+  transform: translateY(-3px);
+  background: linear-gradient(135deg, #854d0e, #422006);
+  border-color: #facc15;
+  box-shadow: 0 8px 20px rgba(212, 175, 55, .2);
+}
+
+.house-details-actions .estimate-action-button:active {
+  transform: scale(.98);
+}
+
+.house-details-actions .estimate-action-button:focus-visible {
+  outline: 2px solid #facc15;
+  outline-offset: 4px;
+}
+
+.house-details-actions .estimate-action-icon {
+  font-size: 25px;
+  flex: 0 0 auto;
+}
+
+.house-details-actions .estimate-action-label {
+  min-width: 0;
+  overflow-wrap: anywhere;
+  text-align: center;
+}
+
+/* Tablet */
+@media (max-width: 768px) {
+  .house-details-container {
+    padding: 20px 16px 30px;
+  }
+
+  .house-details-content {
+    max-width: 100%;
+  }
+
+  .house-title {
+    padding: 0 110px;
+    font-size: 26px;
+  }
+}
+
+/* Mobile */
+@media (max-width: 520px) {
+  .house-details-container {
+    padding: 16px 12px 28px;
+  }
+
+  .house-details-header {
+    min-height: 95px;
+    align-items: flex-end;
+  }
+
+  .house-details-home {
+    top: 0;
+    left: 0;
+  }
+
+  .house-title {
+    padding: 0;
+    font-size: 23px;
+  }
+
+  .house-image-card {
+    padding: 7px;
+    border-radius: 12px;
+  }
+
+  .house-details-actions {
+    flex-direction: column;
+    gap: 12px;
+    margin-top: 18px;
+  }
+
+  .house-details-actions .estimate-action-button {
+    width: 100%;
+    flex: 1 1 auto;
+    min-height: 72px;
+    font-size: 17px;
+  }
+}
+
+/* Reduced motion */
+@media (prefers-reduced-motion: reduce) {
+  .house-details-actions .estimate-action-button {
+    transition: none;
+  }
+}

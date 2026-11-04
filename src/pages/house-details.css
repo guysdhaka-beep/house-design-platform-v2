@@ -1,0 +1,349 @@
+
+/* =================================
+   HOUSE DETAILS - BLACK & GOLD
+================================= */
+
+.house-details-container {
+  width: 100%;
+  max-width: 1400px;
+  min-height: 100vh;
+  margin: 0 auto;
+  padding: 24px clamp(14px, 3vw, 36px) 40px;
+  box-sizing: border-box;
+  overflow-x: clip;
+  background: #111217;
+  color: #ffffff;
+}
+
+/* Header */
+
+.house-details-header {
+  position: relative;
+  width: 100%;
+  min-height: 58px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-bottom: 24px;
+}
+
+.house-details-home {
+  position: absolute;
+  top: 0;
+  left: 0;
+  z-index: 2;
+  display: flex;
+  justify-content: flex-start;
+  align-items: center;
+}
+
+.house-title {
+  width: 100%;
+  margin: 0;
+  padding: 0 150px;
+  box-sizing: border-box;
+  color: #ffffff;
+  font-size: clamp(23px, 3vw, 34px);
+  font-weight: 800;
+  line-height: 1.4;
+  text-align: center;
+  overflow-wrap: anywhere;
+}
+
+/* Main Content */
+
+.house-details-content {
+  width: 100%;
+  max-width: 1100px;
+  margin: 0 auto;
+}
+
+/* 3D House Image Card */
+
+.house-image-card {
+  width: 100%;
+  min-width: 0;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 12px;
+  box-sizing: border-box;
+  overflow: hidden;
+  background: #1b1d25;
+  border: 1px solid #d4af37;
+  border-radius: 16px;
+  box-shadow: 0 6px 18px rgba(0, 0, 0, 0.22);
+}
+
+.house-main-image {
+  display: block;
+  width: 100%;
+  max-width: 100%;
+  height: auto;
+  max-height: 850px;
+  object-fit: contain;
+  object-position: center;
+  border-radius: 9px;
+  user-select: none;
+  -webkit-user-drag: none;
+}
+
+/* Image Placeholder */
+
+.house-image-placeholder {
+  width: 100%;
+  min-height: 350px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  gap: 14px;
+  text-align: center;
+}
+
+.house-image-placeholder span {
+  font-size: 52px;
+}
+
+.house-image-placeholder h2 {
+  margin: 0;
+  color: #d4af37;
+  font-size: 19px;
+  font-weight: 700;
+}
+
+/* Navigation Buttons */
+
+.house-details-actions {
+  display: flex;
+  width: 100%;
+  gap: 18px;
+  justify-content: center;
+  align-items: stretch;
+  margin-top: 24px;
+}
+
+.house-details-actions .estimate-action-button {
+  flex: 1 1 0;
+  min-width: 0;
+  min-height: 72px;
+  padding: 16px 22px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 12px;
+  border: 1px solid #d4af37;
+  border-radius: 14px;
+  background: linear-gradient(135deg, #27272a, #09090b);
+  color: #ffffff;
+  font-family: inherit;
+  font-size: 20px;
+  font-weight: 700;
+  line-height: 1.35;
+  text-align: center;
+  cursor: pointer;
+  transition:
+    transform 0.25s ease,
+    background 0.25s ease,
+    box-shadow 0.25s ease,
+    border-color 0.25s ease;
+  box-shadow: 0 8px 18px rgba(0, 0, 0, 0.4);
+  -webkit-tap-highlight-color: transparent;
+}
+
+.house-details-actions .estimate-action-icon {
+  display: inline-flex;
+  flex: 0 0 auto;
+  justify-content: center;
+  align-items: center;
+  font-size: 25px;
+  line-height: 1;
+}
+
+.house-details-actions .estimate-action-label {
+  display: inline-block;
+  min-width: 0;
+  text-align: center;
+  overflow-wrap: anywhere;
+}
+
+.house-details-actions .estimate-action-button:hover {
+  transform: translateY(-3px);
+  background: linear-gradient(135deg, #854d0e, #422006);
+  border-color: #facc15;
+  box-shadow: 0 10px 25px rgba(212, 175, 55, 0.2);
+}
+
+.house-details-actions .estimate-action-button:active {
+  transform: scale(0.98);
+}
+
+.house-details-actions .estimate-action-button:focus-visible {
+  outline: 2px solid #facc15;
+  outline-offset: 4px;
+}
+
+/* Loading and Error */
+
+.house-details-status {
+  width: 100%;
+  min-height: 60vh;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  gap: 15px;
+  text-align: center;
+}
+
+.house-details-status p {
+  margin: 0;
+  color: #b8b8bd;
+  font-size: 14px;
+}
+
+.house-details-status h2 {
+  margin: 0;
+  color: #ffffff;
+  font-size: 21px;
+  font-weight: 700;
+}
+
+.house-details-loader {
+  width: 40px;
+  height: 40px;
+  box-sizing: border-box;
+  border: 3px solid rgba(212, 175, 55, 0.2);
+  border-top-color: #d4af37;
+  border-radius: 50%;
+  animation: house-details-spin 0.7s linear infinite;
+}
+
+.house-details-status-icon {
+  width: 65px;
+  height: 65px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border: 1px solid #d4af37;
+  border-radius: 15px;
+  background: #1b1d25;
+  color: #d4af37;
+  font-size: 32px;
+  font-weight: 800;
+}
+
+@keyframes house-details-spin {
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+/* Tablet */
+
+@media (max-width: 768px) {
+  .house-details-container {
+    padding: 20px 18px 32px;
+  }
+
+  .house-details-header {
+    min-height: 65px;
+    margin-bottom: 20px;
+  }
+
+  .house-title {
+    padding: 0 115px;
+    font-size: 26px;
+  }
+
+  .house-image-card {
+    padding: 10px;
+    border-radius: 14px;
+  }
+
+  .house-details-actions {
+    gap: 14px;
+  }
+
+  .house-details-actions .estimate-action-button {
+    font-size: 18px;
+  }
+}
+
+/* Mobile */
+
+@media (max-width: 480px) {
+  .house-details-container {
+    padding: 16px 12px 28px;
+  }
+
+  .house-details-header {
+    min-height: 95px;
+    align-items: flex-end;
+    margin-bottom: 18px;
+    padding-bottom: 4px;
+  }
+
+  .house-details-home {
+    top: 0;
+    left: 0;
+  }
+
+  .house-title {
+    padding: 0;
+    font-size: 23px;
+    line-height: 1.35;
+  }
+
+  .house-image-card {
+    padding: 7px;
+    border-radius: 12px;
+  }
+
+  .house-main-image {
+    max-height: none;
+    border-radius: 7px;
+  }
+
+  .house-image-placeholder {
+    min-height: 230px;
+  }
+
+  .house-details-actions {
+    flex-direction: column;
+    gap: 12px;
+    margin-top: 18px;
+  }
+
+  .house-details-actions .estimate-action-button {
+    width: 100%;
+    min-height: 72px;
+    flex: none;
+    padding: 16px 18px;
+    font-size: 17px;
+  }
+
+  .house-details-actions .estimate-action-icon {
+    font-size: 23px;
+  }
+
+  .house-image-placeholder span {
+    font-size: 42px;
+  }
+
+  .house-image-placeholder h2 {
+    font-size: 16px;
+  }
+}
+
+/* Reduced Motion */
+
+@media (prefers-reduced-motion: reduce) {
+  .house-details-loader {
+    animation: none;
+  }
+
+  .house-details-actions .estimate-action-button {
+    transition: none;
+  }
+}

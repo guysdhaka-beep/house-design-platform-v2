@@ -1,3 +1,4 @@
+
 import { memo, useCallback } from "react";
 import { useNavigate } from "react-router-dom";
 
@@ -8,9 +9,7 @@ type HouseTypeGridProps = {
   language: keyof typeof houseTypes;
 };
 
-function HouseTypeGrid({
-  language,
-}: HouseTypeGridProps) {
+function HouseTypeGrid({ language }: HouseTypeGridProps) {
   const navigate = useNavigate();
 
   const handleNavigate = useCallback(
@@ -21,17 +20,11 @@ function HouseTypeGrid({
   );
 
   return (
-    <div
-      style={{
-        display: "grid",
-        gridTemplateColumns: "repeat(2, 180px)",
-        gap: "15px",
-        justifyContent: "center",
-      }}
-    >
+    <div className="house-grid">
       {houseTypes[language].map((item) => (
         <button
           key={item.path}
+          type="button"
           className="house-btn"
           onClick={() => handleNavigate(item.path)}
         >
