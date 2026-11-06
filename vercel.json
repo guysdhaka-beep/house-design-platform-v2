@@ -2,7 +2,7 @@
   "rewrites": [
     {
       "source": "/api/:path*",
-      "destination": "https://house-design-platform-server-631b804af-housedgn.vercel.app/api/:path*"
+      "destination": "htthttps://house-design-platform-server.vercel.app*"
     },
     {
       "source": "/(.*)",

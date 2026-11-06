@@ -19,7 +19,7 @@ type HouseListPageProps = {
 const ITEMS_PER_PAGE = 15;
 
 const API =
-  "https://house-design-platform-server-631b804af-housedgn.vercel.app/api/houses";
+  "https://house-design-platform-server.vercel.app";
 
 function HouseListPage({
   language,
@@ -67,7 +67,19 @@ const keywords =
 
         const data = await response.json();
 
+        console.log("API DATA =", data);
+console.log("HOUSES =", data.houses);
+
 console.log(data);
+
+console.log("houses =", data.houses);
+
+console.log(
+  data.houses.map((h: any) => ({
+    id: h.id,
+    images: h.images,
+  }))
+);
 
 if (ignore) return;
 

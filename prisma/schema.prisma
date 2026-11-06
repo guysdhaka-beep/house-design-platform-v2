@@ -8,60 +8,101 @@ datasource db {
 }
 
 model House {
-  id            Int      @id @default(autoincrement())
-
-  houseCode     String   @unique
-  slug          String   @unique
-
+  id            Int            @id @default(autoincrement())
   houseType     String
   title         String
   folder        String
-
   length        Float
   width         Float
-
   foundation    Int
   complete      Int
-
-  status        String   @default("Published")
-  isFeatured    Boolean  @default(false)
-
-  views         Int      @default(0)
-  likes         Int      @default(0)
-  comments      Int      @default(0)
-  shares        Int      @default(0)
-  saves         Int      @default(0)
-  downloads     Int      @default(0)
-  trendingScore Float    @default(0)
-
+  status        String         @default("Published")
+  views         Int            @default(0)
+  likes         Int            @default(0)
+  comments      Int            @default(0)
+  shares        Int            @default(0)
+  saves         Int            @default(0)
+  downloads     Int            @default(0)
+  trendingScore Float          @default(0)
+  createdAt     DateTime       @default(now())
+  updatedAt     DateTime       @updatedAt
+  isFeatured    Boolean        @default(false)
+  image2d       String?
+  image3d       String?
+  area          Float?
+  backGarden    Boolean        @default(false)
+  balcony       Int            @default(0)
+  bathroom      Int            @default(0)
+  bedroom       Int            @default(0)
+  designStyle   String?
+  diningRoom    Int            @default(0)
+  frontGarden   Boolean        @default(false)
+  garage        Boolean        @default(false)
+  kitchen       Int            @default(0)
+  language      String         @default("bn")
+  lengthInches  Int            @default(0)
+  lift          Boolean        @default(false)
+  livingRoom    Int            @default(0)
+  servantRoom   Boolean        @default(false)
+  stair         Int            @default(0)
+  swimmingPool  Boolean        @default(false)
+  terrace       Boolean        @default(false)
+  widthInches   Int            @default(0)
   images        HouseImage[]
   keywords      HouseKeyword[]
 
-  createdAt     DateTime @default(now())
-  updatedAt     DateTime @updatedAt
+  @@index([complete])
+  @@index([createdAt])
+  @@index([designStyle])
+  @@index([folder])
+  @@index([foundation])
+  @@index([houseType, complete])
+  @@index([houseType, createdAt])
+  @@index([houseType, foundation])
+  @@index([houseType])
+  @@index([houseType, status])
+  @@index([isFeatured])
+  @@index([language])
+  @@index([status])
 }
 
 model HouseImage {
-  id         Int      @id @default(autoincrement())
+  id          Int      @id @default(autoincrement())
+  houseId     Int
+  type        String
+  image       String
+  sortOrder   Int      @default(1)
+  createdAt   DateTime @default(now())
+  altText     String?
+  caption     String?
+  description String?
+  fileName    String?
+  imageTitle  String?
+  keywords    String[] @default([])
+  house       House    @relation(fields: [houseId], references: [id], onDelete: Cascade)
 
-  houseId    Int
-  house      House    @relation(fields: [houseId], references: [id], onDelete: Cascade)
-
-  type       String
-  image      String
-  sortOrder  Int      @default(1)
-
-  createdAt  DateTime @default(now())
+  @@index([houseId])
+  @@index([houseId, type])
+  @@index([type])
 }
 
 model HouseKeyword {
-  id         Int      @id @default(autoincrement())
+  id        Int      @id @default(autoincrement())
+  houseId   Int
+  language  String
+  keyword   String
+  createdAt DateTime @default(now())
+  house     House    @relation(fields: [houseId], references: [id], onDelete: Cascade)
 
-  houseId    Int
-  house      House    @relation(fields: [houseId], references: [id], onDelete: Cascade)
+  @@index([houseId])
+  @@index([houseId, language])
+  @@index([keyword])
+  @@index([language])
+}
 
-  language   String
-  keyword    String
-
-  createdAt  DateTime @default(now())
+model Admin {
+  id        Int      @id @default(autoincrement())
+  username  String   @unique
+  password  String
+  createdAt DateTime @default(now())
 }

@@ -1,3 +1,4 @@
+
 import { memo } from "react";
 import { useNavigate } from "react-router-dom";
 import "./HouseCard.css";
@@ -19,8 +20,11 @@ function HouseCard({
 
   const t = translations[language];
 
-  const image3d =
-    house.images.find((img) => img.type === "3d")?.image || "";
+  const image3d = house.images[0]?.image || "";
+
+  console.log("HOUSE =", house);
+  console.log("IMAGE =", image3d);
+
 
   function openHouse() {
     getHouse(house.id).catch(() => {});
@@ -58,6 +62,9 @@ function HouseCard({
       onClick={openHouse}
     >
       <div className="house-image-wrapper">
+
+<p style={{ color: "white" }}>{image3d}</p>
+
         <img
           className="house-image"
           src={image3d}
