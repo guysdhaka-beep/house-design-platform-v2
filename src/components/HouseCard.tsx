@@ -63,7 +63,7 @@ function HouseCard({
     >
       <div className="house-image-wrapper">
 
-<p style={{ color: "white" }}>{image3d}</p>
+
 
         <img
           className="house-image"
