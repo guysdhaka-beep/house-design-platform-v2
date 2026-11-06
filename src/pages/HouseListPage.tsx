@@ -1,11 +1,15 @@
 import { useEffect, useState } from "react";
-import { useParams } from "react-router-dom";
+import { useLocation, useParams } from "react-router-dom";
 
 import HouseCard from "../components/HouseCard";
 import HomeButton from "../components/HomeButton";
 
 import translations from "../data/translations";
 import type { House } from "../types/house";
+import { Helmet } from "react-helmet-async";
+
+
+
 import "../styles/house-listPage.css";
 
 type HouseListPageProps = {
@@ -22,7 +26,20 @@ function HouseListPage({
 }: HouseListPageProps) {
   const { type } = useParams();
 
+  const location = useLocation();
+
   const t = translations[language];
+
+  const pageTitle = `${type || ""} House Designs | House Design Platform`;
+
+const metaDescription =
+  `Browse modern ${type || ""} house designs, 3D elevation, 2D floor plans and construction estimates.`;
+
+const canonicalUrl =
+  `https://housedgn.com${location.pathname}`;
+
+const keywords =
+  `${type}, house design, floor plan, 3d house, modern house, building design`;
 
   const [houses, setHouses] = useState<House[]>([]);
   const [loading, setLoading] = useState(true);
@@ -95,6 +112,86 @@ function HouseListPage({
   }
 
   return (
+
+<>
+<Helmet>
+
+<title>{pageTitle}</title>
+
+<meta
+  name="description"
+  content={metaDescription}
+/>
+
+<meta
+  name="keywords"
+  content={keywords}
+/>
+
+<link
+  rel="canonical"
+  href={canonicalUrl}
+/>
+
+<meta
+  property="og:title"
+  content={pageTitle}
+/>
+
+<meta
+  property="og:description"
+  content={metaDescription}
+/>
+
+<meta
+  property="og:url"
+  content={canonicalUrl}
+/>
+
+<meta
+  property="og:type"
+  content="website"
+/>
+
+<meta
+  property="og:site_name"
+  content="House Design Platform"
+/>
+
+<meta
+  name="twitter:card"
+  content="summary_large_image"
+/>
+
+<meta
+  name="twitter:title"
+  content={pageTitle}
+/>
+
+<meta
+  name="twitter:description"
+  content={metaDescription}
+/>
+
+<script type="application/ld+json">
+{JSON.stringify({
+  "@context": "https://schema.org",
+  "@type": "CollectionPage",
+
+mainEntity: {
+  "@type": "ItemList",
+  numberOfItems: houses.length,
+},
+
+  name: pageTitle,
+  description: metaDescription,
+  url: canonicalUrl,
+  keywords,
+})}
+</script>
+
+</Helmet>
+
     <div className="house-list-container">
 
       <div
@@ -193,7 +290,8 @@ function HouseListPage({
         </div>
       )}
     </div>
-  );
+</>
+);
 }
 
 export default HouseListPage;

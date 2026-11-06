@@ -6,6 +6,8 @@ import { calculateEstimate } from "../data/calculateEstimate";
 import { currency } from "../data/currency";
 import HomeButton from "../components/HomeButton";
 import { getHouse, saveHouse } from "../data/houseCache";
+import { Helmet } from "react-helmet-async";
+import { useLocation } from "react-router-dom";
 
 import "../styles/house-details.css";
 import "../styles/estimate.css";
@@ -265,6 +267,9 @@ const localeByLanguage: Record<Language, string> = {
 
 function EstimatePage({ language }: EstimatePageProps) {
   const navigate = useNavigate();
+
+const location = useLocation();
+
   const { id } = useParams<{ folder: string; id: string }>();
 
   const [house, setHouse] = useState<House | null>(null);
@@ -320,6 +325,39 @@ function EstimatePage({ language }: EstimatePageProps) {
       ignore = true;
     };
   }, [id, numericId]);
+
+const image3dInfo: any =
+  house?.images?.find((img: any) => img.type === "3d");
+
+const image3d =
+  image3dInfo?.image || "";
+
+const pageTitle =
+  image3dInfo?.imageTitle ||
+  house?.title ||
+  "House Estimate";
+
+const imageAlt =
+  image3dInfo?.altText ||
+  house?.title ||
+  "";
+
+const metaDescription =
+  image3dInfo?.description ||
+  imageAlt ||
+  pageTitle;
+
+const imageKeywords =
+  image3dInfo?.keywords || [];
+
+const keywords =
+  imageKeywords.length > 0
+    ? imageKeywords.join(", ")
+    : "house estimate, construction cost, building estimate";
+
+const canonicalUrl =
+  `https://housedgn.com${location.pathname}`;
+
 
   const estimate = useMemo(() => {
     if (!house) {
@@ -398,7 +436,86 @@ function EstimatePage({ language }: EstimatePageProps) {
         : t.houseCost;
 
   return (
+  <>
+    <Helmet>
+      <title>{pageTitle}</title>
+
+      <meta
+        name="description"
+        content={metaDescription}
+      />
+
+      <meta
+        name="keywords"
+        content={keywords}
+      />
+
+      <link
+        rel="canonical"
+        href={canonicalUrl}
+      />
+
+      <meta
+        property="og:title"
+        content={pageTitle}
+      />
+
+      <meta
+        property="og:description"
+        content={metaDescription}
+      />
+
+      <meta
+        property="og:image"
+        content={image3d}
+      />
+
+      <meta
+        property="og:url"
+        content={canonicalUrl}
+      />
+
+      <meta
+        property="og:type"
+        content="website"
+      />
+
+      <meta
+        property="twitter:card"
+        content="summary_large_image"
+      />
+
+      <meta
+        property="twitter:title"
+        content={pageTitle}
+      />
+
+      <meta
+        property="twitter:description"
+        content={metaDescription}
+      />
+
+      <meta
+        property="twitter:image"
+        content={image3d}
+      />
+
+      <script type="application/ld+json">
+        {JSON.stringify({
+          "@context": "https://schema.org",
+          "@type": "Product",
+          name: pageTitle,
+          description: metaDescription,
+          image: image3d,
+          url: canonicalUrl,
+          keywords,
+        })}
+      </script>
+    </Helmet>
+
     <main
+
+
       className="estimate-container"
       dir={language === "ar" ? "rtl" : "ltr"}
     >
@@ -568,7 +685,8 @@ function EstimatePage({ language }: EstimatePageProps) {
         </button>
       </div>
     </main>
-  );
+  </>
+);
 }
 
 export default EstimatePage;

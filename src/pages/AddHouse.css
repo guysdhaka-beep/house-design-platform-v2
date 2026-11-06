@@ -14,11 +14,13 @@
   flex: 1;
   min-width: 0;
   min-height: 100vh;
-  background: radial-gradient(
-    circle at 85% 10%,
-    rgba(91, 45, 145, 0.1),
-    transparent 30%
-  ), #0d0d0f;
+  background:
+    radial-gradient(
+      circle at 85% 10%,
+      rgba(91, 45, 145, 0.1),
+      transparent 30%
+    ),
+    #0d0d0f;
 }
 
 /* =====================================
@@ -27,7 +29,7 @@
 
 .add-house-content {
   width: 100%;
-  max-width: 850px;
+  max-width: 1000px;
   margin: 0 auto;
   padding: 24px 28px 40px;
   box-sizing: border-box;
@@ -56,33 +58,17 @@
   align-items: center;
   justify-content: space-between;
   padding: 20px 24px;
-  border-bottom: 1px solid #29262f;
-}
-
-.add-house-heading > div:first-child {
-  min-width: 0;
-}
-
-.add-house-heading span {
-  display: block;
-  margin-bottom: 4px;
-  color: #b99745;
-  font-size: 9px;
-  font-weight: 800;
-  letter-spacing: 1.8px;
-}
-
-.add-house-heading h1 {
   margin: 0;
+  border-bottom: 1px solid #29262f;
   color: #f5f3f8;
   font-size: 21px;
   font-weight: 700;
-  line-height: 1.2;
 }
 
 .add-house-heading-line {
   width: 45px;
   height: 3px;
+  margin: 0 24px;
   border-radius: 5px;
   background: linear-gradient(90deg, #b99745, #7650a5);
 }
@@ -98,6 +84,19 @@
   padding: 22px 24px 24px;
 }
 
+.add-house-form h3 {
+  margin: 18px 0 3px;
+  padding-bottom: 10px;
+  border-bottom: 1px solid rgba(185, 151, 69, 0.3);
+  color: #f5f3f8;
+  font-size: 18px;
+  font-weight: 700;
+}
+
+.add-house-form h3:first-of-type {
+  margin-top: 0;
+}
+
 /* =====================================
    GRID
 ===================================== */
@@ -105,7 +104,11 @@
 .add-house-grid {
   display: grid;
   grid-template-columns: repeat(2, minmax(0, 1fr));
-  gap: 14px;
+  gap: 16px;
+}
+
+.add-house-full {
+  grid-column: 1 / -1;
 }
 
 /* =====================================
@@ -115,7 +118,7 @@
 .add-house-field {
   display: flex;
   flex-direction: column;
-  gap: 6px;
+  gap: 7px;
   min-width: 0;
 }
 
@@ -126,10 +129,11 @@
 }
 
 .add-house-field input,
-.add-house-field select {
+.add-house-field select,
+.add-house-field textarea {
   width: 100%;
-  height: 42px;
-  padding: 0 11px;
+  min-height: 42px;
+  padding: 10px 11px;
   box-sizing: border-box;
 
   border: 1px solid rgba(185, 151, 69, 0.5);
@@ -148,18 +152,21 @@
     box-shadow 0.25s ease;
 }
 
-.add-house-field input::placeholder {
-  color: #6f6b76;
+.add-house-field input::placeholder,
+.add-house-field textarea::placeholder {
+  color: #77727f;
 }
 
 .add-house-field input:hover,
-.add-house-field select:hover {
+.add-house-field select:hover,
+.add-house-field textarea:hover {
   border-color: #b99745;
   box-shadow: 0 0 8px rgba(185, 151, 69, 0.12);
 }
 
 .add-house-field input:focus,
-.add-house-field select:focus {
+.add-house-field select:focus,
+.add-house-field textarea:focus {
   border-color: #d4af37;
   background: #24232a;
   box-shadow: 0 0 10px rgba(212, 175, 55, 0.22);
@@ -169,15 +176,41 @@
   cursor: pointer;
 }
 
+.add-house-field textarea {
+  min-height: 90px;
+  resize: vertical;
+}
+
+.add-house-field input[type="file"] {
+  min-height: 42px;
+  padding: 8px 11px;
+  cursor: pointer;
+}
+
+.add-house-field input[type="file"]::file-selector-button {
+  margin-right: 10px;
+  padding: 7px 12px;
+  border: 0;
+  border-radius: 5px;
+  background: #b99745;
+  color: #17130a;
+  font-weight: 700;
+  cursor: pointer;
+}
+
+.add-house-field small {
+  color: #72d69a;
+  font-size: 11px;
+}
+
 /* =====================================
    LENGTH & WIDTH BOXES
 ===================================== */
 
 .add-house-size {
   display: grid;
-  grid-template-columns: 135px 1fr;
-  align-items: end;
-  gap: 16px;
+  grid-template-columns: 1fr;
+  gap: 10px;
 
   padding: 13px 15px;
 
@@ -201,21 +234,20 @@
   display: flex;
   align-items: center;
   gap: 9px;
-  height: 42px;
+  color: #eeeaf2;
+  font-size: 14px;
+  font-weight: 700;
 }
 
 .add-house-size-title span {
   display: flex;
   align-items: center;
   justify-content: center;
-
   width: 25px;
   height: 25px;
-
   border-radius: 6px;
   background: rgba(185, 151, 69, 0.15);
   color: #d4af37;
-
   font-size: 10px;
   font-weight: 800;
 }
@@ -233,13 +265,147 @@
 }
 
 /* =====================================
+   HOUSE FEATURES CHECKBOXES
+===================================== */
+
+.add-house-grid .add-house-checkbox {
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
+
+  width: auto;
+  height: auto;
+  min-height: 42px;
+
+  padding: 9px 12px;
+  box-sizing: border-box;
+
+  border: 1px solid rgba(185, 151, 69, 0.35);
+  border-radius: 7px;
+
+  background: #202025;
+  color: #d9d5df;
+
+  transition:
+    border-color 0.2s ease,
+    background 0.2s ease;
+}
+
+.add-house-grid .add-house-checkbox:hover {
+  border-color: #d4af37;
+  background: #28252b;
+}
+
+.add-house-checkbox label {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+
+  width: 100%;
+  min-height: 22px;
+
+  color: #e5e0e9;
+  font-size: 13px;
+  font-weight: 600;
+
+  cursor: pointer;
+  user-select: none;
+}
+
+/* Actual Checkbox */
+
+.add-house-checkbox input[type="checkbox"] {
+  appearance: none;
+  -webkit-appearance: none;
+
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+
+  flex: 0 0 19px;
+  width: 19px;
+  height: 19px;
+  min-height: 19px;
+
+  margin: 0;
+  padding: 0;
+
+  border: 1px solid #b99745;
+  border-radius: 5px;
+
+  background: #111114;
+  cursor: pointer;
+  outline: none;
+  box-shadow: none;
+}
+
+.add-house-checkbox input[type="checkbox"]:checked {
+  border-color: #d4af37;
+  background: #b99745;
+}
+
+.add-house-checkbox input[type="checkbox"]:checked::after {
+  content: "✓";
+  color: #17130a;
+  font-size: 14px;
+  font-weight: 900;
+}
+
+.add-house-checkbox input[type="checkbox"]:focus-visible {
+  outline: 2px solid #d4af37;
+  outline-offset: 3px;
+}
+
+/* =====================================
    FEATURED HOUSE
+===================================== */
+
+.add-house-featured {
+  display: flex;
+  align-items: center;
+  margin-top: 8px;
+  padding: 12px 14px;
+
+  border: 1px solid rgba(185, 151, 69, 0.45);
+  border-radius: 8px;
+
+  background: #111114;
+}
+
+.add-house-featured > .add-house-checkbox {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+
+  width: auto;
+  height: auto;
+
+  border: 0;
+  background: transparent;
+  color: #e5e0e9;
+
+  font-size: 13px;
+  font-weight: 600;
+  cursor: pointer;
+  user-select: none;
+}
+
+.add-house-featured > .add-house-checkbox span {
+  color: #e5e0e9;
+}
+
+.add-house-featured > .add-house-checkbox:hover {
+  background: transparent;
+}
+
+/* =====================================
+   BOTTOM & SAVE BUTTON
 ===================================== */
 
 .add-house-bottom {
   display: flex;
   align-items: center;
-  justify-content: space-between;
+  justify-content: flex-end;
   gap: 15px;
 
   margin-top: 3px;
@@ -248,70 +414,13 @@
   border-top: 1px solid #29262f;
 }
 
-.add-house-featured {
-  display: flex;
-  align-items: center;
-  gap: 9px;
-
-  color: #d9d5df;
-  font-size: 13px;
-  font-weight: 600;
-
-  cursor: pointer;
-  user-select: none;
-}
-
-.add-house-featured input {
-  position: absolute;
-  opacity: 0;
-  pointer-events: none;
-}
-
-.add-house-checkbox {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-
-  width: 19px;
-  height: 19px;
-
-  border: 1px solid #b99745;
-  border-radius: 5px;
-
-  background: #202025;
-  color: transparent;
-
-  font-size: 11px;
-  font-weight: 900;
-
-  transition:
-    background 0.2s ease,
-    border-color 0.2s ease,
-    color 0.2s ease;
-}
-
-.add-house-featured input:checked + .add-house-checkbox {
-  background: #b99745;
-  border-color: #d4af37;
-  color: #ffffff;
-}
-
-.add-house-featured:hover .add-house-checkbox {
-  border-color: #d4af37;
-}
-
-/* =====================================
-   SAVE BUTTON
-===================================== */
-
-
 .add-house-save-button {
   display: flex;
   align-items: center;
   justify-content: center;
-  gap: 15px;
+
   width: 175px;
-  height: 42px;
+  min-height: 42px;
 
   border: 1px solid #ffe58a;
   border-radius: 7px;
@@ -339,11 +448,6 @@
   transition: all 0.25s ease;
 }
 
-.add-house-save-button b {
-  font-size: 17px;
-  font-weight: 900;
-}
-
 .add-house-save-button:hover:not(:disabled) {
   transform: translateY(-2px);
   filter: brightness(1.12);
@@ -352,6 +456,50 @@
     0 6px 20px rgba(255, 193, 7, 0.35);
 }
 
+.add-house-save-button:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+}
+
+/* =====================================
+   EDIT HOUSE CURRENT IMAGES
+===================================== */
+
+.edit-house-current-image {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  margin: 5px 0 10px;
+  padding: 9px;
+
+  border: 1px solid rgba(185, 151, 69, 0.5);
+  border-radius: 8px;
+
+  background: #111114;
+  color: #d4af37;
+  font-size: 12px;
+}
+
+.edit-house-current-image img {
+  width: 75px;
+  height: 75px;
+  object-fit: cover;
+  border-radius: 6px;
+}
+
+.edit-house-back-button {
+  padding: 10px;
+  border: 1px solid #7650a5;
+  border-radius: 7px;
+  background: #202025;
+  color: #c7a8ed;
+  cursor: pointer;
+}
+
+.edit-house-back-button:hover {
+  background: #7650a5;
+  color: #fff;
+}
 
 /* =====================================
    RESPONSIVE DESIGN
@@ -373,10 +521,6 @@
   .add-house-size {
     grid-template-columns: 1fr;
     gap: 10px;
-  }
-
-  .add-house-size-title {
-    height: auto;
   }
 }
 
@@ -406,55 +550,10 @@
 
   .add-house-heading {
     padding: 17px;
-  }
-
-  .add-house-heading h1 {
     font-size: 19px;
   }
 
   .add-house-size-fields {
     grid-template-columns: 1fr;
   }
-}
-
-
-/* Edit House Current Images */
-
-.edit-house-current-image {
-  display: flex;
-  align-items: center;
-  gap: 12px;
-  margin: 5px 0 10px;
-  padding: 9px;
-  border: 1px solid rgba(185, 151, 69, 0.5);
-  border-radius: 8px;
-  background: #111114;
-  color: #d4af37;
-  font-size: 12px;
-}
-
-.edit-house-current-image img {
-  width: 75px;
-  height: 75px;
-  object-fit: cover;
-  border-radius: 6px;
-}
-
-.add-house-form small {
-  color: #72d69a;
-  font-size: 11px;
-}
-
-.edit-house-back-button {
-  padding: 10px;
-  border: 1px solid #7650a5;
-  border-radius: 7px;
-  background: #202025;
-  color: #c7a8ed;
-  cursor: pointer;
-}
-
-.edit-house-back-button:hover {
-  background: #7650a5;
-  color: #fff;
 }
