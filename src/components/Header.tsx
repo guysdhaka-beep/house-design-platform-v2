@@ -11,7 +11,7 @@ type HeaderProps = {
 };
 
 function Header({ language, setLanguage }: HeaderProps) {
-  const t = translations[language];
+  
 
   return (
     <>
@@ -35,7 +35,7 @@ function Header({ language, setLanguage }: HeaderProps) {
 
 <hr className="header-line-reverse" />
 
-<h2>{t.selectLanguage}</h2>
+<h2>Select Language</h2>
 </div>
 
     

@@ -81,6 +81,8 @@ console.log(
   }))
 );
 
+console.log("Total Houses =", data.houses?.length);
+
 if (ignore) return;
 
 setHouses(data.houses || []);
@@ -207,6 +209,10 @@ mainEntity: {
 </Helmet>
 
     <div className="house-list-container">
+
+      <p style={{ color: "red", fontSize: 22 }}>
+  Total Houses: {houses.length}
+</p>
 
       <div
         style={{
