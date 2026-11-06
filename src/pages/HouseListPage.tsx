@@ -18,7 +18,8 @@ type HouseListPageProps = {
 
 const ITEMS_PER_PAGE = 15;
 
-const API = "https://housedgn.com/api/houses";
+const API =
+  "https://house-design-platform-server-631b804af-housedgn.vercel.app/api/houses";
 
 function HouseListPage({
   language,
