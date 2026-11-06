@@ -67,19 +67,7 @@ const keywords =
 
         const data = await response.json();
 
-        console.log("API DATA =", data);
-console.log("HOUSES =", data.houses);
-
-console.log(data);
-
-console.log("houses =", data.houses);
-
-console.log(
-  data.houses.map((h: any) => ({
-    id: h.id,
-    images: h.images,
-  }))
-);
+      
 
 console.log("Total Houses =", data.houses?.length);
 
@@ -210,9 +198,7 @@ mainEntity: {
 
     <div className="house-list-container">
 
-      <p style={{ color: "red", fontSize: 22 }}>
-  Total Houses: {houses.length}
-</p>
+      
 
       <div
         style={{

@@ -17,7 +17,7 @@ const translations = {
     houseDetails: "বাড়ির বিস্তারিত",
     floorPlan: "2D ফ্লোর প্ল্যান",
 
-    noHouse: "কোনো বাড়ি পাওয়া যায়নি",
+    noHouse: "কোন বাড়ি পাওয়া যায়নি",
 
     back: "ফিরে যান",
     home: "হোম",
