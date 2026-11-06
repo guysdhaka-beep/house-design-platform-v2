@@ -66,10 +66,12 @@ const keywords =
 
         const data = await response.json();
 
-        if (ignore) return;
+console.log(data);
 
-        setHouses(data.houses || []);
-        setTotalPages(data.totalPages || 1);
+if (ignore) return;
+
+setHouses(data.houses || []);
+setTotalPages(data.totalPages || 1);
 
         // Prefetch first 3 house details
         (data.houses || [])
