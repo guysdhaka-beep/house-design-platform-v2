@@ -1,4 +1,3 @@
-
 import { memo } from "react";
 import { useNavigate } from "react-router-dom";
 import "./HouseCard.css";
@@ -22,14 +21,20 @@ function HouseCard({
 
   const image3d = house.images[0]?.image || "";
 
-  console.log("HOUSE =", house);
-  console.log("IMAGE =", image3d);
-
-
   function openHouse() {
     getHouse(house.id).catch(() => {});
 
-    navigate(`/house/${house.id}`);
+    const story =
+      house.folder === "tinshade"
+        ? "tin-shade"
+        : house.folder;
+
+    const slug = (house.title || "house")
+      .toLowerCase()
+      .replace(/[^a-z0-9]+/g, "-")
+      .replace(/^-|-$/g, "");
+
+    navigate(`/house/${story}/${slug}/${house.id}`);
   }
 
   function openFloorPlan(
@@ -62,9 +67,6 @@ function HouseCard({
       onClick={openHouse}
     >
       <div className="house-image-wrapper">
-
-
-
         <img
           className="house-image"
           src={image3d}

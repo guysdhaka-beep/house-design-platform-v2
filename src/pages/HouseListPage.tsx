@@ -58,18 +58,14 @@ const keywords =
       try {
         setLoading(true);
 
-        const response = await fetch(
-          `${API}?type=${type}&page=${page}&limit=${ITEMS_PER_PAGE}`,
-          {
-            cache: "force-cache",
-          }
-        );
+        const url = `${API}?type=${type}&page=${page}&limit=${ITEMS_PER_PAGE}`;
+
+
+const response = await fetch(url, {
+  cache: "force-cache",
+});
 
         const data = await response.json();
-
-      
-
-console.log("Total Houses =", data.houses?.length);
 
 if (ignore) return;
 

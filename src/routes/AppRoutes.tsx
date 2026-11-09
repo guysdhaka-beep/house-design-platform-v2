@@ -68,9 +68,9 @@ function AppRoutes({
         />
 
         <Route
-          path="/house/:id"
-          element={<HouseDetailsPage />}
-        />
+  path="/house/:story/:slug/:id"
+  element={<HouseDetailsPage />}
+/>
 
         <Route
           path="/floorplan/:folder/:complete/:id"

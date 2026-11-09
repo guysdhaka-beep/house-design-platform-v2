@@ -1,6 +1,6 @@
 .house-list-container {
   width: 100%;
-  max-width: 1400px;
+  max-width: 1600px;
   margin: 0 auto;
   padding: 20px;
   box-sizing: border-box;
@@ -9,17 +9,24 @@
 
 .house-list-grid {
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(360px, 1fr));
-  gap: 24px;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: 20px;
   width: 100%;
-  justify-items: center;
   align-items: start;
+}
+
+/* Laptop */
+@media (max-width: 1200px) {
+  .house-list-grid {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+  }
 }
 
 /* Tablet */
 @media (max-width: 768px) {
   .house-list-grid {
-    grid-template-columns: 1fr;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 16px;
   }
 
   .house-list-container {
@@ -30,7 +37,8 @@
 /* Mobile */
 @media (max-width: 480px) {
   .house-list-grid {
-    grid-template-columns: 1fr;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 12px;
   }
 
   .house-list-container {

@@ -15,7 +15,12 @@ import "../styles/house-details.css";
 type Language = keyof typeof translations;
 
 function HouseDetailsPage() {
+
+
   const { id } = useParams();
+
+
+
   const navigate = useNavigate();
 
   const location = useLocation();
@@ -100,7 +105,18 @@ const metaDescription =
   imageTitle ||
   "Modern House Design";
 
-const canonicalUrl = `https://housedgn.com${location.pathname}`;
+const story =
+  house?.folder === "tinshade"
+    ? "tin-shade"
+    : house?.folder || "house";
+
+const slug =
+  (house?.title || "house")
+    .toLowerCase()
+    .replace(/[^a-z0-9]+/g, "-")
+    .replace(/^-|-$/g, "");
+
+const canonicalUrl = `https://housedgn.com/house/${story}/${slug}/${house?.id}`;
 
 const keywords =
   imageKeywords.length > 0
