@@ -90,30 +90,17 @@
   font-weight:700;
 
   cursor:pointer;
-  transition:all .3s ease;
-
-  box-shadow:0 0 0 rgba(0,0,0,0);
+  transition:.25s;
 }
 
 .house-btn:hover{
   background:#242424;
   border-color:#ffd700;
   color:#ffd700;
-
-  transform:translateY(-3px);
-
-  box-shadow:
-      0 0 8px rgba(255,215,0,.55),
-      0 0 18px rgba(255,215,0,.30),
-      inset 0 0 10px rgba(255,215,0,.08);
 }
 
 .house-btn-floor{
   margin-bottom:6px;
-}
-
-.house-btn-estimate{
-  margin-bottom:0;
 }
 
 /* ==========================
@@ -123,24 +110,29 @@
 @media (max-width:768px){
 
   .house-body{
-    padding:8px;
+    padding:7px;
   }
 
   .house-info{
-    font-size:12px;
-    margin-bottom:6px;
+    font-size:11px;
+    margin-bottom:5px;
+    line-height:1.15;
   }
 
   .house-btn{
-    height:40px;
-    font-size:12px;
+    height:32px;
+    font-size:11px;
+    border-radius:6px;
+  }
+
+  .house-btn-floor{
+    margin-bottom:4px;
   }
 
   .house-area-badge{
-    font-size:11px;
-    padding:4px 8px;
+    font-size:10px;
+    padding:3px 8px;
   }
-
 }
 
 /* ==========================
@@ -150,36 +142,36 @@
 @media (max-width:480px){
 
   .house-card{
-    border-radius:12px;
+    border-radius:10px;
   }
 
   .house-body{
-    padding:6px;
+    padding:4px;
   }
 
   .house-info{
-    font-size:11px;
-    margin-bottom:4px;
-    line-height:1.15;
+    font-size:10px;
+    margin-bottom:3px;
+    line-height:1.05;
   }
 
   .house-btn{
-    height:34px;
-    font-size:11px;
-    border-radius:6px;
-    padding:0 6px;
+    height:26px;
+    font-size:9px;
+    font-weight:600;
+    border-radius:5px;
+    padding:0;
   }
 
   .house-btn-floor{
-    margin-bottom:4px;
+    margin-bottom:2px;
   }
 
   .house-area-badge{
-    top:8px;
-    left:8px;
-    font-size:10px;
-    padding:3px 8px;
-    border-radius:16px;
+    top:6px;
+    left:6px;
+    font-size:9px;
+    padding:2px 6px;
+    border-radius:12px;
   }
-
 }
