@@ -1,4 +1,4 @@
-
+import HomeLatestHouses from "../components/HomeLatestHouses";
 import { memo } from "react";
 
 import "./Home.css";
@@ -126,6 +126,8 @@ const keywords =
       </h2>
 
       <HouseTypeGrid language={language} />
+
+      <HomeLatestHouses language={language} />
 
       <footer className="home-footer">
         <Footer />

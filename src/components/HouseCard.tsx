@@ -9,11 +9,13 @@ import { getHouse } from "../data/houseCache";
 type HouseCardProps = {
   house: House;
   language: keyof typeof translations;
+  disableOpen?: boolean;
 };
 
 function HouseCard({
   house,
   language,
+  disableOpen = false,
 }: HouseCardProps) {
   const navigate = useNavigate();
 
@@ -64,7 +66,7 @@ function HouseCard({
   return (
     <div
       className="house-card"
-      onClick={openHouse}
+      onClick={disableOpen ? undefined : openHouse}
     >
       <div className="house-image-wrapper">
         <img
@@ -77,14 +79,12 @@ function HouseCard({
           draggable={false}
         />
 
-        {/* Area Badge */}
         <div className="house-area-badge">
           {house.length} × {house.width} {t.feet}
         </div>
       </div>
 
       <div className="house-body">
-
         <div className="house-info">
           🏗️ {house.foundation} {t.story} {t.foundation}
         </div>
@@ -106,7 +106,6 @@ function HouseCard({
         >
           💰 {t.estimate}
         </button>
-
       </div>
     </div>
   );
