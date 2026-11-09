@@ -80,14 +80,14 @@ function HouseCard({
         <div
           style={{
             position: "absolute",
-            left: "15px",
-            top: "15px",
+            left: "12px",
+            top: "12px",
             background: "#2563eb",
             color: "#fff",
-            padding: "8px 14px",
-            borderRadius: "30px",
+            padding: "6px 12px",
+            borderRadius: "25px",
             fontWeight: "bold",
-            fontSize: "16px",
+            fontSize: "14px",
           }}
         >
           {house.length} × {house.width} {t.feet}
@@ -96,14 +96,14 @@ function HouseCard({
         <div
           style={{
             position: "absolute",
-            right: "15px",
-            top: "15px",
+            right: "12px",
+            top: "12px",
             background: "#16a34a",
             color: "#fff",
-            padding: "8px 14px",
-            borderRadius: "30px",
+            padding: "6px 12px",
+            borderRadius: "25px",
             fontWeight: "bold",
-            fontSize: "16px",
+            fontSize: "14px",
           }}
         >
           {house.complete} {t.story}
@@ -113,10 +113,6 @@ function HouseCard({
       <div className="house-body">
         <div className="house-info">
           🏗️ {house.foundation} {t.story} {t.foundation}
-        </div>
-
-        <div className="house-info">
-          🏠 {house.complete} {t.story} {t.complete}
         </div>
 
         <button
