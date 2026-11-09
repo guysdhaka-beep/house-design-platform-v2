@@ -105,8 +105,18 @@ const keywords =
     : "floor plan, 2d house plan, house design";
 
   function open3D() {
-    navigate(`/house/${house.id}`);
-  }
+  const story =
+    house.folder === "tinshade"
+      ? "tin-shade"
+      : house.folder;
+
+  const slug = (house.title || "house")
+    .toLowerCase()
+    .replace(/[^a-z0-9]+/g, "-")
+    .replace(/^-|-$/g, "");
+
+  navigate(`/house/${story}/${slug}/${house.id}`);
+}
 
   function openEstimate() {
     navigate(

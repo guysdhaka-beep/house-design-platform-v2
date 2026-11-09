@@ -657,7 +657,19 @@ const canonicalUrl =
         <button
           type="button"
           className="estimate-action-button"
-          onClick={() => navigate(`/house/${house.id}`)}
+          onClick={() => {
+  const story =
+    house.folder === "tinshade"
+      ? "tin-shade"
+      : house.folder;
+
+  const slug = (house.title || "house")
+    .toLowerCase()
+    .replace(/[^a-z0-9]+/g, "-")
+    .replace(/^-|-$/g, "");
+
+  navigate(`/house/${story}/${slug}/${house.id}`);
+}}
         >
           <span className="estimate-action-icon" aria-hidden="true">
             🏠
