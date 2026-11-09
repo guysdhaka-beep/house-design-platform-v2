@@ -77,24 +77,14 @@ function HouseCard({
           draggable={false}
         />
 
-        <div
-          style={{
-            position: "absolute",
-            left: "12px",
-            top: "12px",
-            background: "#2563eb",
-            color: "#fff",
-            padding: "6px 12px",
-            borderRadius: "25px",
-            fontWeight: "bold",
-            fontSize: "14px",
-          }}
-        >
+        {/* Area Badge */}
+        <div className="house-area-badge">
           {house.length} × {house.width} {t.feet}
         </div>
       </div>
 
       <div className="house-body">
+
         <div className="house-info">
           🏗️ {house.foundation} {t.story} {t.foundation}
         </div>
@@ -116,6 +106,7 @@ function HouseCard({
         >
           💰 {t.estimate}
         </button>
+
       </div>
     </div>
   );
