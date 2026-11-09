@@ -92,27 +92,15 @@ function HouseCard({
         >
           {house.length} × {house.width} {t.feet}
         </div>
-
-        <div
-          style={{
-            position: "absolute",
-            right: "12px",
-            top: "12px",
-            background: "#16a34a",
-            color: "#fff",
-            padding: "6px 12px",
-            borderRadius: "25px",
-            fontWeight: "bold",
-            fontSize: "14px",
-          }}
-        >
-          {house.complete} {t.story}
-        </div>
       </div>
 
       <div className="house-body">
         <div className="house-info">
           🏗️ {house.foundation} {t.story} {t.foundation}
+        </div>
+
+        <div className="house-info">
+          🏠 {house.complete} {t.story} {t.complete}
         </div>
 
         <button
