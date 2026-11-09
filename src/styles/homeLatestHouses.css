@@ -1,20 +1,33 @@
 .home-latest-houses {
-  margin-top: 30px;
+  margin-top: 25px;
+  margin-bottom: 20px;
 }
 
 .home-latest-grid {
   display: grid;
   grid-template-columns: repeat(3, minmax(0, 1fr));
   gap: 20px;
+  align-items: start;
 }
 
 .home-latest-item {
+  width: 100%;
   cursor: pointer;
 }
 
+.home-latest-item .house-card {
+  width: 100%;
+  height: 100%;
+}
+
 @media (max-width: 768px) {
+  .home-latest-houses {
+    margin-top: 20px;
+    margin-bottom: 15px;
+  }
+
   .home-latest-grid {
     grid-template-columns: repeat(2, minmax(0, 1fr));
-    gap: 15px;
+    gap: 10px;
   }
 }
