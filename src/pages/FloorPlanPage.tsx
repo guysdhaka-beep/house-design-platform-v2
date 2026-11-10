@@ -7,6 +7,7 @@ import HomeButton from "../components/HomeButton";
 import { getHouse, saveHouse } from "../data/houseCache";
 import { Helmet } from "react-helmet-async";
 import { useLocation } from "react-router-dom";
+import RelatedHouses from "../components/RelatedHouses";
 
 import "../styles/floorplan.css";
 import "../styles/house-details.css";
@@ -243,7 +244,8 @@ const keywords =
             {image2d ? (
               <img
                 src={image2d}
-                alt="2D Floor Plan"
+                alt={imageAlt}
+                title={imageTitle}
                 className="floorplan-image"
                 loading="eager"
                 fetchPriority="high"
@@ -347,6 +349,14 @@ const keywords =
           </div>
         </section>
       )}
+
+      {!loading && house && (
+        <RelatedHouses
+          houseId={house.id}
+          language={language}
+        />
+      )}
+
     </main>
   </>
 );

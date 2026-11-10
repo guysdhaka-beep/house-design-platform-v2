@@ -7,7 +7,7 @@ import { incrementView } from "../data/views";
 import HomeButton from "../components/HomeButton";
 import { getHouse, saveHouse } from "../data/houseCache";
 import { Helmet } from "react-helmet-async";
-
+import RelatedHouses from "../components/RelatedHouses";
 
 import "../styles/house-details.css";
 
@@ -418,6 +418,13 @@ const shortDescription =
           </div>
         </section>
       )}
+
+       {!loading && house && (
+          <RelatedHouses
+            houseId={house.id}
+            language={language}
+          />
+        )}
 
     </main>
   </>

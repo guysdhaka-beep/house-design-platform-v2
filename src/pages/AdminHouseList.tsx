@@ -249,16 +249,26 @@ export default function AdminHouseList() {
                         </button>
 
                         <button
-                          className="admin-house-view-btn"
-                          onClick={() =>
-                            window.open(
-                              `/house/${house.id}`,
-                              "_blank"
-                            )
-                          }
-                        >
-                          👁 View
-                        </button>
+  className="admin-house-view-btn"
+  onClick={() => {
+    const story =
+      house.folder === "tinshade"
+        ? "tin-shade"
+        : house.folder;
+
+    const slug = (house.title || "house")
+      .toLowerCase()
+      .replace(/[^a-z0-9]+/g, "-")
+      .replace(/^-|-$/g, "");
+
+    window.open(
+      `/house/${story}/${slug}/${house.id}`,
+      "_blank"
+    );
+  }}
+>
+  👁 View
+</button>
 
                         <button
                           className="admin-house-delete-btn"

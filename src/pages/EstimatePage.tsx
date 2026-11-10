@@ -8,6 +8,7 @@ import HomeButton from "../components/HomeButton";
 import { getHouse, saveHouse } from "../data/houseCache";
 import { Helmet } from "react-helmet-async";
 import { useLocation } from "react-router-dom";
+import RelatedHouses from "../components/RelatedHouses";
 
 import "../styles/house-details.css";
 import "../styles/estimate.css";
@@ -696,6 +697,12 @@ const canonicalUrl =
           </span>
         </button>
       </div>
+
+      <RelatedHouses
+        houseId={house.id}
+        language={language}
+      />
+
     </main>
   </>
 );

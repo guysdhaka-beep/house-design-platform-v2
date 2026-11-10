@@ -21,6 +21,9 @@ export interface House {
     id: number;
     type: string;
     image: string;
+    sortOrder?: number;
+    altText?: string;
+    imageTitle?: string;
   }[];
 
   status?: string;

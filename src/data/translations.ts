@@ -16,6 +16,7 @@ const translations = {
     houseList: "বাড়ির ডিজাইন",
     houseDetails: "বাড়ির বিস্তারিত",
     floorPlan: "2D ফ্লোর প্ল্যান",
+    relatedHouses: "সম্পর্কিত বাড়ির ডিজাইন",
 
     noHouse: "কোনো বাড়ি পাওয়া যায়নি",
 
@@ -41,6 +42,7 @@ const translations = {
     houseList: "House Designs",
     houseDetails: "House Details",
     floorPlan: "2D Floor Plan",
+    relatedHouses: "Related House Designs",
 
     noHouse: "No House Found",
 
@@ -66,6 +68,7 @@ const translations = {
     houseList: "घर के डिज़ाइन",
     houseDetails: "घर का विवरण",
     floorPlan: "2D फ़्लोर प्लान",
+    relatedHouses: "संबंधित घरों के डिज़ाइन",
 
     noHouse: "कोई घर नहीं मिला",
 
@@ -91,6 +94,7 @@ const translations = {
     houseList: "تصاميم المنازل",
     houseDetails: "تفاصيل المنزل",
     floorPlan: "مخطط الطابق",
+    relatedHouses: "تصاميم منازل مشابهة",
 
     noHouse: "لم يتم العثور على منزل",
 
@@ -116,6 +120,7 @@ const translations = {
     houseList: "Diseños de Casas",
     houseDetails: "Detalles de la Casa",
     floorPlan: "Plano 2D",
+    relatedHouses: "Diseños de Casas Relacionadas",
 
     noHouse: "No se encontró ninguna casa",
 
