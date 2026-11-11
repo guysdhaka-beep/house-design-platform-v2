@@ -1,13 +1,14 @@
 import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
+
 import translations from "../data/translations";
 
-
-
-const API = "https://house-design-platform-server.vercel.app/api";
+const API =
+  "https://house-design-platform-server.vercel.app/api";
 
 type Props = {
   language: keyof typeof translations;
+  compact?: boolean;
 };
 
 type House = {
@@ -27,12 +28,20 @@ type House = {
   }[];
 };
 
-export default function SearchBar({ language }: Props) {
+export default function SearchBar({
+  language,
+  compact = false,
+}: Props) {
   const navigate = useNavigate();
 
   const [search, setSearch] = useState("");
-  const [results, setResults] = useState<House[]>([]);
-  const [loading, setLoading] = useState(false);
+
+  const [results, setResults] = useState<
+    House[]
+  >([]);
+
+  const [loading, setLoading] =
+    useState(false);
 
   useEffect(() => {
     const text = search.trim();
@@ -47,28 +56,45 @@ export default function SearchBar({ language }: Props) {
         setLoading(true);
 
         const res = await fetch(
-  `${API}/houses/search?q=${encodeURIComponent(text)}`,
-  {
-    cache: "no-store",
-  }
-);
+          `${API}/houses/search?q=${encodeURIComponent(
+            text
+          )}`,
+          {
+            cache: "no-store",
+          }
+        );
 
         const data = await res.json();
 
-        setResults(data.houses || []);
+console.log("API =", data);
+
+setResults(data.houses || data || []);
       } catch (err) {
         console.error(err);
       } finally {
         setLoading(false);
       }
-    }, 300);
+    }, 250);
 
     return () => clearTimeout(timer);
   }, [search]);
 
-  function openHouse(id: number) {
+  function openHouse(house: House) {
     setSearch("");
-    navigate(`/house/${id}`);
+
+    const story =
+      house.folder === "tinshade"
+        ? "tin-shade"
+        : house.folder;
+
+    const slug = (house.title || "house")
+      .toLowerCase()
+      .replace(/[^a-z0-9]+/g, "-")
+      .replace(/^-|-$/g, "");
+
+    navigate(
+      `/house/${story}/${slug}/${house.id}`
+    );
   }
 
   const placeholder =
@@ -93,12 +119,15 @@ export default function SearchBar({ language }: Props) {
       ? "No se encontró ninguna casa"
       : "No house found";
 
+      console.log("Results =", results);
+console.log("Length =", results.length);
+
   return (
-    <div
+        <div
       style={{
-        width: "100%",
-        maxWidth: "720px",
-        margin: "25px auto",
+        width: compact ? "100%" : "100%",
+        maxWidth: compact ? "100%" : "720px",
+        margin: compact ? "0" : "25px auto",
         position: "relative",
       }}
     >
@@ -108,34 +137,37 @@ export default function SearchBar({ language }: Props) {
         placeholder={placeholder}
         type="text"
         style={{
-  width: "100%",
-  height: "56px",
-  padding: "0 18px",
-  background: "#0f0f0f",
-  color: "#fff",
-  border: "2px solid #3b82f6",
-  borderRadius: "12px",
-  outline: "none",
-  fontSize: "16px",
-  boxSizing: "border-box",
-}}
+          width: "100%",
+          height: compact ? "42px" : "56px",
+          padding: compact ? "0 14px" : "0 18px",
+          background: compact ? "transparent" : "#0f0f0f",
+          color: "#fff",
+          border: compact
+            ? "none"
+            : "2px solid #3b82f6",
+          borderRadius: compact ? "0" : "12px",
+          outline: "none",
+          fontSize: compact ? "15px" : "16px",
+          boxSizing: "border-box",
+        }}
       />
 
       {search.trim() !== "" && (
         <div
           style={{
             position: "absolute",
-            top: "62px",
+            top: compact ? "48px" : "62px",
             left: 0,
             right: 0,
             background: "#151515",
             border: "1px solid #3b82f6",
             borderRadius: "12px",
             overflow: "hidden",
-            maxHeight: "430px",
+            maxHeight: "420px",
             overflowY: "auto",
-            zIndex: 999,
-            boxShadow: "0 15px 35px rgba(0,0,0,.45)",
+            zIndex: 99999,
+            boxShadow:
+              "0 15px 35px rgba(0,0,0,.45)",
           }}
         >
           {loading ? (
@@ -148,14 +180,14 @@ export default function SearchBar({ language }: Props) {
               }}
             >
               {language === "bn"
-  ? "লোড হচ্ছে..."
-  : language === "hi"
-  ? "लोड हो रहा है..."
-  : language === "ar"
-  ? "جارٍ التحميل..."
-  : language === "es"
-  ? "Cargando..."
-  : "Loading..."}
+                ? "লোড হচ্ছে..."
+                : language === "hi"
+                ? "लोड हो रहा है..."
+                : language === "ar"
+                ? "جارٍ التحميل..."
+                : language === "es"
+                ? "Cargando..."
+                : "Loading..."}
             </div>
           ) : results.length === 0 ? (
             <div
@@ -167,32 +199,37 @@ export default function SearchBar({ language }: Props) {
             >
               {noResult}
             </div>
-          ) : (            results.map((house) => {
+          ) : (
+            results.map((house) => {
               const image3d =
-                house.images.find((img) => img.type === "3d")?.image || "";
+                house.images.find(
+                  (img) => img.type === "3d"
+                )?.image || "";
 
               return (
                 <div
                   key={house.id}
-                  onClick={() => openHouse(house.id)}
+                  onClick={() => openHouse(house)}
                   style={{
                     display: "flex",
                     alignItems: "center",
-                    gap: "14px",
+                    gap: "12px",
                     padding: "12px",
                     cursor: "pointer",
-                    borderBottom: "1px solid rgba(255,255,255,.06)",
+                    borderBottom:
+                      "1px solid rgba(255,255,255,.06)",
                   }}
                 >
                   <img
                     src={image3d}
                     alt={house.title}
                     style={{
-                      width: "95px",
-                      height: "72px",
+                      width: "88px",
+                      height: "66px",
                       objectFit: "cover",
                       borderRadius: "8px",
-                      border: "1px solid #3b82f6",
+                      border:
+                        "1px solid #3b82f6",
                       flexShrink: 0,
                     }}
                   />
@@ -200,114 +237,17 @@ export default function SearchBar({ language }: Props) {
                   <div
                     style={{
                       flex: 1,
-                      textAlign: "left",
                     }}
                   >
                     <div
                       style={{
                         color: "#fff",
                         fontWeight: 700,
-                        fontSize: "15px",
+                        fontSize: "14px",
                         lineHeight: 1.35,
                       }}
                     >
                       {house.title}
-                    </div>
-
-                    <div
-                      style={{
-                        marginTop: "5px",
-                        color: "#3b82f6",
-                        fontSize: "13px",
-                      }}
-                    >
-                      📐 {house.length} × {house.width} Feet
-                    </div>
-
-                    <div
-                      style={{
-                        marginTop: "4px",
-                        color: "#9ca3af",
-                        fontSize: "13px",
-                      }}
-                    >
-                      🏠
-{language === "bn"
-  ? house.houseType === "1-story"
-    ? "১ তলা"
-    : house.houseType === "2-story"
-    ? "২ তলা"
-    : house.houseType === "3-story"
-    ? "৩ তলা"
-    : house.houseType === "4-story"
-    ? "৪ তলা"
-    : house.houseType === "duplex"
-    ? "ডুপ্লেক্স"
-    : house.houseType === "luxury"
-    ? "বিলাসবহুল"
-    : house.houseType === "tin"
-    ? "টিন শেড"
-    : house.houseType
-
-  : language === "hi"
-  ? house.houseType === "1-story"
-    ? "1 मंज़िल"
-    : house.houseType === "2-story"
-    ? "2 मंज़िल"
-    : house.houseType === "3-story"
-    ? "3 मंज़िल"
-    : house.houseType === "4-story"
-    ? "4 मंज़िल"
-    : house.houseType === "duplex"
-    ? "डुप्लेक्स"
-    : house.houseType === "luxury"
-    ? "लक्ज़री"
-    : house.houseType === "tin"
-    ? "टिन शेड"
-    : house.houseType
-
-  : language === "ar"
-  ? house.houseType === "1-story"
-    ? "طابق واحد"
-    : house.houseType === "2-story"
-    ? "طابقان"
-    : house.houseType === "3-story"
-    ? "3 طوابق"
-    : house.houseType === "4-story"
-    ? "4 طوابق"
-    : house.houseType === "duplex"
-    ? "دوبلكس"
-    : house.houseType === "luxury"
-    ? "فاخر"
-    : house.houseType === "tin"
-    ? "منزل صفيح"
-    : house.houseType
-
-  : language === "es"
-  ? house.houseType === "1-story"
-    ? "1 Piso"
-    : house.houseType === "2-story"
-    ? "2 Pisos"
-    : house.houseType === "3-story"
-    ? "3 Pisos"
-    : house.houseType === "4-story"
-    ? "4 Pisos"
-    : house.houseType === "duplex"
-    ? "Dúplex"
-    : house.houseType === "luxury"
-    ? "Lujo"
-    : house.houseType === "tin"
-    ? "Casa de Chapa"
-    : house.houseType
-
-  : house.houseType}
-
-
-
-
-
-
-
                     </div>
 
                     <div
@@ -317,7 +257,17 @@ export default function SearchBar({ language }: Props) {
                         fontSize: "12px",
                       }}
                     >
-                      Foundation: {house.foundation} | Complete: {house.complete}
+                      📐 {house.length} × {house.width} Feet
+                    </div>
+
+                    <div
+                      style={{
+                        marginTop: "3px",
+                        color: "#9ca3af",
+                        fontSize: "12px",
+                      }}
+                    >
+                      🏗 {house.foundation} | 🏠 {house.complete}
                     </div>
                   </div>
                 </div>

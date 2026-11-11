@@ -9,6 +9,7 @@ import { getHouse, saveHouse } from "../data/houseCache";
 import { Helmet } from "react-helmet-async";
 import RelatedHouses from "../components/RelatedHouses";
 
+
 import "../styles/house-details.css";
 
 
@@ -424,7 +425,9 @@ const shortDescription =
             houseId={house.id}
             language={language}
           />
+          
         )}
+        
 
     </main>
   </>

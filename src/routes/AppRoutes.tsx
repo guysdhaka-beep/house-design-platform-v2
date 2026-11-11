@@ -2,20 +2,22 @@ import { lazy, Suspense } from "react";
 import { Routes, Route } from "react-router-dom";
 
 import translations from "../data/translations";
+import Layout from "../components/Layout";
 
-// Lazy Pages
+// Public Pages
 const Home = lazy(() => import("../pages/Home"));
-const FoundationPage = lazy(() => import("../pages/FoundationPage"));
-const AreaPage = lazy(() => import("../pages/AreaPage"));
-const EstimatePage = lazy(() => import("../pages/EstimatePage"));
+const SearchPage = lazy(() => import("../pages/SearchPage"));
 const HouseListPage = lazy(() => import("../pages/HouseListPage"));
 const HouseDetailsPage = lazy(() => import("../pages/HouseDetailsPage"));
 const FloorPlanPage = lazy(() => import("../pages/FloorPlanPage"));
+const EstimatePage = lazy(() => import("../pages/EstimatePage"));
+const FoundationPage = lazy(() => import("../pages/FoundationPage"));
+const AreaPage = lazy(() => import("../pages/AreaPage"));
 const PrivacyPolicyPage = lazy(() => import("../pages/PrivacyPolicyPage"));
 const TermsPage = lazy(() => import("../pages/TermsPage"));
 const ContactPage = lazy(() => import("../pages/ContactPage"));
 
-// Admin
+// Admin Pages
 const AdminLogin = lazy(() => import("../pages/AdminLogin"));
 const AdminDashboard = lazy(() => import("../pages/AdminDashboard"));
 const AddHouse = lazy(() => import("../pages/AddHouse"));
@@ -42,9 +44,9 @@ function AppRoutes({
             display: "flex",
             justifyContent: "center",
             alignItems: "center",
+            background: "#111",
             color: "#fff",
             fontSize: "22px",
-            background: "#111",
           }}
         >
           Loading...
@@ -52,60 +54,94 @@ function AppRoutes({
       }
     >
       <Routes>
+        {/* ===========================
+            PUBLIC PAGES
+        =========================== */}
+
         <Route
-          path="/"
           element={
-            <Home
+            <Layout
               language={language}
               setLanguage={setLanguage}
             />
           }
-        />
+        >
+          <Route
+            path="/"
+            element={
+              <Home
+                language={language}
+                setLanguage={setLanguage}
+              />
+            }
+          />
 
-        <Route
-          path="/houses/:type"
-          element={<HouseListPage language={language} />}
-        />
+          <Route
+            path="/search"
+            element={
+              <SearchPage
+                language={language}
+              />
+            }
+          />
 
-        <Route
-  path="/house/:story/:slug/:id"
-  element={<HouseDetailsPage />}
-/>
+          <Route
+            path="/houses/:type"
+            element={
+              <HouseListPage
+                language={language}
+              />
+            }
+          />
 
-        <Route
-          path="/floorplan/:folder/:complete/:id"
-          element={<FloorPlanPage />}
-        />
+          <Route
+            path="/house/:story/:slug/:id"
+            element={<HouseDetailsPage />}
+          />
 
-        <Route
-          path="/estimate/:folder/:complete/:id"
-          element={<EstimatePage language={language} />}
-        />
+          <Route
+            path="/floorplan/:folder/:complete/:id"
+            element={<FloorPlanPage />}
+          />
 
-        <Route
-          path="/foundation"
-          element={<FoundationPage />}
-        />
+          <Route
+            path="/estimate/:folder/:complete/:id"
+            element={
+              <EstimatePage
+                language={language}
+              />
+            }
+          />
 
-        <Route
-          path="/area"
-          element={<AreaPage />}
-        />
+          <Route
+            path="/foundation"
+            element={<FoundationPage />}
+          />
 
-        <Route
-          path="/privacy-policy"
-          element={<PrivacyPolicyPage />}
-        />
+          <Route
+            path="/area"
+            element={<AreaPage />}
+          />
 
-        <Route
-          path="/terms"
-          element={<TermsPage />}
-        />
+          <Route
+            path="/privacy-policy"
+            element={<PrivacyPolicyPage />}
+          />
 
-        <Route
-          path="/contact"
-          element={<ContactPage />}
-        />
+          <Route
+            path="/terms"
+            element={<TermsPage />}
+          />
+
+          <Route
+            path="/contact"
+            element={<ContactPage />}
+          />
+        </Route>
+
+        {/* ===========================
+            ADMIN PAGES
+        =========================== */}
 
         <Route
           path="/admin/login"
