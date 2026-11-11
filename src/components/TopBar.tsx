@@ -231,15 +231,6 @@ export default function TopBar({
                 </Link>
 
                 <Link
-                  to="/houses/duplex"
-                  onClick={() =>
-                    setShowTypeMenu(false)
-                  }
-                >
-                  🏡 {houseTypeText.duplex}
-                </Link>
-
-                <Link
                   to="/houses/luxury"
                   onClick={() =>
                     setShowTypeMenu(false)
@@ -249,7 +240,7 @@ export default function TopBar({
                 </Link>
 
                 <Link
-                  to="/houses/tin-shade"
+                  to="/houses/tinshade"
                   onClick={() =>
                     setShowTypeMenu(false)
                   }
