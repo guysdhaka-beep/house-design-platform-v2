@@ -2,7 +2,7 @@ import { useEffect, useState } from "react";
 import { useLocation, useParams } from "react-router-dom";
 
 import HouseCard from "../components/HouseCard";
-import HomeButton from "../components/HomeButton";
+
 
 import translations from "../data/translations";
 import type { House } from "../types/house";
@@ -202,7 +202,7 @@ mainEntity: {
           marginBottom: "20px",
         }}
       >
-        <HomeButton />
+      
       </div>
 
       <h1

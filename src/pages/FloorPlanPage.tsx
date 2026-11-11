@@ -3,7 +3,7 @@ import { useEffect, useState } from "react";
 import { useNavigate, useParams } from "react-router-dom";
 
 import translations from "../data/translations";
-import HomeButton from "../components/HomeButton";
+
 import { getHouse, saveHouse } from "../data/houseCache";
 import { Helmet } from "react-helmet-async";
 import { useLocation } from "react-router-dom";
@@ -206,7 +206,7 @@ const keywords =
 
       <header className="floorplan-header">
         <div className="floorplan-home">
-          <HomeButton />
+        
         </div>
 
         <h1 className="floorplan-title">

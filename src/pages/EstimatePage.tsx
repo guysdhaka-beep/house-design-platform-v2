@@ -4,7 +4,7 @@ import { useNavigate, useParams } from "react-router-dom";
 import translations from "../data/translations";
 import { calculateEstimate } from "../data/calculateEstimate";
 import { currency } from "../data/currency";
-import HomeButton from "../components/HomeButton";
+
 import { getHouse, saveHouse } from "../data/houseCache";
 import { Helmet } from "react-helmet-async";
 import { useLocation } from "react-router-dom";
@@ -405,7 +405,7 @@ const canonicalUrl =
         dir={language === "ar" ? "rtl" : "ltr"}
       >
         <div className="estimate-home-button">
-          <HomeButton />
+         
         </div>
         <h2 className="estimate-title">{t.loading}</h2>
       </main>
@@ -419,7 +419,7 @@ const canonicalUrl =
         dir={language === "ar" ? "rtl" : "ltr"}
       >
         <div className="estimate-home-button">
-          <HomeButton />
+         
         </div>
         <h2 className="estimate-title">{t.houseNotFound}</h2>
       </main>
@@ -521,7 +521,7 @@ const canonicalUrl =
       dir={language === "ar" ? "rtl" : "ltr"}
     >
       <div className="estimate-home-button">
-        <HomeButton />
+       
       </div>
 
       <h1 className="estimate-title">💰 {t.estimate}</h1>

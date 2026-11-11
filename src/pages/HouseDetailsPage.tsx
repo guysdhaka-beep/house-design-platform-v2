@@ -4,7 +4,7 @@ import { useLocation, useNavigate, useParams } from "react-router-dom";
 
 import translations from "../data/translations";
 import { incrementView } from "../data/views";
-import HomeButton from "../components/HomeButton";
+
 import { getHouse, saveHouse } from "../data/houseCache";
 import { Helmet } from "react-helmet-async";
 import RelatedHouses from "../components/RelatedHouses";
@@ -254,7 +254,7 @@ const shortDescription =
     <main className="house-details-container">
       <header className="house-details-header">
         <div className="house-details-home">
-          <HomeButton />
+         
         </div>
 
         {!loading && house && (
