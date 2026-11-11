@@ -147,7 +147,7 @@
   width:100%;
   height:42px;
 
-  overflow:hidden;
+  overflow:visible;
 
   background:#000;
 
@@ -155,6 +155,8 @@
   border-radius:12px;
 
   transition:.25s;
+
+  position:relative;
 }
 
 
@@ -694,28 +696,150 @@
 
 }
 
-@media(max-width:768px){
+@media (max-width:768px){
 
-  .house-details-container,
-  .floorplan-container,
-  .estimate-container{
-
-    padding-top:76px;
-
+  .topbar{
+    height:58px;
+    padding:8px;
+    gap:8px;
   }
+
+  /* চারটা বাটন সমান জায়গা নেবে */
+  .topbar-home,
+  .topbar-type-wrapper,
+  .topbar-search-mobile,
+  .topbar-language{
+    flex:1;
+  }
+
+  .topbar-home,
+  .topbar-type,
+  .topbar-search-mobile,
+  .topbar-language{
+    width:100%;
+    min-width:0;
+    height:38px;
+  }
+
+  .topbar-home{
+    padding:0;
+    font-size:13px;
+  }
+
+  .topbar-type{
+    padding:0;
+  }
+
+  .topbar-type-text{
+    font-size:13px;
+  }
+
+  .topbar-type-arrow{
+    display:none;
+  }
+
+  .topbar-search-desktop{
+    display:none;
+  }
+
+  .topbar-search-mobile{
+    display:flex;
+    font-size:16px;
+  }
+
+  .topbar-language{
+    padding:0;
+    gap:0;
+  }
+
+  .language-text,
+.language-arrow{
+
+  display:none;
 
 }
 
-@media(max-width:480px){
+.mobile-text{
 
-  .house-details-container,
-  .floorplan-container,
-  .estimate-container{
+  display:inline;
 
-    padding-top:68px;
+  font-size:12px;
 
+  font-weight:700;
+
+  white-space:nowrap;
+
+}
+
+.topbar-search-mobile,
+.topbar-language{
+
+  display:flex;
+  align-items:center;
+  justify-content:center;
+
+  gap:6px;
+
+}
+
+  .topbar-close{
+    width:38px;
+    height:38px;
+  }
+}
+
+@media (max-width:480px){
+
+  .topbar{
+    height:54px;
+    padding:6px;
+    gap:6px;
   }
 
+  .mobile-text{
+
+  font-size:11px;
+
+}
+
+  .topbar-home,
+  .topbar-type-wrapper,
+  .topbar-search-mobile,
+  .topbar-language{
+    flex:1;
+  }
+
+  .topbar-home,
+  .topbar-type,
+  .topbar-search-mobile,
+  .topbar-language{
+    width:100%;
+    min-width:0;
+    height:34px;
+  }
+
+  .topbar-home{
+    padding:0;
+    font-size:12px;
+  }
+
+  .topbar-type{
+    padding:0;
+  }
+
+  .topbar-type-text{
+    font-size:12px;
+  }
+
+  .topbar-language{
+    padding:0;
+    gap:0;
+  }
+
+  .language-text,
+  .language-arrow{
+    display:none;
+  }
 }
 
 /* =========================================================

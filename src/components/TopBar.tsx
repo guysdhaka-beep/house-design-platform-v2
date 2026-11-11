@@ -269,33 +269,39 @@ export default function TopBar({
             </div>
           </div>
                     <button
-            className="topbar-search-mobile"
-            type="button"
-            onClick={() => setSearchOpen(true)}
-            aria-label="Search"
-          >
-            🔍
-          </button>
+  className="topbar-search-mobile"
+  type="button"
+  onClick={() => setSearchOpen(true)}
+  aria-label="Search"
+>
+  <span>🔍</span>
+  <span className="mobile-text">
+    Search
+  </span>
+</button>
 
           <button
-            className="topbar-language"
-            type="button"
-            onClick={onLanguageClick}
-            aria-label="Language"
-            title="Language"
-          >
-            <span className="language-icon">
-              🌐
-            </span>
+  className="topbar-language"
+  type="button"
+  onClick={onLanguageClick}
+  aria-label="Language"
+>
+  <span className="language-icon">
+    🌐
+  </span>
 
-            <span className="language-text">
-              English
-            </span>
-
-            <span className="language-arrow">
-              ▼
-            </span>
-          </button>
+  <span className="mobile-text">
+    {language === "bn"
+      ? "বাংলা"
+      : language === "hi"
+      ? "हिन्दी"
+      : language === "ar"
+      ? "العربية"
+      : language === "es"
+      ? "Español"
+      : "EN"}
+  </span>
+</button>
         </>
       ) : (
         <>
