@@ -61,11 +61,19 @@ const keywords =
         const url = `${API}?type=${type}&page=${page}&limit=${ITEMS_PER_PAGE}`;
 
 
+console.log("Fetching:", url);
+
 const response = await fetch(url, {
   cache: "force-cache",
 });
 
-        const data = await response.json();
+console.log("Status:", response.status);
+
+const text = await response.text();
+
+console.log("Response:", text);
+
+const data = JSON.parse(text);
 
 if (ignore) return;
 
@@ -297,6 +305,3 @@ mainEntity: {
 }
 
 export default HouseListPage;
-
-
-  
