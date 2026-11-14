@@ -126,7 +126,9 @@ function Layout({
         </>
       )}
 
-      <Outlet />
+      <main className="page-content">
+        <Outlet />
+      </main>
     </>
   );
 }
