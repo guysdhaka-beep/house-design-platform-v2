@@ -81,6 +81,8 @@ function VideoPage() {
     );
   }
 
+  console.log("VIDEO URL:", house.videoUrl);
+
   const image3d =
     house.images?.find(
       (img: any) => img.type === "3d"
@@ -190,25 +192,40 @@ function VideoPage() {
 
       <main className="video-page">
         <div className="video-wrapper">
-
   {house.videoUrl ? (
-    <video
-      className="video-player"
-      src={house.videoUrl}
-      controls
-      autoPlay
-      muted
-      loop
-      playsInline
-      preload="metadata"
-    />
+    <div
+      style={{
+        width: "100%",
+        display: "flex",
+        justifyContent: "center",
+        alignItems: "center",
+      }}
+    >
+      <video
+        className="video-player"
+        src={house.videoUrl}
+        controls
+        autoPlay
+        muted
+        loop
+        playsInline
+        preload="metadata"
+        style={{
+          width: "100%",
+          maxWidth: "420px",
+          aspectRatio: "9 / 16",
+          objectFit: "cover",
+          borderRadius: "16px",
+          background: "#000",
+        }}
+      />
+    </div>
   ) : (
     <div className="video-empty">
       <h2>🎥 Video Coming Soon</h2>
       <p>This house walkthrough video is being prepared.</p>
     </div>
   )}
-
 </div>
 
         <button
