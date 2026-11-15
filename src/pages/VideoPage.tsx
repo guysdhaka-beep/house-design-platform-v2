@@ -212,8 +212,8 @@ function VideoPage() {
         preload="metadata"
         style={{
           width: "100%",
-          maxWidth: "420px",
-          aspectRatio: "9 / 16",
+          maxWidth: "540px",
+          aspectRatio: "4 / 5", // 1080 × 1350
           objectFit: "cover",
           borderRadius: "16px",
           background: "#000",
