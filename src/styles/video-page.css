@@ -1,0 +1,371 @@
+.video-page{
+  width:100%;
+  min-height:100vh;
+  padding:24px;
+  box-sizing:border-box;
+
+  display:flex;
+  flex-direction:column;
+  align-items:center;
+  gap:28px;
+
+  color:#fff;
+  background:radial-gradient(circle at top,#35354b 0%,#1b1c26 35%,#0d0e15 100%);
+}
+
+/* ===========================
+   TV FRAME
+=========================== */
+
+.video-wrapper{
+  position:relative;
+
+  width:100%;
+  max-width:1600px;
+  aspect-ratio:16/9;
+
+  display:flex;
+  justify-content:center;
+  align-items:center;
+
+  padding:20px;
+  overflow:hidden;
+
+  border-radius:28px;
+  border:4px solid #52525f;
+
+  background:linear-gradient(145deg,#4c4c58,#09090d);
+
+  box-shadow:
+    inset 0 2px 2px rgba(255,255,255,.12),
+    inset 0 -40px 70px rgba(0,0,0,.65),
+    0 25px 70px rgba(0,0,0,.65);
+
+  flex-shrink:0;
+}
+
+.video-wrapper::before{
+  content:"";
+  position:absolute;
+  inset:18px;
+
+  border-radius:18px;
+
+  background:#000;
+
+  box-shadow:
+    inset 0 0 40px rgba(255,255,255,.04),
+    inset 0 0 120px rgba(0,0,0,.95);
+
+  pointer-events:none;
+  z-index:1;
+}
+
+.video-wrapper::after{
+  content:"";
+  position:absolute;
+
+  top:-20%;
+  left:-28%;
+
+  width:42%;
+  height:150%;
+
+  transform:rotate(8deg);
+
+  background:linear-gradient(
+    120deg,
+    transparent,
+    rgba(255,255,255,.10),
+    transparent
+  );
+
+  pointer-events:none;
+  z-index:4;
+}
+
+/* ===========================
+   VIDEO
+=========================== */
+
+.video-player{
+  position:relative;
+  z-index:2;
+
+  width:100%;
+  height:100%;
+
+  display:block;
+
+  object-fit:contain;
+
+  border-radius:14px;
+
+  background:#000;
+}
+
+/* ===========================
+   EMPTY VIDEO
+=========================== */
+
+.video-empty{
+  position:absolute;
+  inset:20px;
+
+  z-index:2;
+
+  display:flex;
+  flex-direction:column;
+  justify-content:center;
+  align-items:center;
+
+  text-align:center;
+
+  border-radius:14px;
+  overflow:hidden;
+
+  background:radial-gradient(circle,#242424,#050505);
+}
+
+.video-empty::before{
+  content:"";
+  position:absolute;
+  inset:0;
+
+  background:repeating-linear-gradient(
+    to bottom,
+    rgba(255,255,255,.03) 0,
+    rgba(255,255,255,.03) 2px,
+    transparent 3px,
+    transparent 6px
+  );
+
+  opacity:.35;
+}
+
+.video-empty::after{
+  content:"";
+  position:absolute;
+  inset:0;
+
+  background:radial-gradient(circle,transparent 50%,rgba(0,0,0,.55));
+}
+
+.video-empty h2{
+  position:relative;
+  z-index:2;
+
+  margin:0;
+
+  font-size:46px;
+  font-weight:800;
+
+  text-shadow:
+    0 0 10px rgba(255,255,255,.4),
+    0 0 25px rgba(0,180,255,.35);
+}
+
+.video-empty p{
+  position:relative;
+  z-index:2;
+
+  margin:18px 0 0;
+
+  max-width:700px;
+  padding:0 20px;
+
+  line-height:1.8;
+  font-size:18px;
+
+  color:#ddd;
+}
+
+/* ===========================
+   DETAILS BUTTON
+=========================== */
+
+.house-details-button{
+  margin:0 !important;
+  flex-shrink:0;
+}
+
+/* ===========================
+   DETAILS BOX
+=========================== */
+
+.house-details-box{
+  width:100%;
+  max-width:920px;
+  margin:0;
+  flex-shrink:0;
+}
+
+/* ===========================
+   ACTION BUTTONS
+=========================== */
+
+.estimate-button-group{
+  width:100%;
+  max-width:920px;
+
+  display:grid;
+  grid-template-columns:repeat(3,minmax(0,1fr));
+  gap:18px;
+
+  margin:0;
+
+  flex-shrink:0;
+}
+
+.estimate-action-button{
+  width:100%;
+}
+
+/* ===========================
+   RELATED HOUSES
+=========================== */
+
+.related-houses{
+  width:100%;
+  max-width:1500px;
+
+  margin:0;
+  flex-shrink:0;
+}
+
+/* ===========================
+   LOADING
+=========================== */
+
+.video-loading,
+.video-error{
+  width:100%;
+  min-height:100vh;
+
+  display:flex;
+  justify-content:center;
+  align-items:center;
+
+  text-align:center;
+
+  color:#fff;
+  font-size:28px;
+
+  background:radial-gradient(circle,#2a2a38,#0d0e15);
+}
+
+/* ===========================
+   RESPONSIVE
+=========================== */
+
+@media (max-width:992px){
+
+  .video-page{
+    padding:18px;
+    gap:22px;
+  }
+
+  .video-wrapper{
+    padding:14px;
+    border-radius:20px;
+  }
+
+  .video-wrapper::before{
+    inset:14px;
+    border-radius:14px;
+  }
+
+  .video-empty{
+    inset:14px;
+    border-radius:14px;
+  }
+
+  .video-empty h2{
+    font-size:34px;
+  }
+
+  .video-empty p{
+    font-size:16px;
+  }
+
+  .estimate-button-group{
+    grid-template-columns:1fr;
+  }
+
+}
+
+@media (max-width:768px){
+
+  .video-page{
+    padding:12px;
+    gap:18px;
+  }
+
+  .video-wrapper{
+    padding:10px;
+    border-radius:16px;
+  }
+
+  .video-wrapper::before{
+    inset:10px;
+    border-radius:12px;
+  }
+
+  .video-empty{
+    inset:10px;
+    border-radius:12px;
+  }
+
+  .video-empty h2{
+    font-size:26px;
+  }
+
+  .video-empty p{
+    font-size:15px;
+    line-height:1.7;
+  }
+
+  .house-details-button,
+  .house-details-box,
+  .estimate-button-group{
+    width:100%;
+    max-width:100%;
+  }
+
+}
+
+@media (max-width:480px){
+
+  .video-page{
+    padding:8px;
+    gap:16px;
+  }
+
+  .video-wrapper{
+    padding:8px;
+    border-radius:12px;
+  }
+
+  .video-wrapper::before{
+    inset:8px;
+  }
+
+  .video-empty{
+    inset:8px;
+  }
+
+  .video-empty h2{
+    font-size:20px;
+  }
+
+  .video-empty p{
+    font-size:14px;
+    line-height:1.6;
+  }
+
+  .video-loading,
+  .video-error{
+    font-size:18px;
+  }
+
+}

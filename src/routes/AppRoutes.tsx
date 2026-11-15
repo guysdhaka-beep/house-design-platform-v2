@@ -11,6 +11,7 @@ const HouseListPage = lazy(() => import("../pages/HouseListPage"));
 const HouseDetailsPage = lazy(() => import("../pages/HouseDetailsPage"));
 const FloorPlanPage = lazy(() => import("../pages/FloorPlanPage"));
 const EstimatePage = lazy(() => import("../pages/EstimatePage"));
+const VideoPage = lazy(() => import("../pages/VideoPage"));
 const FoundationPage = lazy(() => import("../pages/FoundationPage"));
 const AreaPage = lazy(() => import("../pages/AreaPage"));
 const PrivacyPolicyPage = lazy(() => import("../pages/PrivacyPolicyPage"));
@@ -111,6 +112,11 @@ function AppRoutes({
                 language={language}
               />
             }
+          />
+
+          <Route
+            path="/video/:story/:slug/:id"
+            element={<VideoPage />}
           />
 
           <Route

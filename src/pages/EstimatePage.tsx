@@ -382,9 +382,24 @@ const canonicalUrl =
       maximumFractionDigits,
     }).format(Number.isFinite(value) ? value : 0);
   };
+function openVideo() {
+  if (!house) return;
 
+  const story =
+    house.folder === "tinshade"
+      ? "tin-shade"
+      : house.folder;
+
+  const slug = (house.title || "house")
+    .toLowerCase()
+    .replace(/[^a-z0-9]+/g, "-")
+    .replace(/^-|-$/g, "");
+
+  navigate(`/video/${story}/${slug}/${house.id}`);
+}
   const formatCurrency = (bdtAmount: number): string => {
     const convertedAmount = bdtAmount / currentCurrency.rate;
+    
 
     const formattedAmount = new Intl.NumberFormat(
       localeByLanguage[language],
@@ -397,6 +412,8 @@ const canonicalUrl =
       ? `${formattedAmount} ${currentCurrency.name}`
       : `${currentCurrency.symbol}${formattedAmount}`;
   };
+
+  
 
   if (loading) {
     return (
@@ -696,6 +713,23 @@ const canonicalUrl =
             {translations[language].view2d}
           </span>
         </button>
+<button
+  type="button"
+  className="estimate-action-button"
+  onClick={openVideo}
+>
+  <span
+    className="estimate-action-icon"
+    aria-hidden="true"
+  >
+    🎥
+  </span>
+
+  <span className="estimate-action-label">
+    House Video
+  </span>
+</button>
+
       </div>
 
       <RelatedHouses

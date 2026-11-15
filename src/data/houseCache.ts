@@ -1,5 +1,4 @@
-const API =
-  "https://house-design-platform-server.vercel.app/api/houses";
+const API = "https://house-design-platform-server.vercel.app/api/houses";
 
 const cache = new Map<number, any>();
 

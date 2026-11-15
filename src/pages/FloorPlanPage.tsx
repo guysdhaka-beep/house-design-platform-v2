@@ -125,6 +125,20 @@ const keywords =
     );
   }
 
+  function openVideo() {
+  const story =
+    house.folder === "tinshade"
+      ? "tin-shade"
+      : house.folder;
+
+  const slug = (house.title || "house")
+    .toLowerCase()
+    .replace(/[^a-z0-9]+/g, "-")
+    .replace(/^-|-$/g, "");
+
+  navigate(`/video/${story}/${slug}/${house.id}`);
+}
+
   return (
   <>
     <Helmet>
@@ -325,28 +339,50 @@ const keywords =
 )}
 
           <div className="floorplan-buttons">
-            <button
-              type="button"
-              className="floorplan-button floorplan-blue-button"
-              onClick={open3D}
-            >
-              <span className="floorplan-button-icon" aria-hidden="true">
-                🏠
-              </span>
-              <span>{t.view3d}</span>
-            </button>
 
-            <button
-              type="button"
-              className="floorplan-button floorplan-green-button"
-              onClick={openEstimate}
-            >
-              <span className="floorplan-button-icon" aria-hidden="true">
-                💰
-              </span>
-              <span>{t.estimate}</span>
-            </button>
-          </div>
+  <button
+    type="button"
+    className="floorplan-button floorplan-blue-button"
+    onClick={open3D}
+  >
+    <span
+      className="floorplan-button-icon"
+      aria-hidden="true"
+    >
+      🏠
+    </span>
+    <span>{t.view3d}</span>
+  </button>
+
+  <button
+    type="button"
+    className="floorplan-button floorplan-green-button"
+    onClick={openEstimate}
+  >
+    <span
+      className="floorplan-button-icon"
+      aria-hidden="true"
+    >
+      💰
+    </span>
+    <span>{t.estimate}</span>
+  </button>
+
+  <button
+    type="button"
+    className="floorplan-button floorplan-gold-button"
+    onClick={openVideo}
+  >
+    <span
+      className="floorplan-button-icon"
+      aria-hidden="true"
+    >
+      🎥
+    </span>
+    <span>House Video</span>
+  </button>
+
+</div>
         </section>
       )}
 

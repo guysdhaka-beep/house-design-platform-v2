@@ -4,6 +4,8 @@ import { useNavigate, useParams } from "react-router-dom";
 
 import AdminSidebar from "../components/layout/AdminSidebar";
 import AdminTopbar from "../components/layout/AdminTopbar";
+
+
 import "./AddHouse.css";
 
 type HouseFormData = {
@@ -20,6 +22,9 @@ type HouseFormData = {
   status: string;
   image3d: File | null;
   image2d: File | null;
+
+  video: File | null;
+videoUrl?: string;
 };
 
 type HouseImage = {
@@ -45,6 +50,8 @@ const initialFormData: HouseFormData = {
   status: "Published",
   image3d: null,
   image2d: null,
+  video: null,
+videoUrl: "",
 };
 
 function splitFeet(value: number) {
@@ -72,6 +79,7 @@ export default function EditHouse() {
     useState<HouseFormData>(initialFormData);
 
   const [images, setImages] = useState<HouseImage[]>([]);
+  const [house, setHouse] = useState<any>(null);
   const [isLoading, setIsLoading] = useState(true);
   const [isSaving, setIsSaving] = useState(false);
 
@@ -86,6 +94,7 @@ export default function EditHouse() {
         }
 
         const house = data.house;
+        setHouse(house);
 
         const length = splitFeet(Number(house.length));
         const width = splitFeet(Number(house.width));
@@ -104,6 +113,8 @@ export default function EditHouse() {
           status: house.status || "Published",
           image3d: null,
           image2d: null,
+          video: null,
+videoUrl: house.videoUrl || "",
         });
 
         setImages(house.images || []);
@@ -194,6 +205,10 @@ export default function EditHouse() {
       if (formData.image2d) {
         body.append("image2d", formData.image2d);
       }
+      
+      if (formData.video) {
+  body.append("video", formData.video);
+}
 
       const response = await fetch(`${API}/${id}`, {
         method: "PUT",
@@ -473,6 +488,35 @@ export default function EditHouse() {
                   <small>New: {formData.image2d.name}</small>
                 )}
               </div>
+
+              {/* House Video */}
+
+<div className="add-house-field">
+  <label>House Video</label>
+
+  {house?.videoUrl && (
+    <div style={{ marginBottom: "10px" }}>
+      <video
+        src={house.videoUrl}
+        controls
+        width="100%"
+        style={{ borderRadius: "8px" }}
+      />
+      <span>Current Video</span>
+    </div>
+  )}
+
+  <input
+    type="file"
+    name="video"
+    accept="video/mp4,video/webm,video/quicktime"
+    onChange={handleChange}
+  />
+
+  {formData.video && (
+    <small>New: {formData.video.name}</small>
+  )}
+</div>
 
               {/* Featured */}
               <div className="add-house-bottom">

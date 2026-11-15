@@ -142,6 +142,7 @@ const shortDescription =
   }
 
   console.log(house);
+  console.log("videoUrl =", house?.videoUrl);
 
   return (
   <>
@@ -416,6 +417,36 @@ const shortDescription =
                 {t.estimate}
               </span>
             </button>
+
+<button
+  type="button"
+  className="estimate-action-button"
+  onClick={() => {
+    const story =
+      house.folder === "tinshade"
+        ? "tin-shade"
+        : house.folder;
+
+    const slug = house.title
+      .toLowerCase()
+      .replace(/[^a-z0-9]+/g, "-")
+      .replace(/^-|-$/g, "");
+
+    navigate(`/video/${story}/${slug}/${house.id}`);
+  }}
+>
+  <span
+    className="estimate-action-icon"
+    aria-hidden="true"
+  >
+    🎥
+  </span>
+
+  <span className="estimate-action-label">
+    House Video
+  </span>
+</button>
+
           </div>
         </section>
       )}

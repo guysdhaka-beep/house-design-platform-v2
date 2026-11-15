@@ -64,6 +64,7 @@ type HouseFormData = {
 
   image3d: File | null;
   image2d: File | null;
+  video: File | null;
 } & SeoFields;
 
 const initialFormData: HouseFormData = {
@@ -99,6 +100,7 @@ const initialFormData: HouseFormData = {
 
   image3d: null,
   image2d: null,
+  video: null,
 
   image3dTitle: "",
   image3dAlt: "",
@@ -545,7 +547,7 @@ function AddHouse() {
   // IMAGE UPLOAD
   // =====================================
 
-  const handleImageChange = (
+  const handleFileChange = (
     event: ChangeEvent<HTMLInputElement>
   ) => {
     const { name, files } = event.target;
@@ -553,7 +555,10 @@ function AddHouse() {
 
     if (!file) return;
 
-    if (!file.type.startsWith("image/")) {
+    if (
+  !file.type.startsWith("image/") &&
+  !file.type.startsWith("video/")
+) {
       alert("Only image files are allowed.");
       event.target.value = "";
       return;
@@ -565,7 +570,13 @@ function AddHouse() {
       return;
     }
 
-    if (name !== "image3d" && name !== "image2d") return;
+    if (
+  name !== "image3d" &&
+  name !== "image2d" &&
+  name !== "video"
+) {
+  return;
+}
 
     setFormData((previous) => ({
       ...previous,
@@ -1081,7 +1092,7 @@ function AddHouse() {
                     name="image3d"
                     type="file"
                     accept="image/jpeg,image/png,image/webp,image/avif"
-                    onChange={handleImageChange}
+                    onChange={handleFileChange}
                   />
 
                   {formData.image3d && (
@@ -1182,7 +1193,7 @@ function AddHouse() {
                     name="image2d"
                     type="file"
                     accept="image/jpeg,image/png,image/webp,image/avif"
-                    onChange={handleImageChange}
+                    onChange={handleFileChange}
                   />
 
                   {formData.image2d && (
@@ -1269,6 +1280,30 @@ function AddHouse() {
                   />
                 </div>
               </div>
+
+              {/* VIDEO */}
+
+<h3>House Video</h3>
+
+<div className="add-house-grid">
+  <div className="add-house-field add-house-full">
+    <label htmlFor="video">Upload House Video</label>
+
+    <input
+      id="video"
+      name="video"
+      type="file"
+      accept="video/mp4,video/webm,video/quicktime"
+      onChange={handleFileChange}
+    />
+
+    {formData.video && (
+      <small>
+        Selected: {formData.video.name}
+      </small>
+    )}
+  </div>
+</div>
 
               {/* FEATURED HOUSE */}
 
