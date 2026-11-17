@@ -80,7 +80,7 @@ function VideoPage() {
       </div>
     );
   }
-
+console.log("HOUSE:", house);
   console.log("VIDEO URL:", house.videoUrl);
 
   const image3d =

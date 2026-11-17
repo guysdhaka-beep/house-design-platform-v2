@@ -333,12 +333,18 @@ const shortDescription =
   )}
 
   {house.complete > 0 && (
-    <p><strong>Floor:</strong> {house.complete}</p>
-  )}
+  <p>
+    <strong>Complete:</strong>{" "}
+    {house.complete} {house.complete === 1 ? "Story" : "Stories"}
+  </p>
+)}
 
-  {house.foundation > 0 && (
-    <p><strong>Foundation:</strong> {house.foundation}</p>
-  )}
+{house.foundation > 0 && (
+  <p>
+    <strong>Foundation:</strong>{" "}
+    {house.foundation} {house.foundation === 1 ? "Story" : "Stories"}
+  </p>
+)}
 
   {house.bedroom > 0 && (
     <p><strong>Bedroom:</strong> {house.bedroom}</p>

@@ -1,3 +1,4 @@
+
 import { useEffect, useState } from "react";
 
 import HouseCard from "./HouseCard";
@@ -15,43 +16,38 @@ type Props = {
 const API =
   "https://house-design-platform-server.vercel.app/api/houses/related";
 
-function RelatedHouses({
-  houseId,
-  language,
-}: Props) {
+function RelatedHouses({ houseId, language }: Props) {
   const [houses, setHouses] = useState<House[]>([]);
   const [loading, setLoading] = useState(true);
 
   const t = translations[language];
 
   useEffect(() => {
-    console.log("RelatedHouses Mounted", houseId);
-
     let ignore = false;
 
-    async function load() {
+    async function loadRelatedHouses() {
       try {
-        console.log("Fetching related:", houseId);
-
         setLoading(true);
 
-        const res = await fetch(`${API}/${houseId}`, {
-          cache: "force-cache",
+        const response = await fetch(`${API}/${houseId}`, {
+          cache: "no-cache",
         });
 
-        if (!res.ok) {
+        if (!response.ok) {
           throw new Error("Failed to load related houses");
         }
 
-        const data = await res.json();
-
-        console.log("Related Houses API:", data);
+        const data = await response.json();
 
         if (!ignore) {
           setHouses(data.houses || []);
         }
-      } catch (err) {
-        console.error("Related Houses Error:", err);
+      } catch (error) {
+        console.error("Related Houses Error:", error);
+
+        if (!ignore) {
+          setHouses([]);
+        }
       } finally {
         if (!ignore) {
           setLoading(false);
@@ -59,28 +55,51 @@ function RelatedHouses({
       }
     }
 
-    load();
+    loadRelatedHouses();
 
     return () => {
       ignore = true;
     };
   }, [houseId]);
 
-  if (loading) {
-    return null;
-  }
-
-  if (houses.length === 0) {
+  if (loading || houses.length === 0) {
     return null;
   }
 
   return (
-    <section className="related-houses">
-      <h2 className="related-title">
+    <section
+      className="related-houses"
+      style={{
+        position: "relative",
+        width: "100%",
+        marginTop: "40px",
+        paddingTop: "20px",
+      }}
+    >
+      <h2
+        className="related-title"
+        style={{
+          position: "relative",
+          display: "block",
+          width: "100%",
+          boxSizing: "border-box",
+          textAlign: "center",
+          margin: "0 0 28px",
+          padding: "12px 16px",
+          lineHeight: 1.5,
+          zIndex: 1,
+        }}
+      >
         {t.relatedHouses || "Related House Designs"}
       </h2>
 
-      <div className="related-grid">
+      <div
+        className="related-grid"
+        style={{
+          position: "relative",
+          marginTop: "0",
+        }}
+      >
         {houses.map((house) => (
           <HouseCard
             key={house.id}

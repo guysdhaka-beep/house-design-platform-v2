@@ -1,5 +1,6 @@
 import { lazy, Suspense } from "react";
-import { Routes, Route } from "react-router-dom";
+import { Routes, Route, useLocation } from "react-router-dom";
+import { useEffect } from "react";
 
 import translations from "../data/translations";
 import Layout from "../components/Layout";
@@ -32,6 +33,16 @@ type AppRoutesProps = {
   >;
 };
 
+function ScrollToTop() {
+  const { pathname } = useLocation();
+
+  useEffect(() => {
+    window.scrollTo(0, 0);
+  }, [pathname]);
+
+  return null;
+}
+
 function AppRoutes({
   language,
   setLanguage,
@@ -54,6 +65,7 @@ function AppRoutes({
         </div>
       }
     >
+      <ScrollToTop />
       <Routes>
         {/* ===========================
             PUBLIC PAGES
