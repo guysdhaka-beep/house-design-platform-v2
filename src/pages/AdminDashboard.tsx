@@ -10,7 +10,8 @@ type House = {
   isFeatured: boolean;
 };
 
-const API = "https://house-design-platform-server.vercel.app/api/houses";
+const API =
+  "https://house-design-platform-server.vercel.app/api/houses?limit=100000";
 
 export default function AdminDashboard() {
   const [houses, setHouses] = useState<House[]>([]);

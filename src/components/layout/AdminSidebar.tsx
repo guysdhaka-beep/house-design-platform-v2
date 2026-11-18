@@ -1,30 +1,12 @@
-import { Link } from "react-router-dom";
+import { NavLink } from "react-router-dom";
 
 const menu = [
-  {
-    name: "Dashboard",
-    path: "/admin/dashboard",
-  },
-  {
-    name: "Add House",
-    path: "/admin/add-house",
-  },
-  {
-    name: "House List",
-    path: "/admin/houses",
-  },
-  {
-    name: "Upload Images",
-    path: "/admin/upload",
-  },
-  {
-    name: "Statistics",
-    path: "/admin/statistics",
-  },
-  {
-    name: "Settings",
-    path: "/admin/settings",
-  },
+  { name: "Dashboard", path: "/admin/dashboard" },
+  { name: "Add House", path: "/admin/add-house" },
+  { name: "House List", path: "/admin/houses" },
+  { name: "Upload Images", path: "/admin/upload" },
+  { name: "Statistics", path: "/admin/statistics" },
+  { name: "Settings", path: "/admin/settings" },
 ];
 
 export default function AdminSidebar() {
@@ -56,28 +38,44 @@ export default function AdminSidebar() {
         }}
       >
         {menu.map((item) => (
-          <Link
+          <NavLink
             key={item.path}
             to={item.path}
-            style={{
+            style={({ isActive }) => ({
               textDecoration: "none",
-            }}
+            })}
           >
-            <button
-              style={{
-                width: "100%",
-                padding: 12,
-                cursor: "pointer",
-              }}
-            >
-              {item.name}
-            </button>
-          </Link>
+            {({ isActive }) => (
+              <button
+                style={{
+                  width: "100%",
+                  padding: 12,
+                  cursor: "pointer",
+                  border: "none",
+                  borderRadius: 6,
+                  fontWeight: 600,
+                  color: "#fff",
+                  background: isActive ? "#22c55e" : "#6b6b6b",
+                  transition: "0.2s",
+                }}
+              >
+                {item.name}
+              </button>
+            )}
+          </NavLink>
         ))}
 
         <button
           style={{
             marginTop: 50,
+            width: "100%",
+            padding: 12,
+            border: "none",
+            borderRadius: 6,
+            cursor: "pointer",
+            background: "#6b6b6b",
+            color: "#fff",
+            fontWeight: 600,
           }}
         >
           Logout
