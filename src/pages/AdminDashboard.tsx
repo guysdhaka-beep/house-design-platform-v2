@@ -1,4 +1,3 @@
-
 import { useEffect, useState } from "react";
 
 import AdminSidebar from "../components/layout/AdminSidebar";
@@ -15,6 +14,7 @@ const API = "https://house-design-platform-server.vercel.app/api/houses";
 
 export default function AdminDashboard() {
   const [houses, setHouses] = useState<House[]>([]);
+  const [totalHouses, setTotalHouses] = useState(0);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(false);
 
@@ -29,6 +29,7 @@ export default function AdminDashboard() {
         }
 
         setHouses(data.houses || []);
+        setTotalHouses(data.total || 0);
       } catch (err) {
         console.error(err);
         setError(true);
@@ -43,7 +44,7 @@ export default function AdminDashboard() {
   const statistics = [
     {
       title: "Total Houses",
-      count: houses.length,
+      count: totalHouses,
       icon: "🏠",
     },
     {
@@ -98,9 +99,7 @@ export default function AdminDashboard() {
 
                 <h3>{item.title}</h3>
 
-                <h2>
-                  {loading ? "..." : item.count}
-                </h2>
+                <h2>{loading ? "..." : item.count}</h2>
               </div>
             ))}
           </div>

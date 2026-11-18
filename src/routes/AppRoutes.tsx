@@ -18,6 +18,9 @@ const AreaPage = lazy(() => import("../pages/AreaPage"));
 const PrivacyPolicyPage = lazy(() => import("../pages/PrivacyPolicyPage"));
 const TermsPage = lazy(() => import("../pages/TermsPage"));
 const ContactPage = lazy(() => import("../pages/ContactPage"));
+const EngineeringServicesPage = lazy(
+  () => import("../pages/EngineeringServicesPage")
+);
 
 // Admin Pages
 const AdminLogin = lazy(() => import("../pages/AdminLogin"));
@@ -130,6 +133,11 @@ function AppRoutes({
             path="/video/:story/:slug/:id"
             element={<VideoPage />}
           />
+
+          <Route
+  path="/engineering-services/:story/:slug/:id"
+  element={<EngineeringServicesPage />}
+/>
 
           <Route
             path="/foundation"

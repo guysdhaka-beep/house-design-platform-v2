@@ -383,6 +383,38 @@ console.log("HOUSE:", house);
               Estimate
             </span>
           </button>
+
+<button
+  type="button"
+  className="estimate-action-button"
+  onClick={() => {
+    const story =
+      house.folder === "tinshade"
+        ? "tin-shade"
+        : house.folder;
+
+    const slug = house.title
+      .toLowerCase()
+      .replace(/[^a-z0-9]+/g, "-")
+      .replace(/^-|-$/g, "");
+
+    navigate(
+      `/engineering-services/${story}/${slug}/${house.id}`
+    );
+  }}
+>
+  <span
+    className="estimate-action-icon"
+    aria-hidden="true"
+  >
+    👷
+  </span>
+
+  <span className="estimate-action-label">
+    Engineering Services
+  </span>
+</button>
+
         </div>
 
         <RelatedHouses

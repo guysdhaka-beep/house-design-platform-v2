@@ -49,7 +49,7 @@ export default function AdminHouseList() {
     try {
       setLoading(true);
 
-      const response = await fetch(API);
+      const response = await fetch(`${API}?limit=9999`);
       const data = await response.json();
 
       if (!response.ok) {

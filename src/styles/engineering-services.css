@@ -1,0 +1,314 @@
+.engineering-page {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 24px 16px 60px;
+}
+
+.engineering-hero {
+  background: linear-gradient(135deg, #0f766e, #14532d);
+  color: #fff;
+  padding: 50px 24px;
+  border-radius: 18px;
+  text-align: center;
+  margin-bottom: 35px;
+  box-shadow: 0 15px 40px rgba(0, 0, 0, 0.12);
+}
+
+.engineering-title {
+  margin: 0;
+  font-size: 40px;
+  font-weight: 700;
+  line-height: 1.2;
+}
+
+.engineering-subtitle {
+  max-width: 760px;
+  margin: 18px auto 0;
+  font-size: 18px;
+  line-height: 1.8;
+  opacity: 0.95;
+}
+
+/* ===========================
+   SERVICES
+=========================== */
+
+.engineering-services {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+  gap: 22px;
+  margin-bottom: 40px;
+}
+
+.engineering-card {
+  background: #ffffff;
+  border: 1px solid #e5e7eb;
+  border-radius: 16px;
+  padding: 28px 22px;
+  text-align: center;
+  transition: 0.3s;
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.06);
+}
+
+.engineering-card:hover {
+  transform: translateY(-6px);
+  border-color: #16a34a;
+  box-shadow: 0 18px 35px rgba(22, 163, 74, 0.15);
+}
+
+.engineering-card span {
+  display: block;
+  font-size: 44px;
+  margin-bottom: 16px;
+}
+
+.engineering-card h3 {
+  margin: 0;
+  color: #1f2937;
+  font-size: 20px;
+  font-weight: 700;
+  line-height: 1.5;
+}
+
+/* ===========================
+   SUPPORT
+=========================== */
+
+.engineering-support {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+  gap: 24px;
+  margin: 45px 0;
+}
+
+.support-box {
+  border-radius: 18px;
+  padding: 30px;
+  text-align: center;
+  box-shadow: 0 10px 24px rgba(0, 0, 0, 0.08);
+}
+
+/* FREE */
+
+.support-box:first-child {
+  background: #f3f3f3;
+  border: 2px solid #000000;
+}
+
+.support-box:first-child h2 {
+  color: #111;
+}
+
+.support-box:first-child p {
+  color: #222;
+}
+
+/* PAID */
+
+.support-box.premium {
+  background: #000000;
+  border: 2px solid #ebebeb;
+}
+
+.support-box.premium h2,
+.support-box.premium p {
+  color: #fff;
+}
+
+.support-box h2 {
+  margin: 0 0 15px;
+  font-size: 28px;
+  font-weight: 700;
+}
+
+.support-box p {
+  margin: 0 0 24px;
+  line-height: 1.8;
+  font-size: 16px;
+}
+
+/* ===========================
+   SUPPORT BUTTONS
+=========================== */
+
+.free-support-button,
+.paid-support-button {
+  width: 100%;
+  border: none;
+  border-radius: 12px;
+  padding: 16px 20px;
+  font-size: 17px;
+  font-weight: 700;
+  cursor: pointer;
+  transition: 0.3s;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+}
+
+.free-support-button svg,
+.paid-support-button svg {
+  font-size: 24px;
+}
+
+/* FREE */
+
+.free-support-button {
+  background: #ff9710;
+  color: #080808;
+}
+
+.free-support-button:hover {
+  background: #04eb3e;
+}
+
+/* PAID */
+
+.paid-support-button {
+  background: #03d136;
+  color: #111;
+}
+
+.paid-support-button:hover {
+  background: #03f06d;
+}
+
+/* ===========================
+   NAVIGATION
+=========================== */
+
+.engineering-navigation {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+  gap: 18px;
+  margin: 50px 0;
+}
+
+.engineering-nav-button {
+  background: #161616;
+  color: #ffffff;
+
+  border: 2px solid #d4af37;
+  border-radius: 12px;
+
+  padding: 16px;
+
+  font-size: 16px;
+  font-weight: 700;
+
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+.engineering-nav-button:hover {
+  background: #ffdb0e;
+  color: #111;
+  transform: translateY(-3px);
+}
+
+.engineering-nav-button:active {
+  transform: translateY(0);
+}
+
+/* ===========================
+   FAQ
+=========================== */
+
+.engineering-faq {
+  margin-top: 60px;
+}
+
+.engineering-faq h2 {
+  text-align: center;
+  font-size: 34px;
+  margin-bottom: 35px;
+  color: #111827;
+}
+
+.faq-item {
+  background: #fff;
+  border: 1px solid #e5e7eb;
+  border-radius: 14px;
+  padding: 24px;
+  margin-bottom: 18px;
+  box-shadow: 0 6px 16px rgba(0, 0, 0, 0.05);
+}
+
+.faq-item h3 {
+  margin: 0 0 12px;
+  color: #111827;
+  font-size: 21px;
+}
+
+.faq-item p {
+  margin: 0;
+  color: #4b5563;
+  line-height: 1.8;
+}
+
+/* ===========================
+   MOBILE
+=========================== */
+
+@media (max-width: 768px) {
+  .engineering-page {
+    padding: 18px 14px 40px;
+  }
+
+  .engineering-hero {
+    padding: 36px 20px;
+  }
+
+  .engineering-title {
+    font-size: 30px;
+  }
+
+  .engineering-subtitle {
+    font-size: 16px;
+  }
+
+  .engineering-card {
+    padding: 24px 18px;
+  }
+
+  .engineering-card h3 {
+    font-size: 18px;
+  }
+
+  .support-box {
+    padding: 24px;
+  }
+
+  .support-box h2 {
+    font-size: 24px;
+  }
+
+  .support-box p {
+    font-size: 15px;
+  }
+
+  .free-support-button,
+  .paid-support-button {
+    font-size: 16px;
+    padding: 15px;
+  }
+
+  .engineering-nav-button {
+    font-size: 15px;
+    padding: 15px;
+  }
+
+  .engineering-faq h2 {
+    font-size: 28px;
+  }
+
+  .faq-item h3 {
+    font-size: 18px;
+  }
+
+  .faq-item p {
+    font-size: 15px;
+  }
+}
