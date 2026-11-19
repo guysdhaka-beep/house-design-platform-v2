@@ -3,6 +3,7 @@ import { Link } from "react-router-dom";
 
 import translations from "../data/translations";
 import SearchBar from "./SearchBar";
+import LanguageIcon from "./LanguageIcon";
 
 import "./TopBar.css";
 
@@ -277,20 +278,14 @@ export default function TopBar({
   onClick={onLanguageClick}
   aria-label="Language"
 >
-  <span className="language-icon">
-    🌐
-  </span>
+  <LanguageIcon />
 
   <span className="mobile-text">
-    {language === "bn"
-      ? "বাংলা"
-      : language === "hi"
-      ? "हिन्दी"
-      : language === "ar"
-      ? "العربية"
-      : language === "es"
-      ? "Español"
-      : "EN"}
+    Language
+  </span>
+
+  <span className="language-arrow">
+    ▼
   </span>
 </button>
         </>

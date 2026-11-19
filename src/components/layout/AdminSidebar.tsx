@@ -41,9 +41,9 @@ export default function AdminSidebar() {
           <NavLink
             key={item.path}
             to={item.path}
-            style={({ isActive }) => ({
+            style={{
               textDecoration: "none",
-            })}
+            }}
           >
             {({ isActive }) => (
               <button
@@ -55,8 +55,8 @@ export default function AdminSidebar() {
                   borderRadius: 6,
                   fontWeight: 600,
                   color: "#fff",
-                  background: isActive ? "#22c55e" : "#6b6b6b",
-                  transition: "0.2s",
+                  backgroundColor: isActive ? "#22c55e" : "#6b6b6b",
+                  transition: "all 0.2s ease",
                 }}
               >
                 {item.name}

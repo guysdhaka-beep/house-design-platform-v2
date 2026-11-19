@@ -202,23 +202,28 @@ console.log("HOUSE:", house);
       }}
     >
       <video
-        className="video-player"
-        src={house.videoUrl}
-        controls
-        autoPlay
-        muted
-        loop
-        playsInline
-        preload="metadata"
-        style={{
-          width: "100%",
-          maxWidth: "540px",
-          aspectRatio: "4 / 5", // 1080 × 1350
-          objectFit: "cover",
-          borderRadius: "16px",
-          background: "#000",
-        }}
-      />
+  className="video-player"
+  src={house.videoUrl}
+  controls
+  controlsList="nodownload noplaybackrate noremoteplayback"
+  disablePictureInPicture
+  disableRemotePlayback
+  autoPlay
+  muted
+  loop
+  playsInline
+  preload="metadata"
+  onContextMenu={(e) => e.preventDefault()}
+  style={{
+    width: "100%",
+    maxWidth: "540px",
+    aspectRatio: "4 / 5",
+    objectFit: "cover",
+    borderRadius: "16px",
+    background: "#000",
+    userSelect: "none",
+  }}
+/>
     </div>
   ) : (
     <div className="video-empty">
